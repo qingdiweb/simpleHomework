@@ -11,7 +11,7 @@ import { getTeacherInfo } from '../../fetch/home/home'
 import * as Constants from '../../constants/store'
 
 
-//localStorage.setItem("loginToken",'e6e3330f4d1f7bc96a9bc4988cd25d6c');
+// localStorage.setItem("loginToken",'a315888ff3051032cf94ed8650ce207a');
 //localStorage.setItem("loginToken",'cf83d280904999ce01e8c1cef889789d');
 
 const loginToken=localStorage.getItem("loginToken");
@@ -25,7 +25,7 @@ class Home extends React.Component {
             flag:false,
             defaultSelectedKeys:[],
             isLeaveDecorate:true,
-            saveDraftData:{//用作保存草稿用 
+            saveDraftData:{//用作保存草稿用
                 topicSel:'',
                 questionIds:'',
                 catalogIds:'',
@@ -99,7 +99,7 @@ class Home extends React.Component {
                         window.location.href='index.html';
                      }
             })
-            
+
     }
     componentDidMount(){
         this.setState({

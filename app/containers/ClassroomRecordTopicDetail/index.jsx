@@ -1,3 +1,6 @@
+/**
+ * 课堂记录-题目详情
+ */
 import React from 'react'
 import PureRenderMixin from 'react-addons-pure-render-mixin'
 import { Link, hashHistory } from 'react-router'
@@ -31,7 +34,7 @@ class ClassroomRecordTopicDetail extends React.Component {
             //获取题目详情
              this.getExerciseTopicDetail.bind(this,loginToken,quizId,questionId)();
     }
-   
+
     //获取题目数据
     getExerciseTopicDetail(loginToken,quizId,questionId){
         const resultExerciseTopicDetail = getExerciseTopicDetail(loginToken,quizId,questionId);
@@ -55,7 +58,7 @@ class ClassroomRecordTopicDetail extends React.Component {
                                          ele.isStuShow=true
                                     })
                                 }
-                                
+
                             })
                             this.setState({
                                 allTopicList:allTopicList,
@@ -72,9 +75,9 @@ class ClassroomRecordTopicDetail extends React.Component {
                 })
 
     }
-    
+
     render() {
-        
+
         let allTopicList=this.state.allTopicList,
             topicList=this.state.topicList,
             degreeData="",//难度展示
@@ -116,7 +119,7 @@ class ClassroomRecordTopicDetail extends React.Component {
                     <p className='common-sec-title'><span className='sec-title-line'></span><span>试题详情</span></p>
                     <Spin size="large" style={{"fontSize":"30px","display":this.state.loadingShow,'margin':'200px auto'}}/>
                     {
-                        Constants.isFormat(topicList,Object) ? <div> 
+                        Constants.isFormat(topicList,Object) ? <div>
                                                             {
                                                                 topicList.childQuestionInfoList==null||topicList.childQuestionInfoList.length==0 ?  <div className="topic-sec">
                                                                                 <div className="topic-sec-cont">
@@ -187,7 +190,7 @@ class ClassroomRecordTopicDetail extends React.Component {
                                                                                         }
                                                                                     </div>
                                                                                 </div>
-                                                                            </div> : <div className="topic-sec" style={{border:'0px',padding:'0px'}}>                                       
+                                                                            </div> : <div className="topic-sec" style={{border:'0px',padding:'0px'}}>
                                                                                         <div className="topic-sec-cont" style={{padding: '8px 16px 0px 16px',marginBottom:'16px',border:'1px solid #dfe2e5',backgroundColor:'rgba(246, 248, 250, 1)'}}>
                                                                                             <div className="option-cont">
                                                                                                 <h1 className='cont-title'><span>{topicList.topicIndex}丶</span><span className="topic-type">({topicList.category})</span><span dangerouslySetInnerHTML={{ __html: topicList.title }}></span></h1>
@@ -225,11 +228,11 @@ class ClassroomRecordTopicDetail extends React.Component {
                                                                                                                                     }
                                                                                                                                 </p> : ''
                                                                                                                             }
-                                                                                                                            
+
                                                                                                                         </div>
                                                                                                                     </div>
-                                                                                                                    
-                                                                                                                    
+
+
                                                                                                                 </div>
                                                                                                                 <h1 className="topic-sec-head">
                                                                                                                     <p className="show-parse"  data-showType={item.isShow}  data-check={index} onClick={this.showParse.bind(this)}>
@@ -270,7 +273,7 @@ class ClassroomRecordTopicDetail extends React.Component {
                                                                                                             </div>
                                                                                                         </div>
                                                                                                 }
-                                                                                                
+
                                                                                             })
                                                                                         }
                                                                                       </div>
@@ -304,7 +307,7 @@ class ClassroomRecordTopicDetail extends React.Component {
                                                                                 Constants.isFormat(ele.studentQuizAnswerInfo,Object) ? ele.studentQuizAnswerInfo.state==1 ? <span className="stu-finish-state">已完成</span> : <span className="stu-nocommit-state">未提交</span> : <span className="stu-nocommit-state">未提交</span>
                                                                             }
                                                                         </div>
-                                                                        
+
                                                                     </div>
                                                         })  : '暂无数据'
                                                 }
@@ -345,13 +348,13 @@ class ClassroomRecordTopicDetail extends React.Component {
                                                                                 }
                                                                             </div> : ''
                                                                         }
-                                                                        
+
                                                                     </div>
                                                         })  : '暂无数据'
                                                 }
                                     </div>
                                 }
-                            
+
                         }) : ''
                     }
                     </div>
@@ -417,7 +420,7 @@ class ClassroomRecordTopicDetail extends React.Component {
                         this.setState({topicList:topicLists,flag:!this.state.flag});
                 }
             }
-            
+
     }
     //学生展开收起
     stuFold(e){
@@ -434,7 +437,7 @@ class ClassroomRecordTopicDetail extends React.Component {
             this.setState({
                 allTopicList,
                 flag:!this.state.flag
-            })            
+            })
     }
 }
 

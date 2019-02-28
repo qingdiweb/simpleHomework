@@ -1,3 +1,6 @@
+/**
+ * 课后作业
+ */
 import React from 'react'
 import PureRenderMixin from 'react-addons-pure-render-mixin'
 import { Link, hashHistory } from 'react-router'
@@ -85,7 +88,7 @@ class IndexHomework extends React.Component {
                 dateValue:moment(moment(dateString))
             })
         }
-        
+
     }
     //查找作业
     searchHomeworkList(){

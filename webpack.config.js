@@ -53,12 +53,12 @@ module.exports = {
 
         // 打开浏览器
         new OpenBrowserPlugin({
-          url: 'http://localhost:8080'
+          url: 'http://localhost:8081'
         }),
-        new webpack.ProvidePlugin({ 
-            $:"jquery", 
-            jQuery:"jquery", 
-            "window.jQuery":"jquery" 
+        new webpack.ProvidePlugin({
+            $:"jquery",
+            jQuery:"jquery",
+            "window.jQuery":"jquery"
         }),
         // 可在业务 js 代码中使用 __DEV__ 判断是否是dev模式（dev模式下可以提示错误、测试报告等, production模式不提示）
         new webpack.DefinePlugin({
@@ -76,6 +76,7 @@ module.exports = {
             secure: false
           }
         },
+        port:8081,
         contentBase: "./public", //本地服务器所加载的页面所在的目录
         colors: true, //终端中输出结果为彩色
         historyApiFallback: true, //不跳转

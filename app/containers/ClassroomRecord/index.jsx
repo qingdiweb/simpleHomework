@@ -1,3 +1,6 @@
+/**
+ * 课堂记录
+ */
 import React from 'react'
 import PureRenderMixin from 'react-addons-pure-render-mixin'
 import { Link, hashHistory } from 'react-router'
@@ -115,14 +118,14 @@ class ClassroomRecord extends React.Component {
                                   flag:!this.state.flag,
                                   findFlag:!this.state.findFlag
                                 })
-                         }   
+                         }
                     }).catch(ex => {
                         // 发生错误
                         if (__DEV__) {
                           console.error('暂无数据, ', ex.message)
                         }
-                    }) 
-           
+                    })
+
     }
     render() {
         console.log('defaultCascaderValue',this.state.defaultCascaderValue)

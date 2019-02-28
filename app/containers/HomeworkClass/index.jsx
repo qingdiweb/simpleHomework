@@ -1,3 +1,6 @@
+/**
+ * 我的班级
+ */
 import React from 'react'
 import PureRenderMixin from 'react-addons-pure-render-mixin'
 import { Link, hashHistory } from 'react-router'
@@ -87,11 +90,11 @@ class HomeworkCollect extends React.Component {
             <div className="homework-class">
                 <h1 className='header-nav'><Breadcrumb separator=">"><Breadcrumb.Item>我的班级</Breadcrumb.Item></Breadcrumb></h1>
                 <Button type="primary" className="create-test-collection" onClick={this.createClass.bind(this)}>创建班级</Button>
-                <div className="list-sec no-corrections" style={{"display":this.state.loadingShow}}> 
+                <div className="list-sec no-corrections" style={{"display":this.state.loadingShow}}>
                     <Spin size="large" style={{"fontSize":"30px","display":'block','margin':'300px auto'}}/>
                 </div>
                 <div className="list-sec no-corrections create-class-corrections" style={{"display":this.state.createLoadingShow}}>
-                    <span style={{"fontSize":"18px","display":'block','textAlign':'center','margin':'300px auto 0px'}}>创建中</span> 
+                    <span style={{"fontSize":"18px","display":'block','textAlign':'center','margin':'300px auto 0px'}}>创建中</span>
                     <Spin size="large" style={{"fontSize":"30px","display":'block','margin':'0px auto'}}/>
                 </div>
                 <div className="test-collection-list" >
@@ -100,7 +103,7 @@ class HomeworkCollect extends React.Component {
                             return <div className="test-collection-sec" key={index}>
                                         <Link to={'/homework-class-detail/'+item.id}>
                                             <div className="test-collection-logo">
-                                                
+
                                             </div>
                                             <p className="test-collection-name" title={item.name}>{item.name}</p>
                                             <p className="test-collection-num">共{item.studentCount==null ? 0 : item.studentCount}人</p>
@@ -132,7 +135,7 @@ class HomeworkCollect extends React.Component {
             classNameErrorShow:'none'
         })
     }
-    
+
     //班级名称
     collectionNameHandle(e){
       console.log(Constants.Trim(e.target.value).length)
@@ -148,8 +151,8 @@ class HomeworkCollect extends React.Component {
           })
       }
     }
-   
-   
+
+
     //添加/编辑一个班级
     handleOk(e){
         if(this.state.classNameErrorShow=='block'){
@@ -175,7 +178,7 @@ class HomeworkCollect extends React.Component {
           visible: false,
         });
     }
-   
+
 }
 
 export default HomeworkCollect

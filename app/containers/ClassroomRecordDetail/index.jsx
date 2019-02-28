@@ -1,3 +1,6 @@
+/**
+ * 课堂记录详情
+ */
 import React from 'react'
 import PureRenderMixin from 'react-addons-pure-render-mixin'
 import { Link, hashHistory } from 'react-router'
@@ -33,7 +36,7 @@ class ClassroomRecordDetail extends React.Component {
                     width: '10%',
                     align:'center'
 
-                }, 
+                },
                 {
                     title: '平均提交率',
                     dataIndex: 'commitRate',
@@ -55,13 +58,13 @@ class ClassroomRecordDetail extends React.Component {
                     width: '10%',
                     align:'center'
 
-                }, 
+                },
                 {
                     title: '题目详情',
                     dataIndex: 'questionTitle',
                     width: '10%',
                     align:'center',
-                    render:(e) => <div style={{width:'390px',height:'21px',overflow:'hidden','text-overflow':'ellipsis','white-space':'nowrap'}} dangerouslySetInnerHTML={{ __html: e}}></div> 
+                    render:(e) => <div style={{width:'390px',height:'21px',overflow:'hidden','text-overflow':'ellipsis','white-space':'nowrap'}} dangerouslySetInnerHTML={{ __html: e}}></div>
                 },
                 {
                     title: '作答结果',
@@ -69,14 +72,14 @@ class ClassroomRecordDetail extends React.Component {
                     width: '10%',
                     align:'center',
                     render:(e) => <Link to={'classroom-record-topic-detail/'+this.props.params.exerciseId+'/'+e}>查看</Link>
-                }, 
+                },
                 {
                     title: '未交',
                     dataIndex: 'noCommit',
                     width: '10%',
                     align:'center',
                     render:(e) => <a href="javascript:;" data-text={e.text} data-id={e.id}  data-person={e.person} onClick={this.lookChildNoCommit.bind(this)}>{e.text}</a>
-                    
+
                 }
             ],
             questionAna:[],
@@ -125,7 +128,7 @@ class ClassroomRecordDetail extends React.Component {
                             },()=>{
                                 window.MathJax.Hub.Queue(["Typeset",window.MathJax.Hub,"output"]);
                             });
-                       
+
                     }
                 }).catch(ex => {0
                     // 发生错误
@@ -140,7 +143,7 @@ class ClassroomRecordDetail extends React.Component {
             const resultDelExerciseTopic=delExerciseTopic(loginToken,quizId,questionIds,questionCount);
                    resultDelExerciseTopic.then(res => {
                       return res.json()
-                  }).then(json => { 
+                  }).then(json => {
                       // 处理获取的数据
                       const data = json
                       if (data.result) {
@@ -159,14 +162,14 @@ class ClassroomRecordDetail extends React.Component {
                       }
                   })
         })
-        
+
     }
     //保存课堂笔记
     saveExerciseRemark(loginToken,quizId,remark){
         const resultSaveExerciseRemark=saveExerciseRemark(loginToken,quizId,remark);
                resultSaveExerciseRemark.then(res => {
                   return res.json()
-              }).then(json => { 
+              }).then(json => {
                   // 处理获取的数据
                   const data = json
                   if (data.result) {
@@ -183,9 +186,9 @@ class ClassroomRecordDetail extends React.Component {
                     console.error('暂无数据, ', ex.message)
                   }
               })
-        
+
     }
-    
+
     render() {
         let exerciseList=this.state.exerciseList;
         return (
@@ -196,7 +199,7 @@ class ClassroomRecordDetail extends React.Component {
                         <Breadcrumb.Item >查看记录</Breadcrumb.Item>
                     </Breadcrumb>
                </h1>
-                <div style={{"display":this.state.loadingShow}}> 
+                <div style={{"display":this.state.loadingShow}}>
                     <Spin size="large" style={{"fontSize":"30px","display":'block','margin':'300px auto'}}/>
                 </div>
                {
@@ -224,7 +227,7 @@ class ClassroomRecordDetail extends React.Component {
                            <p className='common-sec-title sec-title'><span className='sec-title-line'></span><span>练习报告</span></p>
                            <div className='detail-sec'>
                                <p style={{marginTop:'-5px'}}>章节详情:({exerciseList.catalogNames})</p>
-                               <Table 
+                               <Table
                                     columns={this.state.columns}
                                     dataSource={this.state.catalogAna}
                                     bordered
@@ -234,7 +237,7 @@ class ClassroomRecordDetail extends React.Component {
                                 >
                                 </Table>
                                 <p style={{marginTop:'30px'}}>答题详情:</p>
-                                <Table 
+                                <Table
                                     columns={this.state.questionColumns}
                                     dataSource={this.state.questionAna}
                                     bordered
@@ -276,7 +279,7 @@ class ClassroomRecordDetail extends React.Component {
                             Constants.isFormat(this.state.childQuestionInfoList,Array) ? this.state.childQuestionInfoList.map((item,index)=>{
                                 return <div className='nocommit-modal-box'>
                                     <div className='title' dangerouslySetInnerHTML={{ __html: item.title }}>
-                                        
+
                                     </div>
                                     <div className='nocommit-person'>
                                         <div style={{float:'left'}}>
@@ -289,7 +292,7 @@ class ClassroomRecordDetail extends React.Component {
                                                 }) : '暂无'
                                             }
                                         </div>
-                                        
+
                                     </div>
                                 </div>
                             }) : ''
@@ -303,7 +306,7 @@ class ClassroomRecordDetail extends React.Component {
                              </div>
                         }
                     </div>
-                     
+
                     </Modal>
             </div>
         )
@@ -315,7 +318,7 @@ class ClassroomRecordDetail extends React.Component {
         },()=>{
             document.getElementById('note').focus();
         })
-         
+
     }
     saveRemark(){
         let remark=document.getElementById('note').innerText,
@@ -355,8 +358,8 @@ class ClassroomRecordDetail extends React.Component {
                         noCommitStudentList:noCommitStudentList
                     })
                 }
-                
-                
+
+
             }
     }
      handleCancel(){

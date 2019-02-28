@@ -1,3 +1,6 @@
+/**
+ * 课堂练习已选
+ */
 import React from 'react'
 import PureRenderMixin from 'react-addons-pure-render-mixin'
 import { Link, hashHistory } from 'react-router'
@@ -130,7 +133,7 @@ class ExerciseSel extends React.Component {
                   }
                   else{
                       message.warning(data.error);
-                  } 
+                  }
                 }).catch(ex =>{
                   // 发生错误
                   if (__DEV__) {
@@ -190,7 +193,7 @@ class ExerciseSel extends React.Component {
                                                                                    window.catalogIds=catalogIdsArr.join(',');
                                                                             }}
                                                                           /> : ''
-                          
+
                         }
                         </div>
                         <Button className="preview-export-btn" onClick={this.previewExport.bind(this)}>预览导出</Button>
@@ -198,7 +201,7 @@ class ExerciseSel extends React.Component {
                   </div>
                   <DecorateList  flag={this.state.flag} parentType={this.state.parentType} draftId={this.props.params.draftId} exerciseId={this.props.params.exerciseId} choiceData={this.state.choiceData} highlight={this.state.highlight} stopHighlight={this.state.stopHighlight}  noticeTopicNumData={this.state.noticeTopicNumData} noticeTopicNum={this.noticeTopicNum.bind(this)} isSelected={this.props.params.isSelected}/>
               </div>
-              <ExercisePublishModal flag={!this.state.flag} pusblishVisible={this.state.visible} exerciseId={this.props.params.exerciseId} choiceData={this.state.choiceData} choiceCatalogIds={this.state.choiceCatalogIds} noticeExerciseSel={this.noticeExerciseSel.bind(this)}/>              
+              <ExercisePublishModal flag={!this.state.flag} pusblishVisible={this.state.visible} exerciseId={this.props.params.exerciseId} choiceData={this.state.choiceData} choiceCatalogIds={this.state.choiceCatalogIds} noticeExerciseSel={this.noticeExerciseSel.bind(this)}/>
             </div>
         )
     }
@@ -216,8 +219,8 @@ class ExerciseSel extends React.Component {
             visible:true
         })
       }
-      
-    }   
+
+    }
     //保存草稿/发布作业时判断当前是否有题目，没有就给提示
     noticeTopicNum(data,dataLen,objectiveNum,subjectiveNum){
         this.setState({
@@ -232,12 +235,12 @@ class ExerciseSel extends React.Component {
           dragKey:this.state.dragKey==1 ? 0 : 1
         })
         //删除操作-如果监听到题目个数为0就自动跳转至布置作业
-        let isSelected=this.props.params.isSelected;//0 是测验详情过来的 1 是草稿过来的 
+        let isSelected=this.props.params.isSelected;//0 是测验详情过来的 1 是草稿过来的
             if(dataLen==0){
               hashHistory.push("/exercise-detail/"+this.props.params.exerciseId)
             }
     }
-    
+
     //通知父已选界面
     noticeExerciseSel(data){
       this.setState({

@@ -1,3 +1,6 @@
+/**
+ * 我的收藏-题目
+ */
 import React from 'react'
 import PureRenderMixin from 'react-addons-pure-render-mixin'
 import { Link, hashHistory } from 'react-router'

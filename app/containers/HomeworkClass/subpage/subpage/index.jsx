@@ -1,3 +1,6 @@
+/**
+ * 班级详情-学生历史记录
+ */
 import React from 'react'
 import PureRenderMixin from 'react-addons-pure-render-mixin'
 import { Link, hashHistory } from 'react-router'
@@ -47,7 +50,7 @@ class HistoryHomework extends React.Component {
                                         content[i].newPublishAt=PublishM+PublishD+' '+PublishHours+':'+PublishMinute;
                                         content[i].whenMinute=parseInt(content[i].answerSecond/60);
                                         content[i].whenSecond=content[i].answerSecond%60;
-                                }     
+                                }
                                 this.setState({
                                     historyHomeworkList:content,
                                     homeworkListLen:data.data.pageable.totalSize/5
@@ -112,7 +115,7 @@ class HistoryHomework extends React.Component {
                                                 }
                                         </div>
                                     }
-                                    
+
                                 </div>
                     }) : <div style={{'font-size':'16px','text-align':'center','margin':'300px auto',"display":this.state.loadingShow=='block' ? 'none' : 'block'}}><Icon type="exclamation-circle" style={{marginRight:'5px',color:'rgba(255, 159, 0, 1)'}}/>暂无数据~</div>
                }
@@ -122,7 +125,7 @@ class HistoryHomework extends React.Component {
     }
      //跳转详情
     jumpHomeworkDetail(e){
-        localStorage.setItem('classJumpType',1);//为了区分班级作业和班级学生作业列表到批改页面-面包屑的区分 
+        localStorage.setItem('classJumpType',1);//为了区分班级作业和班级学生作业列表到批改页面-面包屑的区分
         let id=e.currentTarget.getAttribute('data-id');
             hashHistory.push("/homework-student-detail/" + encodeURIComponent(id)+'/'+encodeURIComponent(this.props.params.studentId)+'/3'+'/'+this.props.params.classId);
 
@@ -140,7 +143,7 @@ class HistoryHomework extends React.Component {
             pageSize=5;
             this.getHistoryHomework.bind(this,loginToken,classId,studentId,pageNumber,pageSize)();
     }
-   
+
 
 }
 export default HistoryHomework

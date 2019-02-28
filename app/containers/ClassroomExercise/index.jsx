@@ -1,3 +1,6 @@
+/**
+ * 课堂作业
+ */
 import React from 'react'
 import PureRenderMixin from 'react-addons-pure-render-mixin'
 import { Link, hashHistory } from 'react-router'
@@ -53,7 +56,7 @@ class ClassroomExercise extends React.Component {
             </div>
         )
     }
- 
+
     decorateBtn(){
         hashHistory.push("/decorate-homework/0/0")
         window.location.reload()

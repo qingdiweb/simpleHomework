@@ -1,3 +1,6 @@
+/**
+ * 个人中心
+ */
 import React from 'react'
 import PureRenderMixin from 'react-addons-pure-render-mixin'
 import { connect } from 'react-redux'
@@ -5,10 +8,10 @@ import { bindActionCreators } from 'redux'
 import { Link, hashHistory } from 'react-router'
 import { Menu, Icon , Button , Input , Select , Upload , Dropdown, Modal , Radio , message , Tabs , Form  , Row, Col, Checkbox } from 'antd';
 import {getStageSubject , getProvince , getCity , getArea , getSchool , updateTeacherInfo , getCode , bindPhone , updatePassword} from '../../fetch/personal-center/personal-center'
-import { getTeacherInfo } from '../../fetch/home/home' 
+import { getTeacherInfo } from '../../fetch/home/home'
 import * as Constants from '../../constants/store'
 
-import * as userInfoActionsFromOtherFile from '../../actions/userinfo' 
+import * as userInfoActionsFromOtherFile from '../../actions/userinfo'
 import './style.less'
 
 const TabPane = Tabs.TabPane;
@@ -105,7 +108,7 @@ class PersonalCenter extends React.Component {
         })
         //获取省份
         const resultGetProvince=getProvince(loginToken);
-              resultGetProvince.then(res =>{ 
+              resultGetProvince.then(res =>{
                     return res.json()
               }).then(json=>{
                 const data = json
@@ -120,15 +123,15 @@ class PersonalCenter extends React.Component {
                     if (__DEV__) {
                         console.error('暂无数据, ', ex.message)
                     }
-              }) 
-        
-   
+              })
+
+
     }
     componentDidMount(){
       setTimeout(()=>{
       //获取学段数据
         const resultGetStageSubject=getStageSubject();
-              resultGetStageSubject.then(res =>{ 
+              resultGetStageSubject.then(res =>{
                     return res.json()
               }).then(json=>{
                 const data = json
@@ -150,7 +153,7 @@ class PersonalCenter extends React.Component {
                     if (__DEV__) {
                         console.error('暂无数据, ', ex.message)
                     }
-              })  
+              })
       },800)
     }
     getTeacherInfo(){
@@ -517,7 +520,7 @@ class PersonalCenter extends React.Component {
                                         </div>
                                     </div> : ''
                                 }
-                                    
+
                                 </TabPane>
                                 <TabPane tab="账号设置" key="2">
                                 {
@@ -567,7 +570,7 @@ class PersonalCenter extends React.Component {
                                         </div>
                                     </div> : ''
                                 }
-                                    
+
                                 </TabPane>
                                 <TabPane tab="密码设置" key="3">
                                 {
@@ -575,7 +578,7 @@ class PersonalCenter extends React.Component {
                                                             <div className="password-setting editing-area">
                                                                   <Form onSubmit={this.passwordSettingHandleSubmit.bind(this)}>
                                                                           <FormItem {...formItemLayout} label="原密码">
-                                                                            {getFieldDecorator('oldPassword', { 
+                                                                            {getFieldDecorator('oldPassword', {
                                                                                 initialValue:'',
                                                                                 rules: [{ required: true, message: '密码不能为空!' },
                                                                                 {validator:this.oldPasswordValidation.bind(this)}],
@@ -585,7 +588,7 @@ class PersonalCenter extends React.Component {
                                                                               )}
                                                                           </FormItem>
                                                                           <FormItem {...formItemLayout} label="新密码">
-                                                                            {getFieldDecorator('newPassword', { 
+                                                                            {getFieldDecorator('newPassword', {
                                                                                 initialValue:'',
                                                                                 rules: [{ required: true, message: '密码不能为空!' },
                                                                                 {validator:this.passwordValidation.bind(this)}],
@@ -612,13 +615,13 @@ class PersonalCenter extends React.Component {
                                                                             </Button>
                                                                           </FormItem>
                                                                   </Form>
-                                                              </div> 
+                                                              </div>
                                                             </div>: ''
                                 }
                                 </TabPane>
                             </Tabs>
                         </div>
-                        
+
                     </div>
                 </div>
             </div>
@@ -644,7 +647,7 @@ class PersonalCenter extends React.Component {
         } else{
           message.error('上传失败');
         }
-    } 
+    }
     //个人资料修改
     personalDataEdit(){
       this.setState({
@@ -676,12 +679,12 @@ class PersonalCenter extends React.Component {
                 //保存成功提示
                 message.success('保存成功');
                 const resultUpdateTeacherInfo=updateTeacherInfo(loginToken,avatarUrl,nickname,gender,stageId,stage,subjectId,subject,provinceId,province,cityId,city,areaId,area,schoolId,school);
-                      resultUpdateTeacherInfo.then(res =>{ 
+                      resultUpdateTeacherInfo.then(res =>{
                             return res.json()
                       }).then(json=>{
                         const data = json
                             if(data.result){
-                                
+
                                 this.setState({
                                   teacherInfo:data.data
                                 })
@@ -705,7 +708,7 @@ class PersonalCenter extends React.Component {
             message.warning('请补全信息');
           }
       })
-        
+
     }
     //输入姓名
     nameInput(e){
@@ -751,7 +754,7 @@ class PersonalCenter extends React.Component {
     //获取市
     getCity(provinceId){
       const resultGetCity=getCity(loginToken,provinceId);
-              resultGetCity.then(res =>{ 
+              resultGetCity.then(res =>{
                     return res.json()
               }).then(json=>{
                 const data = json
@@ -770,19 +773,19 @@ class PersonalCenter extends React.Component {
                                     })
                                 }
                             }
-                            
+
                     }
               }).catch(ex => {
                     // 发生错误
                     if (__DEV__) {
                         console.error('暂无数据, ', ex.message)
                     }
-              }) 
+              })
     }
     //获取区
     getArea(cityId){
         const resultGetArea=getArea(loginToken,cityId);
-              resultGetArea.then(res =>{ 
+              resultGetArea.then(res =>{
                     return res.json()
               }).then(json=>{
                 const data = json
@@ -807,12 +810,12 @@ class PersonalCenter extends React.Component {
                     if (__DEV__) {
                         console.error('暂无数据, ', ex.message)
                     }
-              }) 
+              })
     }
     //获取学校
     getSchool(areaId,type){
         const resultGetSchool=getSchool(loginToken,areaId,type);
-              resultGetSchool.then(res =>{ 
+              resultGetSchool.then(res =>{
                     return res.json()
               }).then(json=>{
                 const data = json
@@ -837,7 +840,7 @@ class PersonalCenter extends React.Component {
                     if (__DEV__) {
                         console.error('暂无数据, ', ex.message)
                     }
-              }) 
+              })
     }
     //省份选择
     provinceSelect(e){
@@ -847,7 +850,7 @@ class PersonalCenter extends React.Component {
         this.props.form.setFieldsValue({'city':undefined});
         this.props.form.setFieldsValue({'area':undefined});
         this.props.form.setFieldsValue({'school':undefined});
-        
+
     }
     //市选择
     citySelect(e){
@@ -870,7 +873,7 @@ class PersonalCenter extends React.Component {
         }
         this.getSchool.bind(this,areaId,type)();
         this.props.form.setFieldsValue({'school':undefined});
-        
+
     }
     //学校选择
     schoolSelect(e){
@@ -893,7 +896,7 @@ class PersonalCenter extends React.Component {
             let verifyPhone=this.state.accountdata.phoneVal,
                 verifyCode=this.state.accountdata.codeVal;
                 const resultBindPhone=bindPhone(loginToken,verifyPhone,verifyCode);
-                      resultBindPhone.then(res =>{ 
+                      resultBindPhone.then(res =>{
                             return res.json()
                       }).then(json=>{
                         const data = json

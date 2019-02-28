@@ -1,3 +1,6 @@
+/**
+ * 我的习题
+ */
 import React from 'react'
 import PureRenderMixin from 'react-addons-pure-render-mixin'
 import { Link, hashHistory } from 'react-router'
@@ -153,7 +156,7 @@ class HomeworkCollect extends React.Component {
                 <h1 className='header-nav'><Breadcrumb separator=">"><Breadcrumb.Item>我的习题</Breadcrumb.Item></Breadcrumb></h1>
                 <Button type="primary" className="entry-topic"><a href={Constants.teachLutiUrl+loginToken} target="blank">录入习题</a></Button>
                 <Button type="primary" className="create-test-collection" onClick={this.createCollect.bind(this)}>创建习题集</Button>
-                <div className="list-sec no-corrections" style={{"display":this.state.loadingShow}}> 
+                <div className="list-sec no-corrections" style={{"display":this.state.loadingShow}}>
                     <Spin size="large" style={{"fontSize":"30px","display":'block','margin':'300px auto'}}/>
                 </div>
                 <div className="test-collection-list" >
@@ -168,7 +171,7 @@ class HomeworkCollect extends React.Component {
                                                       </Button>
                                                     </Dropdown> : ''
                                             }
-                                            
+
                                             <div className="test-collection-logo">
                                                 <img src={collectLogo} alt=""/>
                                             </div>
@@ -287,7 +290,7 @@ class HomeworkCollect extends React.Component {
         this.setState({
           visible: false
         });
-        
+
     }
     //取消
     handleCancel(e){

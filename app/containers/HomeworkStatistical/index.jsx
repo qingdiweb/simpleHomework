@@ -1,3 +1,6 @@
+/**
+ * 课后作业 - 作业报告
+ */
 import React from 'react'
 import PureRenderMixin from 'react-addons-pure-render-mixin'
 import { Link, hashHistory } from 'react-router'
@@ -20,7 +23,7 @@ const chart={
 }
 const xAxis={
     type: 'category',
-    categories: [], 
+    categories: [],
     labels: {
         //对横坐标刻度值进行格式化
         formatter: function() {
@@ -35,7 +38,7 @@ const xAxis={
             return reallyVal;
         }
 
-            
+
     }
 }
 const yAxis={
@@ -107,31 +110,31 @@ class HomeStatis extends React.Component {
                     width: '10%',
                     align:'center'
 
-                }, 
+                },
                 {
                     title: '提交人数',
                     dataIndex: 'committedCount',
                     width: '10%',
                     align:'center'
-                }, 
+                },
                 {
                     title: '平均正确率',
                     dataIndex: 'classAccuracy',
                     width: '10%',
                     align:'center'
-                },  
+                },
                 {
                     title: '平均用时',
                     dataIndex: 'avgAnswerSecond',
                     width: '10%',
                     align:'center'
-                }, 
+                },
                 {
                     title: '是否全部提交',
                     dataIndex: 'isALLCommit',
                     width: '10%',
                     align:'center'
-                }, 
+                },
             ],
             stuHomeworkColumns: [
                 {
@@ -140,19 +143,19 @@ class HomeStatis extends React.Component {
                     width: '10%',
                     align:'center'
 
-                }, 
+                },
                 {
                     title: '正确率',
                     dataIndex: 'accuracy',
                     width: '10%',
                     align:'center'
-                }, 
+                },
                 {
                     title: '用时',
                     dataIndex: 'avgAnswerSecond',
                     width: '10%',
                     align:'center'
-                } 
+                }
             ],
             knowledgeColumns: [
                 {
@@ -161,19 +164,19 @@ class HomeStatis extends React.Component {
                     width: '10%',
                     align:'center'
 
-                }, 
+                },
                 {
                     title: '对应试题',
                     dataIndex: 'questionNos',
                     width: '10%',
                     align:'center'
-                }, 
+                },
                 {
                     title: '平均正确率',
                     dataIndex: 'accuracy',
                     width: '10%',
                     align:'center'
-                } 
+                }
             ],
             knowledgeStuColumns: [
                 {
@@ -182,13 +185,13 @@ class HomeStatis extends React.Component {
                     width: '10%',
                     align:'center'
 
-                }, 
+                },
                 {
                     title: '正确率',
                     dataIndex: 'accuracy',
                     width: '10%',
                     align:'center'
-                }, 
+                },
                 {
                     title: '是否提交',
                     dataIndex: 'state',
@@ -200,7 +203,7 @@ class HomeStatis extends React.Component {
                     dataIndex: 'avgAccuracy',
                     width: '10%',
                     align:'center'
-                }  
+                }
             ],
             homeworkStuAna: [],
             stuHomeworkAua:[],
@@ -300,7 +303,7 @@ class HomeStatis extends React.Component {
                             })
                             yAxis.ceiling=Number(content.allCount);//设置最大y轴值
                             yAxis.max=Number(content.allCount);//设置最大y轴值
-                            
+
                             //处理学生作业统计数据
                             let studentInfoList=[];
                             content.studentInfoList.forEach(item => {
@@ -320,9 +323,9 @@ class HomeStatis extends React.Component {
                                     answerSecond='--'
                                 }
                                 let studentInfoListObj={};
-                                    studentInfoListObj.name=item.nickname!=null ? item.nickname : '欧拉学生'; 
+                                    studentInfoListObj.name=item.nickname!=null ? item.nickname : '欧拉学生';
                                     studentInfoListObj.accuracy=item.studentHomworkInfo!=null&&item.studentHomworkInfo.reviewAccuracy!=null&&item.studentHomworkInfo.state>=2 ? Math.round(item.studentHomworkInfo.reviewAccuracy)+'%' : '--';
-                                    studentInfoListObj.avgAnswerSecond=answerSecond; 
+                                    studentInfoListObj.avgAnswerSecond=answerSecond;
                                     studentInfoList.push(studentInfoListObj)
                             })
                             this.setState({
@@ -438,11 +441,13 @@ class HomeStatis extends React.Component {
                                     <p className="progress-circle-text">正确率</p>
                                 </div>
                                 <div className="mark-box correcting-mark-box">
-                                    
+
                                     <a href="javascript:;" className="report-detail-btn"><Link to={'/homework-edit-again/'+this.props.params.homeworkId+'/'+resultStatisticalInfoList.draftId+'/'+this.props.params.type+'/1'+'/'+classId}>查看作业</Link></a>
-                                    <Button type="primary" className="correcting-btn"><Link to={'/homework-detail/'+this.props.params.homeworkId+'/'+this.props.params.type+'/'+classId}>批改</Link></Button>
-                                </div>    
-                        </div>  
+                                    {
+                                        resultStatisticalInfoList.state==2&&<Button type="primary" className="correcting-btn"><Link to={'/homework-detail/'+this.props.params.homeworkId+'/'+this.props.params.type+'/'+classId}>批改</Link></Button>
+                                    }
+                                </div>
+                        </div>
                     </div>
                     <p className='common-sec-title'><span className='sec-title-line'></span><span>分析报告</span></p>
                     <div className='analysis-report-text'>
@@ -457,7 +462,7 @@ class HomeStatis extends React.Component {
                                 resultStatisticalInfoList.committedCount!=''&&resultStatisticalInfoList.committedCount!=null&&resultStatisticalInfoList.committedCount!==0 ? <div>
                                     <p className='statis-title'><span className='statis-title-line'></span><span>班级成绩统计</span></p>
                                     <div className='stu-situation-table'>
-                                        <Table 
+                                        <Table
                                             columns={this.state.columns}
                                             dataSource={this.state.homeworkStuAna}
                                             bordered
@@ -472,7 +477,7 @@ class HomeStatis extends React.Component {
                                     </div>
                                     <p className='statis-title'><span className='statis-title-line'></span><span>学生作业统计</span></p>
                                     <div>
-                                        <Table 
+                                        <Table
                                             columns={this.state.stuHomeworkColumns}
                                             dataSource={this.state.stuHomeworkAua}
                                             bordered
@@ -485,14 +490,14 @@ class HomeStatis extends React.Component {
                                 </div> : <div><img className="default-graph" src={defaultGraph} alt=""/><p style={{width:'100%',height:'33px',color:'rgba(153, 153, 153, 1)',fontSize: '24px',textAlign: 'center'
                                 }}>还没有学生提交作业,暂无统计报告呦~</p></div>
                             }
-                                
+
                             </TabPane>
                             <TabPane tab="知识点统计" key="2">
                                 {
                                     resultStatisticalInfoList.committedCount!=''&&resultStatisticalInfoList.committedCount!=null&&resultStatisticalInfoList.committedCount!==0 ? <div>
                                         <p className='statis-title'><span className='statis-title-line'></span><span>知识点掌控分布</span></p>
                                         <div className='stu-situation-table'>
-                                            <Table 
+                                            <Table
                                                 columns={this.state.knowledgeColumns}
                                                 dataSource={this.state.knowledgeAna}
                                                 bordered
@@ -501,14 +506,14 @@ class HomeStatis extends React.Component {
                                                 pagination= {false}
                                             >
                                             </Table>
-                                        </div> 
+                                        </div>
                                     </div>: <div><img className="default-graph" src={defaultGraph} alt=""/><p style={{width:'100%',height:'33px',color:'rgba(153, 153, 153, 1)',fontSize: '24px',textAlign: 'center'
                                 }}>还没有学生提交作业,暂无统计报告呦~</p></div>
                                 }
-                                    
+
                                 {/* <p className='statis-title'><span className='statis-title-line'></span><span>学生作业统计</span></p>
                                 <div className='stu-situation-table'>
-                                    <Table 
+                                    <Table
                                         columns={this.state.knowledgeStuColumns}
                                         dataSource={this.state.knowledgeStuAna}
                                         bordered
@@ -523,9 +528,9 @@ class HomeStatis extends React.Component {
                     </div>
                 </div>
                 }
-                
-               
-                
+
+
+
             </div>
         )
     }
@@ -534,9 +539,9 @@ class HomeStatis extends React.Component {
     }*/
     //试题报告 学生报告
     callback(e){
-        
+
     }
-    
+
 }
 
 export default HomeStatis

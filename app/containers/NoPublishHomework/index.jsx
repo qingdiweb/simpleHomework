@@ -1,3 +1,6 @@
+/**
+ * 作业草稿
+ */
 import React from 'react'
 import PureRenderMixin from 'react-addons-pure-render-mixin'
 import { Link, hashHistory } from 'react-router'
@@ -38,9 +41,9 @@ class HomeworkList extends React.Component {
             flag:true//刷新
         }
     }
-    
+
     componentWillReceiveProps(nextProps){
-       
+
     }
     componentWillMount(){
         let pageNumber=0,
@@ -50,7 +53,7 @@ class HomeworkList extends React.Component {
             this.getDraftListData.bind(this,loginToken,pageNumber,pageSize,createdAtStart,createdAtEnd)();
             //通知左侧menu导航-当前在那个menu下
             localStorage.setItem('positionMenu',JSON.stringify(['2']));
-        
+
     }
     componentDidMount(){
         window.catalogIds='';//全局章节
@@ -126,7 +129,7 @@ class HomeworkList extends React.Component {
                                                     <a href="javascript:;" className="detail-btn" id={item.id} data-currentid={item.currentQuestionIds} data-currentcatalogIds={item.currentCatalogIds} onClick={this.draftEdit.bind(this)}>编辑</a>
                                                     <a href="javascript:;" className="del-btn" data-id={item.id} onClick={this.homeworkDel.bind(this)}>删除</a>
                                                 </div>
-                                            </div> 
+                                            </div>
                                 }
                         }) : <div style={{'font-size':'16px','text-align':'center','margin':'300px',"display":this.state.loadingShow=='block' ? 'none' : 'block'}}><Icon type="exclamation-circle" style={{marginRight:'5px',color:'rgba(255, 159, 0, 1)'}}/>暂无草稿~</div>
                     }
@@ -136,7 +139,7 @@ class HomeworkList extends React.Component {
                 </div>
             </div>
         )
-        
+
     }
     //草稿编辑
     draftEdit(e){
@@ -147,8 +150,8 @@ class HomeworkList extends React.Component {
             window.noticeDecorateQuestionIds=currentQuestionIds;
             window.catalogIds=currentCatalogIds;
             hashHistory.push('/decorate-selected/'+draftId+'/0/0/2');
-            
-            
+
+
     }
     //日期选择
     datePickHandle(date, dateString){
@@ -200,7 +203,7 @@ class HomeworkList extends React.Component {
             publishType:e.key,
             flag:!this.state.flag
         })
-        
+
     }
     //发布之后通知父组件
     noticePublish(data){

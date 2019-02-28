@@ -1,3 +1,6 @@
+/**
+ * 班级详情
+ */
 import React from 'react'
 import PureRenderMixin from 'react-addons-pure-render-mixin'
 import { Link, hashHistory } from 'react-router'
@@ -130,10 +133,10 @@ class HomeDetail extends React.Component {
                                         content[i].isNeedCorrect='none';
                                         content[i].isDetail='inline-block';
                                     }
-                            } 
+                            }
                             this.setState({
                                 classHomeworkList:content
-                            })  
+                            })
                     }
                 }).catch(ex => {
                     // 发生错误
@@ -296,7 +299,7 @@ class HomeDetail extends React.Component {
                                             </div>
                                 }) : <div style={{'font-size':'16px','text-align':'center','margin':'300px auto',"display":this.state.loadingShow=='block' ? 'none' : 'block'}}><Icon type="exclamation-circle" style={{marginRight:'5px',color:'rgba(255, 159, 0, 1)'}}/>暂无数据~</div>
                             }
-                            
+
                         </TabPane>
                         <TabPane tab="历史作业" key="2">
                         {
@@ -331,7 +334,7 @@ class HomeDetail extends React.Component {
                                                 <p className="progress-circle-text">正确率</p>
                                             </div>
                                             <div className="mark-box correcting-mark-box">
-                                                
+
                                                 {/*<Button type="primary" className="correcting-btn" style={{'display':item.isNeedCorrect}}>批改</Button>*/}
                                                 {
                                                     item.state==2 ? <p>
@@ -343,8 +346,8 @@ class HomeDetail extends React.Component {
                                                     </p>
                                                 }
                                             </div>
-                                    </div>  
-                                    
+                                    </div>
+
                             }) : <div style={{'font-size':'16px','text-align':'center','margin':'300px auto',"display":this.state.loadingShow=='block' ? 'none' : 'block'}}><Icon type="exclamation-circle" style={{marginRight:'5px',color:'rgba(255, 159, 0, 1)'}}/>暂无数据~</div>
                         }
                         </TabPane>
@@ -397,10 +400,10 @@ class HomeDetail extends React.Component {
                       footer={[]}
                     >
                      <Input value={'https://www.huazilive.com/tiku/share-class.html?classId='+this.props.params.classId+'&teacherName='+teacherInfo.nickname+'&timeStamp='+(new Date()).getTime()} style={{width:'368px',height:'36px',marginRight:'12px'}}/>
-                     
+
                      <CopyToClipboard text={'https://www.huazilive.com/tiku/share-class.html?classId='+this.props.params.classId+'&teacherName='+encodeURIComponent(teacherInfo.nickname)+'&timeStamp='+(new Date()).getTime()} onCopy={this.onCopy.bind(this)}>
                          <Button type="primary">{this.state.copyText}</Button>
-                     </CopyToClipboard> 
+                     </CopyToClipboard>
                      <p className='share-prompt'>将链接通过QQ、微信等任何方式发给相关人等,即可点击查看</p>
                 </Modal>
             </div>
@@ -410,7 +413,7 @@ class HomeDetail extends React.Component {
          window.open('inc/qrcode_img.php?url=https://zixuephp.net/article-1.html');
     }
     shareFriend(){
-        /*var shareqqzonestring='https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?summary=1111111&url=https://tm.arcgisonline.cn:8038/App101/MapstoryBook/Default.html&pics=https://tm.arcgisonline.cn:8038/App101/MapstoryBook/css/Img/ShareBook.jpg';  
+        /*var shareqqzonestring='https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?summary=1111111&url=https://tm.arcgisonline.cn:8038/App101/MapstoryBook/Default.html&pics=https://tm.arcgisonline.cn:8038/App101/MapstoryBook/css/Img/ShareBook.jpg';
          window.open(shareqqzonestring,'newwindow','height=400,width=400,top=100,left=100');  */
     }
     shareCancel(){
@@ -431,19 +434,19 @@ class HomeDetail extends React.Component {
     }
     //跳转报告
     jumpHomeworkStatis(e){
-        localStorage.setItem('classJumpType',0);//为了区分班级作业和班级学生作业列表到批改页面-面包屑的区分 
+        localStorage.setItem('classJumpType',0);//为了区分班级作业和班级学生作业列表到批改页面-面包屑的区分
         let id=e.currentTarget.getAttribute('data-id');
             hashHistory.push('/homework-statistical/' + encodeURIComponent(id)+'/2/'+this.props.params.classId);
     }
      //跳转详情
     jumpHomeworkDetail(e){
-        localStorage.setItem('classJumpType',0);//为了区分班级作业和班级学生作业列表到批改页面-面包屑的区分 
+        localStorage.setItem('classJumpType',0);//为了区分班级作业和班级学生作业列表到批改页面-面包屑的区分
         let id=e.currentTarget.getAttribute('data-id');
             hashHistory.push('/homework-detail/' + encodeURIComponent(id)+'/2/'+this.props.params.classId);
     }
     //试题报告 学生报告
     callback(e){
-        
+
     }
     //学生列表移入显示删除
     stuSecDelShowHandle(e){

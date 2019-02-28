@@ -1,3 +1,6 @@
+/**
+ * 查看已选
+ */
 import React from 'react'
 import PureRenderMixin from 'react-addons-pure-render-mixin'
 import { Link, hashHistory } from 'react-router'
@@ -137,7 +140,7 @@ class DecorateListSel extends React.Component {
                                                                                    window.catalogIds=catalogIdsArr.join(',');
                                                                             }}
                                                                           /> : ''
-                          
+
                         }
                         </div>
                         <Button className="preview-export-btn" onClick={this.previewExport.bind(this)}>预览导出</Button>
@@ -248,7 +251,7 @@ class DecorateListSel extends React.Component {
           window.catalogIds='';
           //通知头部
           this.props.noticeDecorate.bind(this,0,'','',draftId)()
-        
+
     }
     //保存草稿
     saveDraft(){
@@ -274,7 +277,7 @@ class DecorateListSel extends React.Component {
       const resultSaveDefault=saveDefault(loginToken,draftId,currentQuestionIds,currentCatalogIds,questionCount);
                    resultSaveDefault.then(res => {
                       return res.json()
-                  }).then(json => { 
+                  }).then(json => {
                       // 处理获取的数据
                       const data = json
                       this.setState({
@@ -365,7 +368,7 @@ class DecorateListSel extends React.Component {
             }
       //通知父组件要离开时的题目数
       this.props.noticeDecorate.bind(this,window.noticeDecorateQuestionIds=='' ? 0 : window.noticeDecorateQuestionIds.split(',').length,window.noticeDecorateQuestionIds,window.catalogIds,this.props.params.draftId)()
-        
+
     }
     //删除指定草稿
     delDraftListData(loginToken,draftId){
@@ -382,7 +385,7 @@ class DecorateListSel extends React.Component {
                   }
                   else{
                       message.warning(data.error);
-                  } 
+                  }
                 }).catch(ex =>{
                   // 发生错误
                   if (__DEV__) {
@@ -390,7 +393,7 @@ class DecorateListSel extends React.Component {
                   }
                 })
     }
-    
+
     //拖拽开始
     handleStart(e){
       let highlight=e.target.getAttribute('data-highlight'),

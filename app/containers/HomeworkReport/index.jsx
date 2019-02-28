@@ -1,3 +1,6 @@
+/**
+ * 课堂报告
+ */
 import React from 'react'
 import PureRenderMixin from 'react-addons-pure-render-mixin'
 import { Link, hashHistory } from 'react-router'
@@ -29,7 +32,7 @@ class HomeHeader extends React.Component {
     componentWillMount(){
             //通知左侧menu导航-当前在那个menu下
             localStorage.setItem('positionMenu',JSON.stringify(['3']));
-        
+
     }
     render() {
         return (

@@ -1,3 +1,6 @@
+/**
+ * 题目详情
+ */
 import React from 'react'
 import PureRenderMixin from 'react-addons-pure-render-mixin'
 import { Link, hashHistory } from 'react-router'
@@ -26,7 +29,7 @@ class HomeDetail extends React.Component {
             this.specifyQuestionsStatistical.bind(this,loginToken,homeworkId,questionId)();
             //通知左侧menu导航-当前在那个menu下
             localStorage.setItem('positionMenu',JSON.stringify(['3']));
-            
+
     }
     //获取作业详情数据
     specifyQuestionsStatistical(loginToken,homeworkId,questionId){
@@ -68,7 +71,7 @@ class HomeDetail extends React.Component {
                                 window.MathJax.Hub.Queue(["Typeset",window.MathJax.Hub,"output"]);
                             });
 
-                            
+
                             console.log('数目'+topicListData)
                     }
                 }).catch(ex => {
@@ -78,7 +81,7 @@ class HomeDetail extends React.Component {
                     }
                 })
     }
-    
+
     render() {
         let questionInfo=this.state.questionInfo,
             topicDetail = this.state.topicDetail,
@@ -166,7 +169,7 @@ class HomeDetail extends React.Component {
                         <p className='common-sec-title' style={{marginBottom:'16px'}}><span className='sec-title-line'></span><span>试题详情</span></p>
                         <div className="topic-detail">
                         {
-                            JSON.stringify(questionInfo) != "{}" ? <div> 
+                            JSON.stringify(questionInfo) != "{}" ? <div>
                                                                     {
                                                                         questionInfo.childQuestionInfoList==null||questionInfo.childQuestionInfoList.length==0 ? <div className="topic-sec">
                                                                                         <div className="topic-sec-cont">
@@ -199,7 +202,7 @@ class HomeDetail extends React.Component {
                                                                                                         }
                                                                                                     </div>
                                                                                                 </div>
-                                                                                                
+
                                                                                             </div>
                                                                                             <h1 className="topic-sec-head">
                                                                                                 <p className="show-parse"  data-showType={questionInfo.isShow} onClick={this.showParse.bind(this)}>
@@ -239,7 +242,7 @@ class HomeDetail extends React.Component {
                                                                                             </div>
 
                                                                                         </div>
-                                                                                    </div> : <div className="topic-sec" style={{border:'0px',padding:'0px'}}>                                       
+                                                                                    </div> : <div className="topic-sec" style={{border:'0px',padding:'0px'}}>
                                                                                                 <div className="topic-sec-cont" style={{padding: '8px 16px 0px 16px',marginBottom:'16px',border:'1px solid #dfe2e5',backgroundColor:'rgba(246, 248, 250, 1)'}}>
                                                                                                     <div className="option-cont">
                                                                                                         <h1 className='cont-title'><span>1丶</span><span className="topic-type">({questionInfo.category})</span><span dangerouslySetInnerHTML={{ __html: questionInfo.title }}></span></h1>
@@ -278,8 +281,8 @@ class HomeDetail extends React.Component {
                                                                                                                                     }
                                                                                                                                 </div>
                                                                                                                             </div>
-                                                                                                                            
-                                                                                                                            
+
+
                                                                                                                         </div>
                                                                                                                         <h1 className="topic-sec-head">
                                                                                                                             <p className="show-parse"  data-showType={item.isShow}  data-index={index} onClick={this.showParse.bind(this)}>
@@ -347,12 +350,12 @@ class HomeDetail extends React.Component {
                                                                                                         return <span key={ele.id}>{ele.nickname==null||'' ? "欧拉学生" : ele.nickname}</span>
                                                                                                     })
                                                                                         }
-                                                                                        
+
                                                                                     }) : ''
                                                                                 }
                                                                             </span>
                                 }
-                                
+
                             </p>
                              <p className="answer-student">
                                 <b style={{float:"left",minWidth:"85px"}}>答错({topicDetail.wrongNumber}人)：</b>
@@ -380,13 +383,13 @@ class HomeDetail extends React.Component {
                                                                                                                 </span>
                                                                                                             </p>
                                                                                                 }
-                                                                                                
+
                                                                                             }) : ''
-                                                                                
+
                                                                             }
                                                                         </div>
                                 }
-                                
+
                             </p>
                             {
                                 JSON.stringify(questionInfo) != "{}"&&topicDetail.questionInfo4Current.canAnswer==0 ? <p className="answer-student">
@@ -400,7 +403,7 @@ class HomeDetail extends React.Component {
                                                                 </span>
                                                             </p> : ''
                             }
-                             
+
                              <p className="answer-student">
                                 <b style={{float:"left",minWidth:"85px"}}>未交({topicDetail.uncommittedNumber}人)：</b>
                                 <span className={JSON.stringify(questionInfo) != "{}"&&topicDetail.questionInfo4Current.canAnswer==0 ? "answer-student-list answer-student-list-right" : "answer-student-list answer-student-list-no answer-student-list-option"}>
@@ -421,7 +424,7 @@ class HomeDetail extends React.Component {
     }
     //试题报告 学生报告
     callback(e){
-        
+
     }
     //查看解析
     showParse(e){
@@ -449,7 +452,7 @@ class HomeDetail extends React.Component {
                         this.setState({topicList:topicLists,flag:!this.state.flag});
                 }
             }
-            
+
     }
     //跳转批改
     jumpCorrect(e){

@@ -1,3 +1,6 @@
+/**
+ * 作业报告
+ */
 import React from 'react'
 import { Router, Redirect, Route, IndexRoute , Link, hashHistory } from 'react-router'
 

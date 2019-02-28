@@ -1,3 +1,6 @@
+/**
+ * 批改作业
+ */
 import React from 'react'
 import PureRenderMixin from 'react-addons-pure-render-mixin'
 import { Link, hashHistory } from 'react-router'
@@ -69,7 +72,7 @@ class CorrectHomework extends React.Component {
                 //指定学生-获取待批改的题目答案列表
                 this.getTopicAnswerList.bind(this,loginToken,homeworkId,questionStuId)()
             }
-            
+
             //评语库
             this.remarkLibrary.bind(this,loginToken)()
     }
@@ -153,7 +156,7 @@ class CorrectHomework extends React.Component {
                         })
                        //初始化第一个学生-判断当前学生是否已批改过的
                         this.dealAnswer.bind(this,studentList[0])()
-                      
+
 
                     }
                 }).catch(ex => {
@@ -199,7 +202,7 @@ class CorrectHomework extends React.Component {
                                         initialQuestion=questionList[0];
                                     }
                                 }
-                                
+
                             }
                             //循环遍历如果有子题，是多view时给小题加上isShow
                             questionList.map((ele,i)=>{
@@ -214,7 +217,7 @@ class CorrectHomework extends React.Component {
                                                 }
                                                 item.knowledges=item.knowledges==null||item.knowledges==''  ? [] : item.knowledges.split(',');//处理考点
                                                 item.isShow='none';//初始化不显示解析
-                                            
+
                                                 //面向对象问题：深拷贝一个新对象，要不同一个内存地址造成的，之后循环改变的对象值造成之前的也变化了，所以childId一直是最后一个
                                                 let obj=Object.assign({childId:item.id,serial:(i+1)+'.'+(index+1),postionIndex:index},ele);
                                                 questionArr.push(obj)
@@ -231,10 +234,10 @@ class CorrectHomework extends React.Component {
                                                 }
                                                 */
                                             }
-                                          
+
                                         })
-                                       
-                                      
+
+
                                     }else{
                                         //为了展示真实题号
                                         ele.serial=i+1;
@@ -265,7 +268,7 @@ class CorrectHomework extends React.Component {
                                         initialQuestion=questionArr[0];
                                     }
                                 }
-                                
+
                             })
                             this.setState({
                                 questionListData:questionArr,
@@ -311,7 +314,7 @@ class CorrectHomework extends React.Component {
                                     })
                                     //批改成功之后删除所有标记
                                     $('.span_mark').remove();
-                                
+
                             }else if(parentType=='1'&&newQuestionListData.length!=0){//1 学生纬度过来的
                                 let newQueList=newQuestionListData[this.state.stuIndex];
                                     //多view题
@@ -327,7 +330,7 @@ class CorrectHomework extends React.Component {
                                             newQueList.childQuestionInfoList[newQuestionListData[this.state.stuIndex].postionIndex].studentHomeworkAnswerInfo.reviewFlag=reviewFlag;
                                             newQueList.childQuestionInfoList[newQuestionListData[this.state.stuIndex].postionIndex].studentHomeworkAnswerInfo.reviewResult=correct;//实时批改更新左侧学生对错logo
                                         }
-                                        
+
                                         this.setState({
                                             questionListData:newQuestionListData,
                                             flag:!this.state.flag
@@ -344,7 +347,7 @@ class CorrectHomework extends React.Component {
                                             newQueList.studentHomeworkAnswerInfo.reviewFlag=reviewFlag;
                                             newQueList.studentHomeworkAnswerInfo.reviewResult=correct;//实时批改更新左侧学生对错logo
                                         }
-                                        
+
                                         this.setState({
                                             questionListData:newQuestionListData,
                                             flag:!this.state.flag
@@ -456,14 +459,14 @@ class CorrectHomework extends React.Component {
                                     <Breadcrumb.Item ><Link to={'/homework-detail/'+this.props.params.homeworkId+'/'+jumpType+'/0'}>作业批改</Link></Breadcrumb.Item>
                                     <Breadcrumb.Item ><Link to={'/homework-topic-detail/'+this.props.params.homeworkId+'/'+this.props.params.questionStuId+'/'+jumpType+'/'+classId}>试题详情</Link></Breadcrumb.Item>
                                     <Breadcrumb.Item>批改</Breadcrumb.Item>
-                                </Breadcrumb>           
+                                </Breadcrumb>
                 }else if(correctType==2){
                     breadcrumbTxt=<Breadcrumb separator=">">
                                     <Breadcrumb.Item><Link to='/index-homework'>课后作业</Link></Breadcrumb.Item>
                                     <Breadcrumb.Item ><Link to={'/homework-detail/'+this.props.params.homeworkId+'/'+jumpType+'/0'}>作业批改</Link></Breadcrumb.Item>
                                     <Breadcrumb.Item ><Link to={'/homework-student-detail/'+this.props.params.homeworkId+'/'+this.props.params.questionStuId+'/'+jumpType+'/'+classId}>学生报告</Link></Breadcrumb.Item>
                                     <Breadcrumb.Item>批改</Breadcrumb.Item>
-                                </Breadcrumb> 
+                                </Breadcrumb>
                 }
             }else if(jumpType==2){//我的班级过来的
                 if(classJumpType==0){
@@ -481,7 +484,7 @@ class CorrectHomework extends React.Component {
                                         <Breadcrumb.Item ><Link to={'/homework-detail/'+this.props.params.homeworkId+'/'+jumpType+'/'+classId}>作业批改</Link></Breadcrumb.Item>
                                         <Breadcrumb.Item ><Link to={'/homework-topic-detail/'+this.props.params.homeworkId+'/'+this.props.params.questionStuId+'/'+jumpType+'/'+classId}>试题详情</Link></Breadcrumb.Item>
                                         <Breadcrumb.Item>批改</Breadcrumb.Item>
-                                    </Breadcrumb>           
+                                    </Breadcrumb>
                     }else if(correctType==2){
                         breadcrumbTxt=<Breadcrumb separator=">">
                                         <Breadcrumb.Item><Link to='/homework-class'>我的班级</Link></Breadcrumb.Item>
@@ -489,7 +492,7 @@ class CorrectHomework extends React.Component {
                                         <Breadcrumb.Item ><Link to={'/homework-detail/'+this.props.params.homeworkId+'/'+jumpType+'/'+classId}>作业批改</Link></Breadcrumb.Item>
                                         <Breadcrumb.Item ><Link to={'/homework-student-detail/'+this.props.params.homeworkId+'/'+this.props.params.questionStuId+'/'+jumpType+'/'+classId}>学生报告</Link></Breadcrumb.Item>
                                         <Breadcrumb.Item>批改</Breadcrumb.Item>
-                                    </Breadcrumb> 
+                                    </Breadcrumb>
                     }
                 }
             }else if(jumpType==3){//我的班级-学生详情过来的
@@ -499,7 +502,7 @@ class CorrectHomework extends React.Component {
                                     <Breadcrumb.Item><Link to={'/homework-class-stuhistory'+'/'+classId+'/'+this.props.params.questionStuId}>学生详情</Link></Breadcrumb.Item>
                                     <Breadcrumb.Item ><Link to={'/homework-student-detail/'+this.props.params.homeworkId+'/'+this.props.params.questionStuId+'/'+jumpType+'/'+classId}>学生报告</Link></Breadcrumb.Item>
                                     <Breadcrumb.Item>批改</Breadcrumb.Item>
-                                </Breadcrumb> 
+                                </Breadcrumb>
             }
             return (
                 <div id="decorate-list" className="clear-fix">
@@ -509,7 +512,7 @@ class CorrectHomework extends React.Component {
                     <p className='common-sec-title'><span className='sec-title-line'></span><span>试题详情</span></p>
                     <Spin size="large" style={{"fontSize":"30px","display":this.state.loadingShow,'margin':'200px auto'}}/>
                     {
-                        JSON.stringify(topicList) != "{}" ? <div> 
+                        JSON.stringify(topicList) != "{}" ? <div>
                                                             {
                                                                 topicList.childQuestionInfoList==null||topicList.childQuestionInfoList.length==0 ?  <div className="topic-sec">
                                                                                 <div className="topic-sec-cont">
@@ -542,7 +545,7 @@ class CorrectHomework extends React.Component {
                                                                                                 }
                                                                                             </div>
                                                                                         </div>
-                                                                                        
+
                                                                                     </div>
                                                                                     <h1 className="topic-sec-head">
                                                                                         <p className="show-parse"  data-showType={topicList.isShow} onClick={this.showParse.bind(this)}>
@@ -581,7 +584,7 @@ class CorrectHomework extends React.Component {
                                                                                         }
                                                                                     </div>
                                                                                 </div>
-                                                                            </div> : <div className="topic-sec" style={{border:'0px',padding:'0px'}}>                                       
+                                                                            </div> : <div className="topic-sec" style={{border:'0px',padding:'0px'}}>
                                                                                         <div className="topic-sec-cont" style={{padding: '8px 16px 0px 16px',marginBottom:'16px',border:'1px solid #dfe2e5',backgroundColor:'rgba(246, 248, 250, 1)'}}>
                                                                                             <div className="option-cont">
                                                                                                 <h1 className='cont-title'><span>{topicList.topicIndex}丶</span><span className="topic-type">({topicList.category})</span><span dangerouslySetInnerHTML={{ __html: topicList.title }}></span></h1>
@@ -619,10 +622,10 @@ class CorrectHomework extends React.Component {
                                                                                                                                     }
                                                                                                                                 </p> : ''
                                                                                                                             }
-                                                                                                                            
+
                                                                                                                         </div>
                                                                                                                     </div>
-                                                                                                                    
+
                                                                                                                 </div>
                                                                                                                 <h1 className="topic-sec-head">
                                                                                                                     <p className="show-parse"  data-showType={item.isShow}  data-check={index} onClick={this.showParse.bind(this)}>
@@ -663,7 +666,7 @@ class CorrectHomework extends React.Component {
                                                                                                             </div>
                                                                                                         </div>
                                                                                                 }
-                                                                                                
+
                                                                                             })
                                                                                         }
                                                                                       </div>
@@ -705,7 +708,7 @@ class CorrectHomework extends React.Component {
                                                 </h1>
                                         }else if(parentType=='1'){//指定学生进来
                                             let questionInfoClass="";
-                                            
+
                                             if(item.childQuestionInfoList!=null&&item.childQuestionInfoList.length!=0){//多view
                                                 if(!!item.childQuestionInfoList[item.postionIndex].studentHomeworkAnswerInfo){//已作答
                                                     if(item.childQuestionInfoList[item.postionIndex].studentHomeworkAnswerInfo.reviewResult==null){//未批改
@@ -735,7 +738,7 @@ class CorrectHomework extends React.Component {
                                                     questionInfoClass="questionInfo-circle";
                                                 }
                                             }
-                                            
+
                                             return <span key={index} className={index==this.state.stuIndex ? "questionInfo-select questionInfo-select-bg" : "questionInfo-select"}><span  className={questionInfoClass} data-question={index} onClick={this.questionSwich.bind(this)}>{item.serial ? item.serial : index+1}</span></span>
                                         }
                                     }) : <div style={{'fontSize':'16px','textAlign':'center','margin':'300px auto',"display":this.state.loadingShow=='block' ? 'none' : 'block'}}><Icon type="exclamation-circle" style={{marginRight:'5px',color:'rgba(255, 159, 0, 1)'}}/>暂无数据~</div>
@@ -761,7 +764,7 @@ class CorrectHomework extends React.Component {
                                                  this.state.answerDetail.map((ele,i)=>{
 
                                                     return <img src={'data:image/png;base64,'+ele} alt="" className="answer-detail" key={i}/>
-                                                    
+
                                                 })
                                             }
                                             </Carousel> : <div style={{'fontSize':'18px',width:'100%','textAlign':'center','position':'absolute',top:'50%',marginTop:'-10px'}}><Icon type="exclamation-circle" style={{marginRight:'5px',color:'rgba(255, 159, 0, 1)'}}/>暂无作答~</div>
@@ -771,7 +774,7 @@ class CorrectHomework extends React.Component {
                                                 <span></span>
                                             </div>
                                         </div>
-                                        
+
                                     </div>
                                     <div className='correct-tag' style={{top:this.state.topDistance+'px'}}>
                                         <ul className="hw-yj-middle-btnmore-topul hw-yj-middle-icon">
@@ -828,7 +831,7 @@ class CorrectHomework extends React.Component {
                 </div>
             )
     }
-  
+
     enterHandle(value) {
         hashHistory.push('/search/all/' + encodeURIComponent(value))
     }
@@ -859,7 +862,7 @@ class CorrectHomework extends React.Component {
                    }
                 }
             }
-            
+
     }
     //走马灯切换效果
     arrowLeft(){
@@ -918,7 +921,7 @@ class CorrectHomework extends React.Component {
                         }
                 }
             }
-            
+
     }
     //指定题目-点击作业学生列表查看答案
     topicViewAnswer(e){
@@ -935,7 +938,7 @@ class CorrectHomework extends React.Component {
             this.dealAnswer.bind(this,stuList)()
             //删除标记
             $('.span_mark').remove();
-            
+
     }
     //指定学生-点击作业题目列表查看答案
     questionSwich(e){
@@ -992,10 +995,10 @@ class CorrectHomework extends React.Component {
                         },()=>{
                             this.correctAnswer.bind(this,loginToken,homeworkId,studentId,questionId,tag,reviewFlag)()
                         })
-                        
+
                     }).catch((ex)=>{
                         console.log("暂无数据 "+ex.message)
-                    }) 
+                    })
                 }
              }else{
                 if(markNum==0){
@@ -1005,12 +1008,12 @@ class CorrectHomework extends React.Component {
                         this.correctAnswer.bind(this,loginToken,homeworkId,studentId,questionId,tag,'')()
                     })
                 }else{
-                    message.warning('该学生未作答不能标记批改') 
+                    message.warning('该学生未作答不能标记批改')
                 }
-                               
+
             }
     }
-    canvasPrint(){ 
+    canvasPrint(){
      var cloneDom = $("#canvasPrint").clone();
             //设置克隆节点的css属性，因为之前的层级为0，我们只需要比被克隆的节点层级低即可。
             cloneDom.css({
@@ -1029,7 +1032,7 @@ class CorrectHomework extends React.Component {
                 useCORS:true,
                 logging:true,
                 onrendered: function(canvas){
-                    
+
                     let canvasIMG=canvas.toDataURL('png');
                     console.log('canvasIMG',canvasIMG)
                     //上传合成图片
@@ -1052,9 +1055,9 @@ class CorrectHomework extends React.Component {
                         })
                 }
             });
-              
+
         })
-        
+
     }
     //重批
     correctAgain(){
@@ -1094,7 +1097,7 @@ class CorrectHomework extends React.Component {
                         this.dealAnswer.bind(this,lastQuestionListData)()
                 }
             }
-            
+
     }
     //下一位
     switchNext(){
@@ -1117,7 +1120,7 @@ class CorrectHomework extends React.Component {
                     //点击下一位时-检查下一位作答状态
                     let nextStudentList=this.state.studentList[stuIndexNext];
                         this.dealAnswer.bind(this,nextStudentList)()
-                   
+
                 }else{//最后一个学生
                     this.setState({
                         detailLoadingShow:'block',
@@ -1153,8 +1156,8 @@ class CorrectHomework extends React.Component {
                         this.dealAnswer.bind(this,nowQuestionListData)()
                 }
             }
-            
-            
+
+
     }
     //初始化以及切换题目(多view和单view)的作答数据处理
     dealAnswer(currentData){
@@ -1174,7 +1177,7 @@ class CorrectHomework extends React.Component {
                 if(currentData.childQuestionInfoList.find(ele=>ele.id==currentData.childId).studentHomeworkAnswerInfo===null){
                     this.setState({
                         correctFinish:3
-                    }) 
+                    })
                 }else{
                     //判断当前题时对，错，半对给右侧批改相应高亮状态
                     if(currentData.childQuestionInfoList.find(ele=>ele.id==currentData.childId).studentHomeworkAnswerInfo.reviewResult==0){
@@ -1189,9 +1192,9 @@ class CorrectHomework extends React.Component {
                         this.setState({
                             correctFinish:2
                         })
-                    }  
+                    }
                 }
-                      
+
                 //url转成base64
                 let doubleViewQuestion=currentData.childQuestionInfoList.find(ele=>ele.id==currentData.childId),
                     answerDetail=doubleViewQuestion.studentHomeworkAnswerInfo.reviewFlag!==null&&doubleViewQuestion.studentHomeworkAnswerInfo.reviewFlag!=='' ? doubleViewQuestion.studentHomeworkAnswerInfo.reviewFlag.split(',') : doubleViewQuestion.studentHomeworkAnswerInfo.answer.split(','),
@@ -1205,7 +1208,7 @@ class CorrectHomework extends React.Component {
                                 })
                             }).catch((ex)=>{
                                 console.log("暂无数据 "+ex.message)
-                            }) 
+                            })
                         }
                     }else{
                         this.setState({
@@ -1227,7 +1230,7 @@ class CorrectHomework extends React.Component {
                 if(currentData.studentHomeworkAnswerInfo===null){
                     this.setState({
                         correctFinish:3
-                    }) 
+                    })
                 }else{
                     //判断当前题时对，错，半对给右侧批改相应高亮状态
                     if(currentData.studentHomeworkAnswerInfo.reviewResult==0){
@@ -1256,16 +1259,16 @@ class CorrectHomework extends React.Component {
                             })
                         }).catch((ex)=>{
                             console.log("暂无数据 "+ex.message)
-                        }) 
+                        })
                     }
-                   
+
                 }else{
                     this.setState({
                         answerDetail:[]
                     })
                 }
             }
-            
+
         }/*else{
             this.setState({
                 isAllowCorrect:true
@@ -1300,7 +1303,7 @@ class CorrectHomework extends React.Component {
                     }else if(thisType == 'arrow'){
                         current=$('.hw-yj-middle-btnmore-bjianico');
                     }else if(thisType == 'remark'){
-                         current=$('.hw-yj-middle-btnmore-remark');   
+                         current=$('.hw-yj-middle-btnmore-remark');
                     }
                     current.addClass('active').parent().siblings().find('span').removeClass('active');
                     $('#hw-yj-model-mask').hide();//蒙版隐藏
@@ -1314,7 +1317,7 @@ class CorrectHomework extends React.Component {
     iconDrag(ev){
         ev.nativeEvent.stopPropagation();
         ev.nativeEvent.preventDefault();
-        ev.nativeEvent.stopImmediatePropagation();              
+        ev.nativeEvent.stopImmediatePropagation();
         var targett = ev.target || ev.srcElement,
             subtopicid = $('.hw-yj-mark-topicactive').attr('data-subtopicid');
             markNum = $('.hw-yj-img-icon').find('.span_mark').length;
@@ -1371,7 +1374,7 @@ class CorrectHomework extends React.Component {
        }
 
     }
-   
+
 }
 
 export default CorrectHomework

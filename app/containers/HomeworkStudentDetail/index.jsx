@@ -1,3 +1,6 @@
+/**
+ * 学生详情
+ */
 import React from 'react'
 import PureRenderMixin from 'react-addons-pure-render-mixin'
 import { Link, hashHistory } from 'react-router'
@@ -34,7 +37,7 @@ class HomeStuDetail extends React.Component {
             loadingShow:'block',//加载图标
             flag:false,
             allObjective:true,
-            currentPage:1 
+            currentPage:1
         }
     }
     componentWillMount(){
@@ -95,7 +98,7 @@ class HomeStuDetail extends React.Component {
                                 })
                             }
                         })
-                        
+
                         this.setState({
                             topicList:topicListData,
                             topicListLen:data.data.pageable.totalSize/5,
@@ -175,7 +178,7 @@ class HomeStuDetail extends React.Component {
                 <p className='common-sec-title' style={{marginBottom:'16px'}}><span className='sec-title-line'></span><span>答案统计</span></p>
                 <div className="answer-statistics">
                     <div className="info-sec">
-                        <div> 
+                        <div>
                             <img src={JSON.stringify(this.state.topicList) != '{}'&&!!studentHomeworkInfo&&!!studentHomeworkInfo.studentAvatarUrl ? studentHomeworkInfo.studentAvatarUrl : defaultAvatar} alt="" className="head-portrait"/>
                             <p className="stu-answer-info">
                                 <b style={{display:'block',height:'22px','marginBottom':'4px'}}>{JSON.stringify(this.state.topicList)!='{}'&&!!studentHomeworkInfo&&!!studentHomeworkInfo.studentName ? studentHomeworkInfo.studentName : '欧拉学生'}</b>
@@ -188,10 +191,10 @@ class HomeStuDetail extends React.Component {
                                                        批改
                                                     </Button> : ''
                     }
-                    
+
                     <div className="process-box  info-sec-left">
                         <Progress strokeColor='rgba(45, 187, 85, 1)' strokeWidth={6} className="process-circle" type="circle" percent={JSON.stringify(this.state.topicList) != '{}'&&!!studentHomeworkInfo&&!!studentHomeworkInfo.reviewAccuracy ? studentHomeworkInfo.reviewAccuracy : 0} width={48} status="active"/>
-                        <span className="detail-btn">正确率</span>  
+                        <span className="detail-btn">正确率</span>
                     </div>
                 </div>
                 <p className='common-sec-title' style={{marginBottom:'16px'}}><span className='sec-title-line'></span><span>作业信息</span></p>
@@ -249,7 +252,7 @@ class HomeStuDetail extends React.Component {
                                     correctLogo=wrongLogoSel;
                                     correctText="错"
                                 }
-                                
+
                             }else if(item.canAnswer==0){//主观题
                                 isShow=false;
                             }
@@ -315,7 +318,7 @@ class HomeStuDetail extends React.Component {
                                                     }
                                                 </div>
                                                 </div>
-                                                
+
                                             </div>
                                             <h1 className="topic-sec-head">
                                                 <p className="show-parse" data-check={index} data-showType={item.isShow} data-child={false}  onClick={this.showParse.bind(this)}>
@@ -371,13 +374,13 @@ class HomeStuDetail extends React.Component {
                                                 }
                                             </div>
                                         </div>
-                                    </div> : <div className="topic-sec" style={{border:'0px',padding:'0px'}}>                                       
+                                    </div> : <div className="topic-sec" style={{border:'0px',padding:'0px'}}>
                                                 <div className="topic-sec-cont" style={{padding: '8px 16px 0px 16px',marginBottom:'16px',border:'1px solid #dfe2e5',backgroundColor:'rgba(246, 248, 250, 1)'}}>
                                                     <div className="option-cont">
                                                         <h1 className='cont-title'><span>{item.topicIndex}丶</span><span className="topic-type">({item.category})</span><span dangerouslySetInnerHTML={{ __html: item.title }}></span></h1>
                                                     </div>
                                                 </div>
-                                                {                                                                                        
+                                                {
                                                     item.childQuestionInfoList.map((childItem,childIndex)=>{
                                                         let childCorrectText='',
                                                             correctLogo='',
@@ -461,7 +464,7 @@ class HomeStuDetail extends React.Component {
                                                                                     }
                                                                                 </div>
                                                                             </div>
-                                                                            
+
                                                                         </div>
                                                                         <h1 className="topic-sec-head">
                                                                             <p className="show-parse"  data-showType={childItem.isShow}  data-fatherCheck={index} data-check={childIndex} data-child={true} onClick={this.showParse.bind(this)}>
@@ -522,7 +525,7 @@ class HomeStuDetail extends React.Component {
                                                     }
                                               </div>
                                 }
-                                </div> 
+                                </div>
                     })  : <div style={{'font-size':'16px','text-align':'center','margin':'300px auto',"display":this.state.loadingShow=='block' ? 'none' : 'block'}}><Icon type="exclamation-circle" style={{marginRight:'5px',color:'rgba(255, 159, 0, 1)'}}/>暂无数据~</div>
                 }
                 </div>
@@ -545,8 +548,8 @@ class HomeStuDetail extends React.Component {
                             mode="multiple"
                             placeholder="请选择习题集"
                             key={this.state.defaultCollectProblemData.length.toString()}
-                            defaultValue={this.state.defaultCollectProblemData} 
-                            style={{ width: '244px' ,marginTop:'-10px'}} 
+                            defaultValue={this.state.defaultCollectProblemData}
+                            style={{ width: '244px' ,marginTop:'-10px'}}
                             onChange={this.collectSel.bind(this)}>
                             {
                                 this.state.collectList.map((item,index)=>{
@@ -556,20 +559,20 @@ class HomeStuDetail extends React.Component {
                         </Select>
                     </Col>
                   </Row>
-                  <Row gutter={8} style={{marginTop:'20px'}}> 
+                  <Row gutter={8} style={{marginTop:'20px'}}>
                     <Col span={16} offset={2}>
                         <span style={{color: 'rgba(45, 187, 85, 1)',fontSize: '14px',cursor:'pointer'}} onClick={this.addColletBtn.bind(this)}>+添加习题集</span>
                     </Col>
                   </Row>
                   {
-                    this.state.isAddcollectShow==true ? <Row gutter={8} style={{marginTop:'20px'}}> 
+                    this.state.isAddcollectShow==true ? <Row gutter={8} style={{marginTop:'20px'}}>
                                                             <Col span={5} offset={2}>
                                                                 <span>题集名称</span>
                                                             </Col>
                                                         </Row> : ''
                   }
                   {
-                    this.state.isAddcollectShow==true ? <Row gutter={8} style={{marginTop:'20px'}}> 
+                    this.state.isAddcollectShow==true ? <Row gutter={8} style={{marginTop:'20px'}}>
                                                             <Col span={16} offset={2}>
                                                                 <Input placeholder="请输入习题集名称" onChange={this.collectInput.bind(this)}/>
                                                             </Col>
@@ -586,7 +589,7 @@ class HomeStuDetail extends React.Component {
     }
     //试题报告 学生报告
     callback(e){
-        
+
     }
 
     //查看解析
@@ -614,7 +617,7 @@ class HomeStuDetail extends React.Component {
                     this.setState({topicList:topicLists,flag:!this.state.flag});
                 }
             }
-            
+
     }
     paginationSel(page){
         console.log(page)
@@ -646,7 +649,7 @@ class HomeStuDetail extends React.Component {
                                         defaultCollectProblemData.push(collectList[i].name);
                                         collectProblemDataStr+=collectList[i].id+',';
                                         collectProblemDataStr=collectProblemDataStr.substring(0,collectProblemDataStr.length-1);
-                                        
+
                                     }
                                 }
                                 console.log("默认",defaultCollectProblemData)
@@ -656,7 +659,7 @@ class HomeStuDetail extends React.Component {
                                     collectList:collectList,
                                     flag:!this.state.flag
                                 })
-                    }    
+                    }
                 }).catch(ex => {
                     // 发生错误
                     if (__DEV__) {
@@ -687,7 +690,7 @@ class HomeStuDetail extends React.Component {
                         valueId.push(collectList[i].id)
                    }
               }
-              
+
           }
           this.setState({
             collectProblemData:valueId.toString()
@@ -723,7 +726,7 @@ class HomeStuDetail extends React.Component {
                             this.setState({
                                 isAddcollectShow:false
                             })
-                    }    
+                    }
                 }).catch(ex => {
                     // 发生错误
                     if (__DEV__) {
@@ -763,7 +766,7 @@ class HomeStuDetail extends React.Component {
                                     flag:!this.state.flag
                                 })
 
-                        }    
+                        }
                     }).catch(ex => {
                         // 发生错误
                         if (__DEV__) {

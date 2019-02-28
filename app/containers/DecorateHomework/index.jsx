@@ -1,3 +1,6 @@
+/**
+ * 布置作业
+ */
 import React from 'react'
 import PureRenderMixin from 'react-addons-pure-render-mixin'
 import { Link, hashHistory } from 'react-router'
@@ -20,7 +23,7 @@ const teacherInfo=JSON.parse(localStorage.getItem("teacherInfo"));//教师信息
 window.noticeDecorateQuestionIds='';//用作通知header组件离开当前页面保存草稿参数用
 window.catalogIds='';//全局章节
 window.catalogNames='';//全局章节名称
-class Home extends React.Component {
+class DecorateHomework extends React.Component {
     constructor(props, context) {
         super(props, context);
         this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
@@ -82,7 +85,7 @@ class Home extends React.Component {
                     flag:!this.state.flag,
                     selNum:window.noticeDecorateQuestionIds!=''?window.noticeDecorateQuestionIds.split(',').length:0
                 })
-            }  
+            }
             //获取草稿信息
       /*      const resultGetDraftDetail = getDraftDetail(loginToken,draftId)
                 resultGetDraftDetail.then(res => {
@@ -138,7 +141,7 @@ class Home extends React.Component {
                                 this.setState({
                                     paperSearchData:data.data,
                                 })
-                        } 
+                        }
                     }).catch(ex =>{
                         // 发生错误
                         if (__DEV__) {
@@ -156,7 +159,7 @@ class Home extends React.Component {
                 this.setState({
                     flag:!this.state.flag,
                 })
-                
+
             }else{//查看已选过来-改变flag，使list列表走componentWillReceiveProps生命周期调取接口
                 //获取默认草稿
                 const resultDefaultDraft=getDefaultDraft(loginToken);
@@ -170,14 +173,14 @@ class Home extends React.Component {
                                 this.setState({
                                     draftId:draftId
                                 })
-                        } 
+                        }
                       }).catch(ex =>{
                         // 发生错误
                         if (__DEV__) {
                             console.error('暂无数据, ', ex.message)
                         }
-                      }) 
-                //凡是不是从查看已选-继续添加过来需要记录题目和章节-就让他每次置空      
+                      })
+                //凡是不是从查看已选-继续添加过来需要记录题目和章节-就让他每次置空
 /*                window.noticeDecorateQuestionIds='';
                 window.catalogIds='';*/
             }
@@ -199,14 +202,14 @@ class Home extends React.Component {
                                 coachbookInfoList:coachbookInfoList,
                                 coachbookList:coachbookInfoList[0].list
                             })
-                            
+
                    }
                }).catch(ex => {
                    // 发生错误
                    if (__DEV__) {
                        console.error('暂无数据, ', ex.message)
                    }
-               })  
+               })
     }
     render() {
         console.log('试卷筛选',this.state.coachbookInfoList,this.state.coachbookInfoList)
@@ -295,7 +298,7 @@ class Home extends React.Component {
                                                                             <img src={item.coverUrl} alt=""/>
                                                                             <span className='coach-name' title={item.name}>{item.name}</span>
                                                                         </li>
-                                                                    }) 
+                                                                    })
                                                                 }
                                                             </ul>
                                                             {
@@ -303,15 +306,15 @@ class Home extends React.Component {
                                                             }
                                                         </div> : <div style={{'fontSize':'16px','textAlign':'center','margin':'60px auto 0',"display":this.state.coachLoadingShow=='block' ? 'none' : 'block'}}><Icon type="exclamation-circle" style={{marginRight:'5px',color:'rgba(255, 159, 0, 1)'}}/>暂无配套教辅~</div>
                                                     }
-                                                    
+
                                                 </div> : ''
                     }
                     <div className='filter-conditions'>
                         <div className="filter-conditions-left">
-                            <TreeList 
-                                ref={(treeControl) => {this.treeControl=treeControl}} 
-                                type={this.state.type} 
-                                noticeTree={this.noticeTree.bind(this)} 
+                            <TreeList
+                                ref={(treeControl) => {this.treeControl=treeControl}}
+                                type={this.state.type}
+                                noticeTree={this.noticeTree.bind(this)}
                                 noticeTreeSel={this.noticeTreeSel.bind(this)}
                                 noticeCoachbookData={this.noticeCoachbookData.bind(this)}
                                 />
@@ -373,30 +376,30 @@ class Home extends React.Component {
                                         </div>
                                     </div> : ''
                             }
-                            
-                            <DecorateList  
-                                ref={(decorateListTag) => { this.decorateList = decorateListTag;}} 
-                                flag={this.state.flag} 
-                                parentType={this.state.parentType} 
-                                draftId={this.state.draftId} 
-                                filterData={this.state.filterData}  
-                                noticeDecorateQuestionIds={window.noticeDecorateQuestionIds} 
+
+                            <DecorateList
+                                ref={(decorateListTag) => { this.decorateList = decorateListTag;}}
+                                flag={this.state.flag}
+                                parentType={this.state.parentType}
+                                draftId={this.state.draftId}
+                                filterData={this.state.filterData}
+                                noticeDecorateQuestionIds={window.noticeDecorateQuestionIds}
                                 viewSel={this.viewSel.bind(this)}
                                 />
                         </div>
                     </div>
-                </div> : <ProjectList 
-                            flag={!this.state.flag} 
-                            catalogId={this.state.filterData.catalogId} 
-                            projectType={this.state.projectType} 
-                            returnInfo={this.returnInfo.bind(this)} 
-                            specialInfoList={this.state.specialInfoList} 
+                </div> : <ProjectList
+                            flag={!this.state.flag}
+                            catalogId={this.state.filterData.catalogId}
+                            projectType={this.state.projectType}
+                            returnInfo={this.returnInfo.bind(this)}
+                            specialInfoList={this.state.specialInfoList}
                             viewSel={this.viewSel.bind(this)}>
                             </ProjectList>
             }
                 <div className="viewSelected" onClick={this.jumpViewSel.bind(this)}>
                         <div className='auto-box'>
-                            <p>已选试题</p>  
+                            <p>已选试题</p>
                             <b ref={(refNum)=>{this.refNum=refNum}}>{this.state.selNum}</b>
                         </div>
                 </div>
@@ -481,7 +484,7 @@ class Home extends React.Component {
         if(type==1){//教材同步
             if(this.decorateList){
                /* if(this.props.params.draftId==0){//当从查看选过来的就不让重置第一个教材点-以免冲突
-                   
+
                 }*/
                 this.decorateList.getDecorateParameter(id,'','','','',0);
                 this.setState({
@@ -665,13 +668,13 @@ class Home extends React.Component {
         if(Number(this.refNum.innerText)>0){
             let fromwhere=this.props.params.fromwhere;//0 布置过来的 1 布置-查看已选-布置过来的 2 草稿-查看已选-布置过来的 3 测验-查看已选-布置过来的 4 再次编辑-查看已选-布置过来的
             if(fromwhere==0||fromwhere==1){
-                hashHistory.push("/decorate-selected/"+this.state.draftId+'/0'+'/0'+'/1'); 
+                hashHistory.push("/decorate-selected/"+this.state.draftId+'/0'+'/0'+'/1');
             }else if(fromwhere==2){
-                hashHistory.push("/decorate-selected/"+this.state.draftId+'/0'+'/0'+'/2'); 
+                hashHistory.push("/decorate-selected/"+this.state.draftId+'/0'+'/0'+'/2');
             }else if(fromwhere==3){
                 hashHistory.push('/exercise-selected/'+'0'+'/'+this.state.draftId+'/3')
             }else if(fromwhere==4){
-                hashHistory.push("/decorate-selected/"+this.state.draftId+'/0'+'/0'+'/4'); 
+                hashHistory.push("/decorate-selected/"+this.state.draftId+'/0'+'/0'+'/4');
             }
        /*   const resultUpdateQuestion=saveDefault(loginToken,this.state.draftId,window.noticeDecorateQuestionIds,this.state.selNum);
                   resultUpdateQuestion.then(res=>{
@@ -680,21 +683,21 @@ class Home extends React.Component {
                     // 处理获取的数据
                     const data = json
                     if (data.result) {
-                       
-                    } 
+
+                    }
                   }).catch(ex =>{
                     // 发生错误
                     if (__DEV__) {
                         console.error('暂无数据, ', ex.message)
                     }
                   }) */
-            
+
         }else{
             message.warning('请选择题目');
         }
         //重置-点击查看进去重置题目数未0，不做是否判断让不让切换menu
         //this.props.noticeDecorate.bind(this,0,this.state.noticeDecorateQuestionIds.substring(0,this.state.noticeDecorateQuestionIds.length-1),draftId)()
-        
+
     }
     //查看已选-题目列表勾选通知方法
     viewSel(isShow,questionId){
@@ -727,7 +730,7 @@ class Home extends React.Component {
                     }
                     //通知主组件当前是否至少有一道题-如果是，离开提示
                     this.props.noticeDecorate.bind(this,window.noticeDecorateQuestionIds=='' ? 0 : window.noticeDecorateQuestionIds.split(',').length,window.noticeDecorateQuestionIds,window.catalogIds,draftId)()
-             
+
             }else{//删除题目
                 let newQuestionIds=window.noticeDecorateQuestionIds,//全局所选题目
                     newCatalogIds=window.catalogIds.split(','),//全局所选章节
@@ -819,11 +822,11 @@ class Home extends React.Component {
     //配套教辅无缝滚动
     coachbookLeft(){
         //配套教辅无缝滚动-向左
-        this.move.bind(this,130)(); 
+        this.move.bind(this,130)();
     }
     coachbookRight(){
         //配套教辅无缝滚动-向右
-        this.move.bind(this,-130)(); 
+        this.move.bind(this,-130)();
     }
     move(speed) {
         var oDiv = document.getElementById("coachbook-pic");
@@ -839,7 +842,7 @@ class Home extends React.Component {
             if(oUl.offsetLeft!=0){
                oUl.style.left = oUl.offsetLeft + speed + "px";
             }
-           
+
         }
     }
     //版本选择
@@ -850,7 +853,7 @@ class Home extends React.Component {
             siblingsNode=[...e.currentTarget.parentNode.children].filter((child)=>child!==e.currentTarget);
             //教辅版本选中效果
             currenNode.classList.add('versionSel');
-            for (let value of siblingsNode) { 
+            for (let value of siblingsNode) {
                 value.classList.remove('versionSel');
             }
             this.setState({
@@ -882,10 +885,10 @@ class Home extends React.Component {
             this.treeControl.getCoachbookData(stageId,subjectId,extParam,versionIndex,dataIndex);
             //教辅选中效果
             currenNode.classList.add('sel-coachbook');
-            for (let value of siblingsNode) { 
+            for (let value of siblingsNode) {
                 value.classList.remove('sel-coachbook');
             }
-          
+
     }
 }
 
@@ -903,4 +906,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(Home)
+)(DecorateHomework)

@@ -1,3 +1,6 @@
+/**
+ * 作业详情
+ */
 import React from 'react'
 import PureRenderMixin from 'react-addons-pure-render-mixin'
 import { Link, hashHistory } from 'react-router'
@@ -100,7 +103,7 @@ class HomeDetail extends React.Component {
                                 homeworkQuestionInfoList:homeworkQuestionInfoListArr,
                                 loadingShow:'none'
                             })
-                           
+
                     }
                 }).catch(ex => {
                     // 发生错误
@@ -121,7 +124,7 @@ class HomeDetail extends React.Component {
                         let studentHomeworkInfoList=data.data.studentInfoList==null||'' ? [] : data.data.studentInfoList;
                             this.setState({
                                 studentHomeworkInfoList:studentHomeworkInfoList
-                            })  
+                            })
                     }
                 }).catch(ex => {
                     // 发生错误
@@ -195,15 +198,15 @@ class HomeDetail extends React.Component {
                                     <div className="mark-box correcting-mark-box">
                                         <a href="javascript:;" className="report-detail-btn"><Link to={'/homework-edit-again/'+this.props.params.homeworkId+'/'+homeworkListData.draftId+'/'+this.props.params.type+'/0'+'/'+classId}>查看作业</Link></a>
                                         <a href="javascript:;" className="report-detail-btn"><Link to={'/homework-statistical/'+this.props.params.homeworkId+'/'+this.props.params.type+'/0'}>作业报告</Link></a>
-                                    </div>    
-                            </div>  
+                                    </div>
+                            </div>
                         </div>
                         <div className="topic-stu-report">
                             <Tabs defaultActiveKey="1" onChange={this.callback.bind(this)}>
                                 <TabPane tab="按试题批改" key="1">
                                     {
                                         homeworkQuestionInfoList.length>0 ? homeworkQuestionInfoList.map((item,index)=>{
-                                           
+
                                             if(item.canAnswer==0){//不可作答
                                                 let processClass="",
                                                     logoIdentify='',
@@ -256,7 +259,7 @@ class HomeDetail extends React.Component {
                                                                     {
                                                                         /*item.state==1 ?  <Progress strokeColor='rgba(45, 187, 85, 1)'strokeWidth={6} className={processClass} type="circle" percent={item.accuracy} width={60} status="active"/> : <Progress strokeColor='rgba(45, 187, 85, 1)' strokeWidth={6} className='marked-correct-process-circle' type="circle" width={60} format={() => '待批改'}/> */
                                                                     }
-                                                                    
+
                                                                     {
                                                                         /*item.committedCount===0||(item.committedCount!==0&&item.state===1) ? <span className="detail-btn"><Link to={"/homework-topic-detail/"+this.props.params.homeworkId+"/"+item.id}>详情</Link></span> : <span className="correct-num"><span style={{"marginRight":"8px",color:'#999'}}>已批改</span><span className="already-submit">{item.checkedCount}</span>/<span>{homeworkListData.committedCount}</span></span> */
                                                                     }
@@ -279,7 +282,7 @@ class HomeDetail extends React.Component {
                                                                     {
                                                                         /*item.state==1 ?  <Progress strokeColor='rgba(45, 187, 85, 1)'strokeWidth={6} className={processClass} type="circle" percent={item.accuracy} width={60} status="active"/> : <Progress strokeColor='rgba(45, 187, 85, 1)' strokeWidth={6} className='marked-correct-process-circle' type="circle" width={60} format={() => '待批改'}/> */
                                                                     }
-                                                                    
+
                                                                     {
                                                                         /*item.committedCount===0||(item.committedCount!==0&&item.state===1) ? <span className="detail-btn"><Link to={"/homework-topic-detail/"+this.props.params.homeworkId+"/"+item.id}>详情</Link></span> : <span className="correct-num"><span style={{"marginRight":"8px",color:'#999'}}>已批改</span><span className="already-submit">{item.checkedCount}</span>/<span>{homeworkListData.committedCount}</span></span> */
                                                                     }
@@ -288,9 +291,9 @@ class HomeDetail extends React.Component {
                                                                     }
                                                                 </div>
                                                             }
-                                                            
-                                                            
-                                                            
+
+
+
                                                         </div>
                                             }else if(item.canAnswer==1){//可作答
                                                 let processNub=item.accuracy+'%',
@@ -318,7 +321,7 @@ class HomeDetail extends React.Component {
                                             }
                                         }) : <div style={{'font-size':'16px','text-align':'center','margin':'300px auto',"display":this.state.loadingShow=='block' ? 'none' : 'block'}}><Icon type="exclamation-circle" style={{marginRight:'5px',color:'rgba(255, 159, 0, 1)'}}/>暂无数据~</div>
                                     }
-                                    
+
                                 </TabPane>
                                 <TabPane tab="按学生批改" key="2">
                                 {
@@ -358,7 +361,7 @@ class HomeDetail extends React.Component {
                                                 processPercent=0;
                                                 processClass='nosubmit-process-circle';
                                             }
-                                            
+
                                         return <div className="stu-info" key={index} style={{color:(!!item.studentHomworkInfo&&item.studentHomworkInfo.state<2)||item.studentHomworkInfo==null ? 'rgba(153, 153, 153, 1)' : ''}}>
                                                     {/*<span className={logoIdentify}></span>*/}
                                                     <div className="process-box  info-sec-left">
@@ -369,10 +372,10 @@ class HomeDetail extends React.Component {
                                                         {
                                                             !!item.studentHomworkInfo&&item.studentHomworkInfo.reviewState==1 ? '正确率' : ''
                                                         }
-                                                        </span>  
+                                                        </span>
                                                     </div>
                                                     <div className="info-sec-right">
-                                                        <div style={{content:'',clear:'both',display:'table'}}> 
+                                                        <div style={{content:'',clear:'both',display:'table'}}>
                                                             <img src={item.avatarUrl==null||'' ? defaultAvatar : item.avatarUrl} alt="" className="head-portrait"/>
                                                             <p className="name-time">
                                                                 <a style={{color:'rgba(51, 51, 51, 1)'}}>{item.nickname==null||'' ? '欧拉学生' :  item.nickname}</a>
@@ -388,7 +391,7 @@ class HomeDetail extends React.Component {
                                                             }
                                                             </Button>
                                                              {
-                                                                (!!item.studentHomworkInfo&&item.studentHomworkInfo.reviewState===0&&item.studentHomworkInfo.state<2)||item.studentHomworkInfo==null ? '' : <span className="detail-btn"><Link style={{color:!!item.studentHomworkInfo&&item.studentHomworkInfo.reviewState==1 ? 'rgba(39, 188, 83, 1)' : 'rgba(255, 133, 72, 1)'}} to={"/homework-student-detail/"+this.props.params.homeworkId+"/"+item.id+'/'+this.props.params.type+'/'+classId}>详情</Link></span> 
+                                                                (!!item.studentHomworkInfo&&item.studentHomworkInfo.reviewState===0&&item.studentHomworkInfo.state<2)||item.studentHomworkInfo==null ? '' : <span className="detail-btn"><Link style={{color:!!item.studentHomworkInfo&&item.studentHomworkInfo.reviewState==1 ? 'rgba(39, 188, 83, 1)' : 'rgba(255, 133, 72, 1)'}} to={"/homework-student-detail/"+this.props.params.homeworkId+"/"+item.id+'/'+this.props.params.type+'/'+classId}>详情</Link></span>
                                                              }
                                                         </div>
                                                     </div>
@@ -420,7 +423,7 @@ class HomeDetail extends React.Component {
                         </div>
                     </div>
                 }
-                
+
             </div>
         )
     }
@@ -429,7 +432,7 @@ class HomeDetail extends React.Component {
     }*/
     //试题报告 学生报告
     callback(e){
-        
+
     }
     //跳转批改
     jumpCorrect(e){

@@ -1,3 +1,6 @@
+/**
+ * 课后作业 - 再次编辑
+ */
 import React from 'react'
 import PureRenderMixin from 'react-addons-pure-render-mixin'
 import { Link, hashHistory } from 'react-router'
@@ -62,7 +65,7 @@ class EditAgain extends React.Component {
                             },()=>{
                                 window.MathJax.Hub.Queue(["Typeset",window.MathJax.Hub,"output"]);
                             });
-                       
+
                     }
                 }).catch(ex => {
                     // 发生错误
@@ -119,7 +122,7 @@ class EditAgain extends React.Component {
                                       <Breadcrumb.Item >再次编辑</Breadcrumb.Item>
                                   </Breadcrumb>
                 }
-                
+
             }
         return (
             <div className='edit-again'>
@@ -132,7 +135,7 @@ class EditAgain extends React.Component {
                     <Button className="edit-again-btn" onClick={this.editAgain.bind(this)}>再次编辑</Button>
                 </div>
                 <div id="decorate-list" className="clear-fix">
-                    <div style={{"display":this.state.loadingShow}}> 
+                    <div style={{"display":this.state.loadingShow}}>
                         <Spin size="large" style={{"fontSize":"30px","display":'block','margin':'300px auto'}}/>
                     </div>
                     {
@@ -161,7 +164,7 @@ class EditAgain extends React.Component {
                                                                     {
                                                                         degreeData ='难';
                                                                     }
-                                                                    
+
                                                                 return  <div key={index} className="topic-sec">
                                                                             <div className="topic-sec-cont">
                                                                                 <div className="option-cont">
@@ -190,8 +193,8 @@ class EditAgain extends React.Component {
                                                                                                 }
                                                                                             </p> : ''
                                                                                         }
-                                                                                     </div> 
-                                                                                    
+                                                                                     </div>
+
                                                                                 </div>
                                                                                 <h1 className="topic-sec-head">
                                                                                     <p className="show-parse" data-check={index} data-showType={item.isShow} onClick={this.showParse.bind(this)}>
@@ -307,7 +310,7 @@ class EditAgain extends React.Component {
             pageSize=5;//一页数据数
             this.getDefaultQuestionList.bind(this,loginToken,draftId,pageNumber,pageSize)();
     }
-    
+
 }
 
 export default EditAgain

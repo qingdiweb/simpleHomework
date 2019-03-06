@@ -392,10 +392,10 @@ class PublishModal extends React.Component {
               }
               {/*错误提示*/}
               <p className="error-text" style={{"display":this.state.catalogErrorShow}}><Icon type="close-circle-o" style={{color:'rgba(247, 79, 44, 1)'}} /><span>章节不能为空</span></p>
-              <p className="publish-info">
+              <div className="publish-info">
                 <span className="publish-title">练习名称</span>
                 <span className="editInfo"><Input defaultValue={window.catalogNames=='' ? undefined : window.catalogNames.split(',').pop()} onChange={this.exerciseNameHandle.bind(this)}  placeholder="请输入2-16个字"/></span>
-              </p>
+              </div>
               {/*错误提示*/}
               <span className="error-text" style={{"display":this.state.exerciseNameErrorShow}}><Icon type="close-circle-o" style={{color:'rgba(247, 79, 44, 1)'}} /><span>{this.state.exerciseNameError}</span></span>
               <div className="publish-info" style={{position:'relative'}}>
@@ -429,10 +429,10 @@ class PublishModal extends React.Component {
               onOk={this.handleOk.bind(this)}
               onCancel={this.handleCancel.bind(this)}
             >
-              <p className="publish-info">
+              <div className="publish-info">
                 <span className="publish-title">作业名称</span>
                 <span className="editInfo"><Input onChange={this.homeworkNameHandle.bind(this)}  placeholder="请输入2-16个字"/></span>
-              </p>
+              </div>
               {/*错误提示*/}
               <span className="error-text" style={{"display":this.state.homeworkNameErrorShow}}><Icon type="close-circle-o" style={{color:'rgba(247, 79, 44, 1)'}} /><span>{this.state.homeworkNameError}</span></span>
               <div className="publish-info" style={{position:'relative'}}>

@@ -95,13 +95,15 @@ class DecorateListSel extends React.Component {
                     </Breadcrumb> : ''
                 }
               </h1>
-              <div className="header-search clear-fix">
-                    <Dropdown overlay={menu}>
-                      <Button className="search-btn" type="primary">发布</Button>
-                    </Dropdown>
+                <div className="header-search clear-fix">
+                    {/*<Dropdown overlay={menu}>*/}
+                    {/*<Button className="search-btn" type="primary">发布</Button>*/}
+                    {/*</Dropdown>*/}
+                    <Button className="search-btn"  type="primary" onClick={this.publishHomework.bind(this)}>发送</Button>
                     <Button className="search-btn" onClick={this.saveDraft.bind(this)}>保存草稿</Button>
-                    <Button className="search-btn add-btn"><Link to={"/decorate-homework/"+this.props.params.draftId+'/'+this.props.params.isSelected}>继续添加</Link></Button>
-              </div>
+                    <Button className="search-btn add-btn"><Link
+                        to={"/decorate-homework/" + this.props.params.draftId + '/' + this.props.params.isSelected}>继续添加</Link></Button>
+                </div>
               <div className="homework-list">
                   <div className="preview-export">
                       <div className="total-num">
@@ -303,17 +305,17 @@ class DecorateListSel extends React.Component {
     }
     //发布作业
     publishHomework(e){
-      //若当前无已选题目-则提示
-      if(this.state.noticeTopicNumDataLen==0){
-         this.setState({
-            noticeVisible:true
-         })
-      }else{
-        this.setState({
-            pusblishVisible:true,
-            publishType:e.key
-        })
-      }
+        //若当前无已选题目-则提示
+        if(this.state.noticeTopicNumDataLen==0){
+            this.setState({
+                noticeVisible:true
+            })
+        }else{
+            this.setState({
+                pusblishVisible:true,
+                publishType:0
+            })
+        }
     }
     //发布之后通知父组件
     noticeHomework(data,isRefresh){

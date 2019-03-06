@@ -121,9 +121,9 @@ class HomeworkList extends React.Component {
                                                 </div>
                                                 <div className="mark-box pulishing-mark-box">
                                                     <p className="pulishDate"><span>{item.newCreateAt}</span></p>
-                                                    <Dropdown overlay={menu(item.id,item.currentCatalogIds,item.currentQuestionIds)}>
-                                                      <Button className="correcting-btn" type="primary" style={{'display':item.isNeedCorrect}}>发布</Button>
-                                                    </Dropdown>
+                                                    <Button className="correcting-btn" type="primary" style={{'display':item.isNeedCorrect}} onClick={this.publishHomework.bind(this,item.id,item.currentCatalogIds,item.currentQuestionIds)}>发送</Button>
+                                                    {/*<Dropdown overlay={menu(item.id,item.currentCatalogIds,item.currentQuestionIds)}>*/}
+                                                    {/*</Dropdown>*/}
                                                 </div>
                                                 <div className="mark-box detail-del">
                                                     <a href="javascript:;" className="detail-btn" id={item.id} data-currentid={item.currentQuestionIds} data-currentcatalogIds={item.currentCatalogIds} onClick={this.draftEdit.bind(this)}>编辑</a>
@@ -200,7 +200,7 @@ class HomeworkList extends React.Component {
             homeworkId:id,
             currentCatalogIds:catalogIds,
             currentQuestionIds:questionIds,
-            publishType:e.key,
+            publishType:0,
             flag:!this.state.flag
         })
 

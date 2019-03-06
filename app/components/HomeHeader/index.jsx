@@ -84,9 +84,9 @@ class HomeHeader extends React.Component {
                         <Menu.Item key="6">
                             课堂作业
                         </Menu.Item>
-                        <Menu.Item key="0">
-                            课后作业
-                        </Menu.Item>
+                        {/*<Menu.Item key="0">*/}
+                            {/*课后作业*/}
+                        {/*</Menu.Item>*/}
                         <Menu.Item key="1">
                             布置作业
                         </Menu.Item>

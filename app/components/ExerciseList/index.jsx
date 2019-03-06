@@ -54,7 +54,14 @@ class ExerciseList extends React.Component {
                         let content=data.data.content;
                             for (var i = 0; i < content.length; i++) {
                                 let newDateParse=Date.parse(new Date());//当前时间戳
-                                    content[i].newCreatedAt='结束时间:'+' '+Constants.dealTimestamp(content[i].endAt);//创建时间
+                                 if (this.props.referenceType === 0)
+                                 {
+                                     content[i].newCreatedAt='开始时间:'+' '+Constants.dealTimestamp(content[i].createdAt);//创建时间
+                                 }
+                                 else
+                                 {
+                                     content[i].newCreatedAt='结束时间:'+' '+Constants.dealTimestamp(content[i].endAt);//结束时间:
+                                 }
                             }
                            this.setState({
                             exerciseListData:content,

@@ -28,9 +28,9 @@ module.exports = {
             { test: /\.less$/, exclude: /node_modules/, loader: 'style!css!postcss!less' },
             { test: /\.css$/,  loader: 'style!css!postcss' },
             { test:/\.(png|gif|jpg|jpeg|bmp)$/i, loader:'url-loader?limit=5000' },  // 限制大小5kb
-            { test:/\.(woff|woff2|svg|ttf|eot)($|\?)/i, loader:'url-loader?limit=5000'} // 限制大小小于5k
+            { test:/\.(woff|woff2|svg|ttf|eot)($|\?)/i, loader:'url-loader?limit=5000'}, // 限制大小小于5k
             //{ test:/\.css$/,loader:'style-loader!css-loader'}//下面是调用ant-design的配置文件
-
+            { test:/\.xlsx$/, loader:'file-loader'}
         ]
     },
 

@@ -11,8 +11,8 @@ import { getTeacherInfo } from '../../fetch/home/home'
 import * as Constants from '../../constants/store'
 
 
-// localStorage.setItem("loginToken",'a315888ff3051032cf94ed8650ce207a');
-//localStorage.setItem("loginToken",'cf83d280904999ce01e8c1cef889789d');
+// localStorage.setItem("loginToken",'a315888ff3051032cf94ed8650ce207a');//梦阳
+// localStorage.setItem("loginToken",'fb015fa69ed3d77717f65f4552a5cf88'); //卓星
 
 const loginToken=localStorage.getItem("loginToken");
 class Home extends React.Component {

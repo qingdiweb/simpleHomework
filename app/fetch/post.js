@@ -15,8 +15,8 @@ function obj2params(obj) {
 }
 // 发送 post 请求
 export function post(url, paramsObj) {
-    var host='https://test.huazilive.com/api/tiku';//测试地址
-    //var host='https://api.huazilive.com/api/tiku';//正式地址
+    var host='https://test.huazilive.com/api/hudong';//测试地址
+    //var host='https://api.huazilive.com/api/hudong';//正式地址
     //var host='https://59.110.6.198/api/tiku';//临时
     var result = fetch(host+url, {
         method: 'POST',

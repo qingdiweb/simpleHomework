@@ -1,0 +1,369 @@
+.class-details{
+
+  .class-info{
+    //height: 36px;
+    margin-top: 4px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    //background-color: #a0a0a0;
+    .class-title{
+      margin-left: 13px;
+      font-size: 16px;
+      font-weight: bold;
+      color: #444444;
+    }
+    .import-excel-btn-bg{
+      margin-right: 4px;
+      display: flex;
+      flex-direction: row;
+      background-color: #2dbb55;
+      align-items: center;
+      justify-content: center;
+      width: 120px;
+      height: 36px;
+      border-radius:4px;
+      cursor: pointer;
+      .import-excel-imag{
+        margin-right: 5px;
+        width: 13px;
+        height: 13px;
+        background: url('../../static/img/impor+.png');
+        background-size:13px 13px;
+      }
+      .import-excel-title{
+        color: #ffffff;
+        font-size: 14px;
+      }
+
+    }
+
+  }
+
+  //2 下载模板
+  .download-template{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .download-template-top{
+      margin-top: 80px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      .template-des{
+        font-size: 16px;
+      }
+      .download-template-btn{
+        margin-left: 6px;
+        height: 36px;
+        width: 100px;
+        background-color:#FF8548;
+        border-color: #FF8548;
+        font-size: 16px;
+      }
+    }
+    .down-template-icon{
+      margin-top: 17px;
+      width: 857px;
+      height: 487px;
+    }
+  }
+  //3 下载模板 loading
+  .download_loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .excel-icon{
+      margin-top: 190px;
+      width: 152px;
+      height: 187px;
+    }
+    .excel-progress{
+      margin-top: 30px;
+      width: 131px;
+      height: 17px;
+
+    }
+    .excel-loading-title{
+      margin-top: 12px;
+      color: #444444;
+      font-size: 16px;
+    }
+
+  }
+  .class-member-normarl{
+    margin-top: 22px;
+    position: relative;
+    //占位
+    .positionFlex{
+      flex: 0.5;
+    }
+    .class-member-header{
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      margin-left: 33px;
+      margin-right: 33px;
+      height: 52px;
+      background-color:#FBFBFB;
+      color: #707477;
+      font-size: 16px;
+      .number{
+        flex: 1;
+        text-align: center;
+      }
+      .name{
+        flex: 2.5;
+        text-align: center;
+      }
+      .sex{
+        flex: 1;
+        text-align: center;
+      }
+      .number-offset{
+        flex: 1;
+        text-align: center;
+      }
+      .name-offset{
+        flex: 2;
+        text-align: center;
+      }
+      .sex-offset{
+        flex: 1;
+        text-align: center;
+      }
+
+    }
+    .class-member-content{
+      height:400px;
+      //height: 90vh;
+      margin-left: 33px;
+      margin-right: 33px;
+      overflow-y:scroll;
+      overflow-x: hidden;
+      //background-color: red;
+      .item-view{
+        margin-right: -12px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        height: 52px;
+        color: #444444;
+        font-size: 16px;
+        .item-number{
+          flex: 1;
+          //background-color: #FF9700;
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          align-items: center;
+          position: relative;
+          .delect{
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            left: 64px;
+            cursor: pointer;
+          }
+
+        }
+        .item-name{
+          flex: 2.5;
+          text-align: center;
+        }
+        .item-sex{
+          flex: 1;
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          align-items: center;
+          //background-color: #FF9700;
+          .sex-img-nan{
+            margin-left: 4px;
+            width: 12.7px;
+            height: 12.7px;
+          }
+          .sex-img-nv{
+            margin-left: 4px;
+            width: 10px;
+            height: 13px;
+          }
+
+        }
+        .item-number-offset{
+          flex: 1;
+          //background-color: #FF9700;
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          align-items: center;
+          position: relative;
+          .delect{
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            left: 64px;
+            cursor: pointer;
+          }
+
+        }
+        .item-name-offset{
+          flex: 2;
+          text-align: center;
+        }
+        .item-sex-offset{
+          flex: 1;
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          align-items: center;
+          //background-color: #FF9700;
+          .sex-img-nan{
+            margin-left: 4px;
+            width: 12.7px;
+            height: 12.7px;
+          }
+          .sex-img-nv{
+            margin-left: 4px;
+            width: 10px;
+            height: 13px;
+          }
+
+        }
+      }
+      .add-a-student-infor{
+        margin-right: -12px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        height: 52px;
+        color: #444444;
+        font-size: 16px;
+        position: relative;
+        .student-number{
+          flex: 1;
+          text-align: center;
+        }
+        .student-name{
+          flex: 2;
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          align-items: center;
+          position: relative;
+          .student-name-input{
+            width: 148px;
+            height: 36px;
+            text-align: center;
+          }
+          .error-text{
+            position: absolute;
+            right: 0px;
+            top: 15px;
+          }
+        }
+        .student-sex{
+          flex: 1;
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          align-items: center;
+          .select-sex{
+            width: 80px;
+            height: 36px;
+            color: #444444;
+            font-size: 16px;
+            .ant-select-selection--single{
+              height: 36px;
+            }
+            .ant-select-selection__rendered
+            {
+              line-height: 32px;
+            }
+            .ant-select-selection-selected-value{
+              margin-left: 12px;
+            }
+          }
+        }
+        .add-student-operation{
+          position: absolute;
+          top: 0px;
+          right: 0px;
+          width: 180px;
+          height: 52px;
+          //background-color: #FF9700;
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          align-items: center;
+          .add-student-cancel-btn{
+            width: 60px;
+            height: 36px;
+            text-align: center;
+            line-height: 36px;
+            cursor: pointer;
+            color: #444444;
+            font-size: 16px;
+          }
+          .add-student-complete-btn{
+            margin-left: 5px;
+            width: 60px;
+            height: 36px;
+            text-align: center;
+            line-height: 36px;
+            cursor: pointer;
+            color: #2DBB55;
+            font-size: 16px;
+          }
+        }
+      }
+    }
+    .class-member-foot{
+      margin-right: 33px;
+      margin-top: 60px;
+      margin-bottom: 90px;
+      display: flex;
+      flex-direction: row-reverse;
+      .add-student{
+        width: 120px;
+        height: 36px;
+        font-size: 16px;
+        margin-left: 20px;
+      }
+      .delect-student{
+        width: 120px;
+        height: 36px;
+        font-size: 16px;
+      }
+
+    }
+
+  }
+
+}
+
+.delect-student-pop{
+  margin-top: 20px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  color: #444444;
+  .delect-student-context{
+    text-align: center;
+    .delect-student-name{
+      color: #2DBB55;
+    }
+
+  }
+  .delect-student-tip{
+    margin-top: 5px;
+    color: #707477;
+    font-size: 15px;
+  }
+
+}
+

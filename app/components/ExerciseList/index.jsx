@@ -26,7 +26,7 @@ class ExerciseList extends React.Component {
             currentPage:1
         }
     }
-    
+
     componentWillReceiveProps(nextProps){
         let classId='',
             catalogId=nextProps.screening.catalogId,
@@ -60,7 +60,7 @@ class ExerciseList extends React.Component {
                                  }
                                  else
                                  {
-                                     content[i].newCreatedAt='结束时间:'+' '+Constants.dealTimestamp(content[i].endAt);//结束时间:
+                                     content[i].newCreatedAt='测验结束时间:'+' '+Constants.dealTimestamp(content[i].endAt);//结束时间:
                                  }
                             }
                            this.setState({
@@ -69,7 +69,7 @@ class ExerciseList extends React.Component {
                             currentPage:pageNumber+1,
                             loadingShow:'none'
                            })
-                           
+
                     }
                 }).catch(ex => {
                     // 发生错误
@@ -82,7 +82,7 @@ class ExerciseList extends React.Component {
         console.log('laoding',this.props.referenceType)
         return (
             <div className="exercise-list">
-                <div style={{"display":this.state.loadingShow}}> 
+                <div style={{"display":this.state.loadingShow}}>
                     <Spin size="large" style={{"fontSize":"30px","display":'block','margin':'300px auto'}}/>
                 </div>
                 {
@@ -112,20 +112,20 @@ class ExerciseList extends React.Component {
                                         </p>
                                     }
                                     </div>
-                            </div>  
-                            
+                            </div>
+
                     }) : this.state.loadingShow=='none'&&<div style={{'fontSize':'16px','textAlign':'center','margin':'300px',"display":this.state.loadingShow=='block' ? 'none' : 'block'}}><Icon type="exclamation-circle" style={{marginRight:'5px',color:'rgba(255, 159, 0, 1)'}}/>暂无数据~</div>
                 }
                 <DelModal isShowModal={this.state.isShowModal} parentType={this.state.parentType} exerciseId={this.state.exerciseId} noticeHomework={this.noticeHomework.bind(this)}/>
                 {
                     this.state.loadingShow=='none'&&<Pagination currentPage={this.state.currentPage} topicListLen={this.state.exerciseListLen} paginationSel={this.paginationSel.bind(this)}/>
                 }
-                
+
             </div>
         )
-        
+
     }
- 
+
     //跳转详情
     jumpExerciseDetail(e){
         let id=e.currentTarget.getAttribute('data-id');

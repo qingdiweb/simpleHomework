@@ -8,6 +8,7 @@ import { Radio , Checkbox , Button , Icon , message , Carousel , Breadcrumb,Spin
 import { getExerciseTopicDetail} from '../../fetch/classroom-exercise/classroom-exercise'
 import * as Constants from '../../Constants/store'
 import './style.less'
+import GlobalStyle from '../../constants/GlobalStyles'
 
 const loginToken=localStorage.getItem("loginToken");
 const defaultAvatar=require('../../static/img/default-avatar.png');
@@ -361,6 +362,7 @@ class ClassroomRecordTopicDetail extends React.Component {
                     <Modal
                       title="学生答案"
                       visible={this.state.visible}
+                      width={GlobalStyle.popWindowWidth}
                       className='stuAnswerModal'
                       cancelText="取消"
                       okText="确定"

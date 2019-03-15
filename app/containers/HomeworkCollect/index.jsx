@@ -9,6 +9,7 @@ import { getCollectList , editCollect , addCollect , delCollect} from '../../fet
 import * as Constants from '../../constants/store'
 import logo from '../../static/img/collect-sel.png'
 import './style.less'
+import GlobalStyle from '../../constants/GlobalStyles'
 
 
 const collectLogo=require("../../static/img/collect-logo.png");
@@ -185,6 +186,7 @@ class HomeworkCollect extends React.Component {
                 <Modal
                   title={this.state.collectionText}
                   visible={this.state.visible}
+                  width={GlobalStyle.popWindowWidth}
                   cancelText="取消"
                   okText="确定"
                   width='400px'
@@ -201,6 +203,7 @@ class HomeworkCollect extends React.Component {
                 <Modal
                   title="提示"
                   visible={this.state.isShowModal}
+                  width={GlobalStyle.popWindowWidth}
                   cancelText="取消"
                   okText="确定"
                   width='400px'

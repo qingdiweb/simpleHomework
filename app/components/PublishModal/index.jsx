@@ -4,12 +4,13 @@ import { Link, hashHistory } from 'react-router'
 import { Modal, message , Button , Input , Select ,DatePicker , Icon , Row , Col} from 'antd';
 import { getTopicListData , DefaultDraftDelQuestion , publishHomework , addClass , getMaterialListData,getMaterialCatalogData,saveExercise,getLastOperation} from '../../fetch/decorate-homework/decorate-homework';
 import { delHomeworkList , getClassList } from '../../fetch/index-homework/index-homework';
-import TreeSelect from '../TreeSelect' 
+import TreeSelect from '../TreeSelect'
 import * as Constants from '../../Constants/store'
 import datalocale from 'antd/lib/date-picker/locale/zh_CN';
 import moment from 'moment';
 import $ from  'jquery'
 import './style.less'
+import GlobalStyle from '../../constants/GlobalStyles'
 
 const Option = Select.Option;
 const { MonthPicker, RangePicker, WeekPicker } = DatePicker;
@@ -37,7 +38,7 @@ class PublishModal extends React.Component {
             asGreaterPublishErrorShow:'none',
             newProblemName:'',//添加新班级名字
             isAddclassShow:false,//是否显示添加班级输入框
-            classPrompt:false,//添加班级为空提示 
+            classPrompt:false,//添加班级为空提示
             flag:true,
             defaultClass:[],//默认班级
             timeStamp:'',
@@ -75,12 +76,12 @@ class PublishModal extends React.Component {
             })
           })
         });
-        
+
     }
     componentWillMount(){
       let teacherInfo=JSON.parse(localStorage.getItem("teacherInfo")),
           stageId=teacherInfo.stageId,
-          subjectId=teacherInfo.subjectId, 
+          subjectId=teacherInfo.subjectId,
           now = new Date(),
           year = now.getFullYear(), //得到年份
           month = now.getMonth()+1,//得到月份
@@ -142,7 +143,7 @@ class PublishModal extends React.Component {
                                 item.textbookInfoList.forEach((ele,i)=>{
                                   ele.id=ele.textbookId;
                                   ele.name=ele.textbookName;
-                                  
+
                               })
                             })
                             this.setState({
@@ -256,13 +257,13 @@ class PublishModal extends React.Component {
                               defaultCatalog:lastOperation.textbook.lastCatalogIds,
                               choiceCatalogId:lastOperation.textbook.lastCatalogId,
                             })
-                     }   
+                     }
                 }).catch(ex => {
                     // 发生错误
                     if (__DEV__) {
                       console.error('暂无数据, ', ex.message)
                     }
-                }) 
+                })
     }
     //查询最后操作的教材(教辅)和章节
     getLastOperation(loginToken){
@@ -298,14 +299,14 @@ class PublishModal extends React.Component {
                                   timeStamp:(new Date()).getTime()*Math.random(),
                                   materialTimeStamp:(new Date()).getTime()*Math.random()
                                 })
-                         }   
+                         }
                     }).catch(ex => {
                         // 发生错误
                         if (__DEV__) {
                           console.error('暂无数据, ', ex.message)
                         }
-                    }) 
-           
+                    })
+
     }
     render() {
       console.log('练习中',this.state.defaultVersion)
@@ -330,6 +331,7 @@ class PublishModal extends React.Component {
             this.state.publishType==0 ? <Modal
               title="创建练习"
               visible={this.state.visible}
+              width={GlobalStyle.popWindowWidth}
               cancelText="取消"
               okText="确定"
               onOk={this.exerciseHandleOk.bind(this)}
@@ -424,6 +426,7 @@ class PublishModal extends React.Component {
             </Modal> : <Modal
               title="发布作业"
               visible={this.state.visible}
+              width={GlobalStyle.popWindowWidth}
               cancelText="取消"
               okText="确定"
               onOk={this.handleOk.bind(this)}
@@ -455,7 +458,7 @@ class PublishModal extends React.Component {
                   </Select>
                   <Icon type="down" className='downSel' onClick={this.dianji.bind(this)}/>
                 </span>
-                <Row gutter={8} style={{marginTop:'20px'}}> 
+                <Row gutter={8} style={{marginTop:'20px'}}>
                       <Col span={5} offset={1}>
                         <span style={{color: 'rgba(45, 187, 85, 1)',fontSize: '14px',cursor:'pointer'}} onClick={this.addClassBtn.bind(this)}>+添加班级</span>
                       </Col>
@@ -495,7 +498,7 @@ class PublishModal extends React.Component {
               <p className="error-text" style={{"display":this.state.asGreaterPublishErrorShow}}><Icon type="close-circle-o" style={{color:'rgba(247, 79, 44, 1)'}} /><span>截止时间不能小于发布时间</span></p>
             </Modal>
           }
-            
+
           </div>
         );
     }
@@ -573,12 +576,12 @@ class PublishModal extends React.Component {
           this.setState({
             newProblemName:e.target.value,
             classPrompt:false
-          }) 
+          })
         }else{
           this.setState({
             newProblemName:e.target.value,
             classPrompt:true
-          }) 
+          })
         }
     }
     //添加班级-保存
@@ -588,7 +591,7 @@ class PublishModal extends React.Component {
         if(this.state.newProblemName==''||this.state.classPrompt===true){
           this.setState({
             classPrompt:true
-          }) 
+          })
           return;
         }
         this.setState({
@@ -612,7 +615,7 @@ class PublishModal extends React.Component {
                           },()=>{
                             console.log('defaultClass',this.state.homeworkClassVal)
                           })
-                    }    
+                    }
                 }).catch(ex => {
                     // 发生错误
                     if (__DEV__) {
@@ -620,7 +623,7 @@ class PublishModal extends React.Component {
                     }
                 })
 
-    } 
+    }
     //作业名称
     homeworkNameHandle(e){
       this.setState({
@@ -642,7 +645,7 @@ class PublishModal extends React.Component {
           homeworkClassErrorShow:'none',
         })
       }
-      
+
     }
     //选择发布时间
     publishDateHandle(date, dateString){
@@ -658,7 +661,7 @@ class PublishModal extends React.Component {
                     })
                 }
               })
-      }    
+      }
     //选择截止时间
     asofDateHandle(date, dateString){
       let asofDateStamp=new Date(dateString).getTime();
@@ -672,7 +675,7 @@ class PublishModal extends React.Component {
               })
             }
           })
-          
+
     }
     range(start, end) {
       const result = [];
@@ -734,7 +737,7 @@ class PublishModal extends React.Component {
           versionErrorShow:'none',
           flag:!this.state.flag
         })
-      
+
     }
     //教材选择
     materialSelected(value){
@@ -801,7 +804,7 @@ class PublishModal extends React.Component {
         return;
       }
       let draftId=this.props.draftId,//草稿id
-          classIds=this.state.exerciseClassVal,//选择班级 
+          classIds=this.state.exerciseClassVal,//选择班级
           name=this.state.exerciseNameVal,//练习名称
           questionIds=!!this.props.currentQuestionIds&&this.props.currentQuestionIds!='' ? this.props.currentQuestionIds : window.noticeDecorateQuestionIds,
           catalogIds=!!this.props.currentCatalogIds&&this.props.currentCatalogIds!='' ? this.props.currentCatalogIds : window.catalogIds,
@@ -837,7 +840,7 @@ class PublishModal extends React.Component {
           exerciseClassErrorShow:'none',
         })
       }
-      
+
     }
 }
 

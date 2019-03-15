@@ -11,6 +11,7 @@ import $ from  'jquery'
 //import html2canvas from 'html2canvas'
 
 import './style.less'
+import GlobalStyle from '../../constants/GlobalStyles'
 
 const Option = Select.Option;
 const loginToken=localStorage.getItem("loginToken");
@@ -241,7 +242,7 @@ class DecorateList extends React.Component {
                                                                                             }
                                                                                           </p>*/
                                                                                         }
-                                                                                        
+
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -253,22 +254,23 @@ class DecorateList extends React.Component {
                       title="试题分享"
                       className='share-modal'
                       visible={this.state.shareVisible}
+                      width={GlobalStyle.popWindowWidth}
                       onCancel={this.shareCancel.bind(this)}
                       okText={'确定'}
                       cancelText={'取消'}
                       footer={[]}
                     >
                      <Input value={window.location.href} style={{width:'368px',height:'36px',marginRight:'12px'}}/>
-                     
+
                      <CopyToClipboard text={window.location.href} onCopy={this.onCopy.bind(this)}>
                          <Button type="primary">{this.state.copyText}</Button>
-                     </CopyToClipboard> 
+                     </CopyToClipboard>
                      <p className='share-prompt'>将链接通过QQ、微信等任何方式发给相关人等,即可查看试题</p>
                     </Modal>
                 </div>
         )
     }
- 
+
 }
 
 export default DecorateList

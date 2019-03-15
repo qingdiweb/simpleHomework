@@ -31,6 +31,7 @@ import ExerciseSelected from '../containers/ExerciseSelected/'
 import ClassroomRecord from '../containers/ClassroomRecord/'
 import ClassroomRecordDetail from '../containers/ClassroomRecordDetail/'
 import ClassroomRecordTopicDetail from '../containers/ClassroomRecordTopicDetail/'
+import ClassDetails from '../containers/ClassDetails'
 
 import Search from '../containers/Search'
 import NotFound from '../containers/404'
@@ -64,6 +65,7 @@ class RouterMap extends React.Component {
                             <Route  path='/homework-collect-topic/:collectId/:collectType' component={HomeworkCollectTopic}></Route>
                             <Route  path='/homework-class' component={HomeworkClass}></Route>
                             <Route  path='/homework-class-detail/:classId' component={HomeworkClassDetail}></Route>
+                            <Route  path='/class-details/:classId' component={ClassDetails}></Route>
                             <Route  path='/homework-class-stuhistory/:classId/:studentId' component={HomeworkClassStuhistory}></Route>
                             <Route  path='/homework-edit-again/:homeworkId/:draftId/:jumpType/:type/:classId' component={EditAgain}></Route>
                             <Route  path='/classroom-exercise' component={ClassroomExercise}></Route>
@@ -72,7 +74,7 @@ class RouterMap extends React.Component {
                             <Route  path='/classroom-record' component={ClassroomRecord}></Route>
                             <Route  path='/classroom-record-detail/:exerciseId' component={ClassroomRecordDetail}></Route>
                             <Route  path='/classroom-record-topic-detail/:exerciseId/:questionId' component={ClassroomRecordTopicDetail}></Route>
-                            
+
                         </Route>
                         <Route title={"首页>个人中心"}  path='/personal-center' component={PersonalCenter}></Route>
                         <Route path='/search/:category(/:keyword)' component={Search}/>

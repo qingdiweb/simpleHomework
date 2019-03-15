@@ -9,6 +9,7 @@ import { Menu, Icon , Modal , Input , message ,Button , Progress , Tabs , Breadc
 import { getClassStudent , getClassHomework , getClassDetails , editClass , delClass , delHomework , delStudent} from '../../../fetch/homework-class/homework-class'
 import * as Constants from '../../../constants/store'
 import './style.less'
+import GlobalStyle from '../../../constants/GlobalStyles'
 const TabPane = Tabs.TabPane;
 const loginToken=localStorage.getItem("loginToken");
 const defaultAvatar=require('../../../static/img/default-avatar.png');
@@ -358,7 +359,7 @@ class HomeDetail extends React.Component {
                   visible={this.state.isShowEditModal}
                   cancelText="取消"
                   okText="确定"
-                  width='400px'
+                  width={GlobalStyle.popWindowWidth}
                   onOk={this.handleOk.bind(this)}
                   onCancel={this.handleCancel.bind(this)}
                 >
@@ -370,7 +371,7 @@ class HomeDetail extends React.Component {
                   visible={this.state.isShowModal}
                   cancelText="取消"
                   okText="确定"
-                  width='400px'
+                  width={GlobalStyle.popWindowWidth}
                   onOk={this.delClassOk.bind(this)}
                   onCancel={this.delClassCancel.bind(this)}
                 >
@@ -378,7 +379,7 @@ class HomeDetail extends React.Component {
                 </Modal>
                 <Modal
                   visible={this.state.invitedJoinShow}
-                  width='400px'
+                  width={GlobalStyle.popWindowWidth}
                   onCancel={this.invitedJoinCancel.bind(this)}
                   footer={null}
                 >
@@ -394,6 +395,7 @@ class HomeDetail extends React.Component {
                       title="班级分享"
                       className='share-modal'
                       visible={this.state.shareVisible}
+                      width={GlobalStyle.popWindowWidth}
                       onCancel={this.shareCancel.bind(this)}
                       okText={'确定'}
                       cancelText={'取消'}

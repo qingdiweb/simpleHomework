@@ -8,20 +8,31 @@ export function getClassList(loginToken) {
     })
     return result
 }
-//添加班级
-export function addClass(loginToken,name) {
+/**
+ *新建班级
+ */
+export function addClass(loginToken,stageId,subjectId,gradeId,number,name) {
     const result = post('/account/teacher/class/add',{
         loginToken:loginToken,
-        name:name
+        stageId:stageId,
+        subjectId:subjectId,
+        gradeId:gradeId,
+        number:number,
+        name:name,
     })
     return result
 }
+
 //编辑班级
-export function editClass(loginToken,classId,name) {
+export function editClass(loginToken,classId,stageId,subjectId,gradeId,number,name) {
     const result = post('/account/teacher/class/update',{
         loginToken:loginToken,
         classId:classId,
-        name:name
+        stageId:stageId,
+        subjectId:subjectId,
+        gradeId:gradeId,
+        number:number,
+        name:name,
     })
     return result
 }
@@ -45,13 +56,25 @@ export function getClassDetails(loginToken,classId) {
 export function getClassStudent(loginToken,classId) {
     const result = post('/account/teacher/class/student/list',{
         loginToken:loginToken,
-        classId:classId
+        classId:classId,
+        pageSize:1000,
+    })
+    return result
+}
+//添加学生
+export function addStudent(loginToken, classId,number,name,gender) {
+    const result = post('/account/teacher/class/student/add',{
+        loginToken:loginToken,
+        classId:classId,
+        number:number,
+        name:name,
+        gender:gender,
     })
     return result
 }
 //删除指定学生
 export function delStudent(loginToken,classId,studentId) {
-    const result = post('/account/teacher/class/student/delete',{
+    const result = post('/account/teacher/class/student/del',{
         loginToken:loginToken,
         classId:classId,
         studentId:studentId
@@ -62,7 +85,7 @@ export function delStudent(loginToken,classId,studentId) {
 export function getClassHomework(loginToken,classId) {
     const result = post('/account/teacher/homework/list', {
         loginToken:loginToken,
-        classId:classId
+        classId:classId,
     })
     return result
 }

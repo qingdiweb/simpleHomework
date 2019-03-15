@@ -13,7 +13,7 @@ import Pagination from '../../Components/Pagination';
 import * as Constants from '../../Constants/store'
 
 import './style.less'
-
+import GlobalStyle from '../../constants/GlobalStyles'
 const Option = Select.Option;
 const loginToken=localStorage.getItem("loginToken");
 class ClassroomRecordDetail extends React.Component {
@@ -29,58 +29,85 @@ class ClassroomRecordDetail extends React.Component {
             topicId:'',//题目id
             parentType:1,
             currentPage:1,
-            columns: [
-                {
-                    title: '考察题数',
-                    dataIndex: 'questionCount',
-                    width: '10%',
-                    align:'center'
-
-                },
-                {
-                    title: '平均提交率',
-                    dataIndex: 'commitRate',
-                    width: '10%',
-                    align:'center'
-                },
-                {
-                    title: '平均正确率',
-                    dataIndex: 'rightRate',
-                    width: '10%',
-                    align:'center'
-                }
-            ],
-            catalogAna:[],
             questionColumns: [
                 {
                     title: '题号',
                     dataIndex: 'questionIndex',
-                    width: '10%',
-                    align:'center'
-
+                    width: '15%',
+                    align:'center',
+                    render:(e)=>{
+                        let state = e.canAnswer?'客':'主';
+                        let backgroundColor=  e.canAnswer?'rgba(45, 187, 85, 0.1)':'rgba(255, 133, 72, 0.1)';
+                        let color =  e.canAnswer?'rgba(45, 187, 85, 1)':'rgba(255, 133, 72, 1)';
+                        return <div style={{
+                            display:'flex',
+                            flexDirection:'row',
+                            justifyContent:'center',
+                            alignItems:'center',
+                        }}>
+                            <div style={{
+                                width:'16px',
+                                height:'16px',
+                                lineHeight:'13px',
+                                backgroundColor:backgroundColor,
+                                border:'1px solid ' + color,
+                                color:color,
+                                fontSize:'11px',
+                                marginRight:'11px',
+                                borderRadius:'2px',
+                            }}>
+                                {state}
+                            </div>
+                            <div>
+                                {e.text}
+                            </div>
+                        </div>
+                    }
                 },
                 {
                     title: '题目详情',
                     dataIndex: 'questionTitle',
-                    width: '10%',
+                    width: '40%',
                     align:'center',
-                    render:(e) => <div style={{width:'390px',height:'21px',overflow:'hidden','text-overflow':'ellipsis','white-space':'nowrap'}} dangerouslySetInnerHTML={{ __html: e}}></div>
+                    render:(e) => <div style={{width:'390px',height:'21px',overflow:'hidden','textOverflow':'ellipsis','white-space':'nowrap'}} dangerouslySetInnerHTML={{ __html: e}}></div>
+                },
+                {
+                    title: '发布状态',
+                    dataIndex: 'publicState',
+                    width: '15%',
+                    align:'center',
+                    render:(e)=>{
+                        let color = {color:'#707477'};
+                        if (e.state === 0)
+                        {
+                            color = {color:'#FF8548'};
+                        }
+                        return <div style={color}>
+                            {e.text}
+                        </div>
+                    }
+                },
+                {
+                    title: '平均正确率',
+                    dataIndex: 'averageAccuracy',
+                    width: '15%',
+                    align:'center',
                 },
                 {
                     title: '作答结果',
                     dataIndex: 'answerResult',
-                    width: '10%',
+                    width: '15%',
                     align:'center',
                     render:(e) => <Link to={'classroom-record-topic-detail/'+this.props.params.exerciseId+'/'+e}>查看</Link>
                 },
-                {
-                    title: '未交',
-                    dataIndex: 'noCommit',
-                    width: '10%',
-                    align:'center',
-                    render:(e) => <a href="javascript:;" data-text={e.text} data-id={e.id}  data-person={e.person} onClick={this.lookChildNoCommit.bind(this)}>{e.text}</a>
-
-                }
+                // {
+                //     title: '未交',
+                //     dataIndex: 'noCommit',
+                //     width: '10%',
+                //     align:'center',
+                //     render:(e) => <a href="javascript:;" data-text={e.text} data-id={e.id}  data-person={e.person} onClick={this.lookChildNoCommit.bind(this)}>{e.text}</a>
+                //
+                // }
             ],
             questionAna:[],
             noteDisable:false,
@@ -112,17 +139,37 @@ class ClassroomRecordDetail extends React.Component {
                             exerciseListData.commitRate=Constants.isFormat(exerciseListData.commitRate,String) ? exerciseListData.commitRate+'%' : '0%';
                             exerciseListData.rightRate=Constants.isFormat(exerciseListData.rightRate,String) ? exerciseListData.rightRate+'%' : '0%';
                             questionInfoList=Constants.dealQuestion(questionInfoList,'questionInfo');
-                            exerciseListData.newCreatedAt=Constants.dealTimestamp(exerciseListData.createdAt);
+                            exerciseListData.newCreatedAt= Constants.dealTimestamp(exerciseListData.publishAt);
                             questionInfoList.forEach((item,index)=>{
                                 item.key=index;
-                                item.questionIndex=index+1;
+                                item.questionIndex={text:index+1,canAnswer:item.questionInfo.canAnswer};
                                 item.questionTitle=item.questionInfo.title;
                                 item.answerResult=item.questionId;
-                                item.noCommit={text:Constants.isFormat(item.questionInfo.childQuestionInfoList,Array) ? '查看' : (exerciseListData.allCount-item.commitCount)+'人',id:item.questionId,person:exerciseListData.allCount-item.commitCount}
+                                let publicState = '';//状态(0未发布、1已发布、2已结束)
+                                if (item.state === 0)
+                                {
+                                    publicState = {text:'未发布',state:item.state};
+                                }
+                                else if(item.state ===1)
+                                {
+                                    publicState = {text:'已发布',state:item.state};
+                                }
+                                else if(item.state ===2)
+                                {
+                                    publicState = {text:'已结束',state:item.state};
+                                }
+                                if ((item.state === 1 || item.state === 2)&&item.stopFlag === 1&& item.questionInfo.canAnswer === 1)
+                                {
+                                    item.averageAccuracy = item.rightRate + '%';
+                                }
+                                else {
+                                    item.averageAccuracy = '- -';
+                                }
+                                item.publicState = publicState;
+                                // item.noCommit={text:Constants.isFormat(item.questionInfo.childQuestionInfoList,Array) ? '查看' : (exerciseListData.allCount-item.commitCount)+'人',id:item.questionId,person:exerciseListData.allCount-item.commitCount}
                             })
                             this.setState({
                                 exerciseList:exerciseListData,
-                                catalogAna:[exerciseListData],
                                 questionAna:questionInfoList,
                                 loadingShow:'none',//隐藏图标
                             },()=>{
@@ -204,9 +251,9 @@ class ClassroomRecordDetail extends React.Component {
                 </div>
                {
                     Constants.isFormat(exerciseList,Object)&&this.state.loadingShow=='none'&&<div className="exercise-info-title clear-fix">
-                           <p className='common-sec-title sec-title'><span className='sec-title-line'></span><span>练习信息</span></p>
-                            <div className='list-sec corrections'>
-                                        <p className="date"><span>{exerciseList.newCreatedAt}</span></p>
+                        <p className='common-sec-title sec-title'><span className='sec-title-line'></span><span>练习信息</span></p>
+                        <div className="record-detail-date"><span className='data-title'>发布时间:</span><span>{exerciseList.newCreatedAt}</span></div>
+                        <div className='list-sec corrections'>
                                         <div className="mark-box homeworinfo-mark">
                                             <span className="class-mark" title={exerciseList.className}>{exerciseList.className}</span>
                                             <div className='homework-name-time'>
@@ -226,17 +273,7 @@ class ClassroomRecordDetail extends React.Component {
                     this.state.loadingShow=='none'&&<div className="record-detail clear-fix">
                            <p className='common-sec-title sec-title'><span className='sec-title-line'></span><span>练习报告</span></p>
                            <div className='detail-sec'>
-                               <p style={{marginTop:'-5px'}}>章节详情:({exerciseList.catalogNames})</p>
-                               <Table
-                                    columns={this.state.columns}
-                                    dataSource={this.state.catalogAna}
-                                    bordered
-                                    size="small"
-                                    rowKey={item => item.id}
-                                    pagination= {false}
-                                >
-                                </Table>
-                                <p style={{marginTop:'30px'}}>答题详情:</p>
+                               <p style={{marginTop:'20px'}}>答题详情: &nbsp;(题目数量: {exerciseList.questionCount+'题'} &nbsp;发布题数: {exerciseList.publishCount+'题）'}</p>
                                 <Table
                                     columns={this.state.questionColumns}
                                     dataSource={this.state.questionAna}
@@ -252,12 +289,13 @@ class ClassroomRecordDetail extends React.Component {
                                         {Constants.isFormat(exerciseList,Object)&&Constants.isFormat(exerciseList.remark,String) ? exerciseList.remark : '暂无笔记'}
                                     </div>
                                     <div className='note-btn'>
+                                          <span className='save-btn' onClick={this.saveRemark.bind(this)}>
+                                            保存
+                                        </span>
                                         <span className='edit-btn' onClick={this.editNote.bind(this)}>
                                             编辑
                                         </span>
-                                        <span className='save-btn' onClick={this.saveRemark.bind(this)}>
-                                            保存
-                                        </span>
+
                                     </div>
                                 </div>
                            </div>
@@ -266,6 +304,7 @@ class ClassroomRecordDetail extends React.Component {
                 <Modal
                       title="未提交情况"
                       visible={this.state.visible}
+                      width={GlobalStyle.popWindowWidth}
                       className='questionNoCommitModal'
                       cancelText="取消"
                       okText="确定"

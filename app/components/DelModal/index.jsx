@@ -2,6 +2,7 @@ import React from 'react'
 import PureRenderMixin from 'react-addons-pure-render-mixin'
 import { Link, hashHistory } from 'react-router'
 import { Modal, message , Button } from 'antd';
+import GlobalStyle from '../../constants/GlobalStyles'
 import { getTopicListData , DefaultDraftDelQuestion} from '../../fetch/decorate-homework/decorate-homework'
 import { delDraftListData } from '../../fetch/no-publish-homework/no-publish-homework'
 import { delHomeworkList } from '../../fetch/index-homework/index-homework'
@@ -76,7 +77,7 @@ class DelModal extends React.Component {
                         }
                         else{
                             message.warning(data.error);
-                        } 
+                        }
                       }).catch(ex =>{
                         // 发生错误
                         if (__DEV__) {
@@ -102,7 +103,7 @@ class DelModal extends React.Component {
                         }
                         else{
                             message.warning(data.error);
-                        } 
+                        }
                       }).catch(ex =>{
                         // 发生错误
                         if (__DEV__) {
@@ -127,7 +128,7 @@ class DelModal extends React.Component {
                         }
                         else{
                             message.warning(data.error);
-                        } 
+                        }
                       }).catch(ex =>{
                         // 发生错误
                         if (__DEV__) {
@@ -135,8 +136,8 @@ class DelModal extends React.Component {
                         }
                       })
         }
-        
-        
+
+
     }
     handleCancel(e){
         console.log(e);
@@ -154,7 +155,7 @@ class DelModal extends React.Component {
           visible={this.state.visible}
           cancelText="取消"
           okText="确定"
-          width='400px'
+          width={GlobalStyle.popWindowWidth}
           onOk={this.handleOk.bind(this)}
           onCancel={this.handleCancel.bind(this)}
         >

@@ -10,6 +10,8 @@ import { getTopicListData , getDefaultQuestionList , collectSearchList , addorca
 import Pagination from '../../Components/Pagination';
 
 import './style.less'
+import GlobalStyle from '../../constants/GlobalStyles'
+
 const TabPane = Tabs.TabPane;
 const noCollectImg=require("../../static/img/default-sel.png");
 const collectImg=require("../../static/img/collect-sel.png");
@@ -533,6 +535,7 @@ class HomeStuDetail extends React.Component {
                 <Modal
                   title="收藏试题"
                   visible={this.state.collectVisible}
+                  width={GlobalStyle.popWindowWidth}
                   cancelText="取消"
                   okText="确定"
                   width='420px'

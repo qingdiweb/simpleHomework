@@ -1,22 +1,25 @@
 .classroom-record-detail{
     .sec-title{
-        margin-bottom:30px;
         color: rgba(68, 68, 68, 1);
         font-weight: 600;
         font-size: 14px;
     }
+  .record-detail-date{
+    margin-top: 0px;
+    margin-bottom: 5px;
+    color: rgba(153, 153, 153, 1);
+    font-size: 12px;
+    .data-title{
+      //color: #FD9B6B;
+      margin-right: 5px;
+    }
+  }
     .exercise-info-title{
         .list-sec{
                 padding: 8px 10px;
                 margin-bottom: 30px;
                 position: relative;
-                .date{
-                    position: absolute;
-                    top:-22px;
-                    left:0px;
-                    color: rgba(153, 153, 153, 1);
-                    font-size: 12px;
-                 }
+
                 .mark-box{
                     float: left;
                     height: 100%;
@@ -105,20 +108,32 @@
                             font-size: 14px;
                         }
                      }
-                     
+
                 }
-            } 
+            }
         .corrections{
             width: 100%;
             height: 102px;
             border-radius: 4px;
             background-color: rgba(233, 248, 237, 1);
-        }       
+        }
     }
     .record-detail{
         width: 100%;
         background-color: #fff;
         .detail-sec{
+          .ant-table-small > .ant-table-content > .ant-table-body > table > .ant-table-thead > tr > th
+          {
+            background-color:#F5F6F9;
+            height: 50px;
+          }
+          .ant-table-small > .ant-table-content > .ant-table-body > table
+          {
+            padding: 0px  0px;
+          }
+          .ant-table-row{
+            height: 50px;
+          }
             .class-notes{
                 position:relative;
                  width: 100%;
@@ -129,15 +144,15 @@
                     width: 100%;
                     height: 100%;
                     padding: 16px;
-                    border: 1px solid rgba(223, 227, 233, 1); 
+                    border: 1px solid rgba(223, 227, 233, 1);
                  }
                 .textarea-disable{
                     width: 100%;
                     height: 100%;
                     padding: 16px;
-                    border: 1px solid rgba(223, 227, 233, 1); 
+                    border: 1px solid rgba(223, 227, 233, 1);
                     background-color: rgba(245, 246, 249, 1);
-                    cursor: not-allowed; 
+                    cursor: not-allowed;
                  }
                  .note-btn{
                     z-index: 100;
@@ -151,10 +166,12 @@
                         cursor: pointer;
                     }
                     .edit-btn{
+                        margin-left: 10px;
                         color: rgba(45, 187, 85, 1);
                         font-size: 14px;
-                        background: url('../../static/img/edit-icon.png') left center no-repeat;
-                        background-size:14px 14px; 
+                        //text-align: left;
+                        background: url('../../static/img/edit-icon.png')  left center no-repeat;
+                        background-size:14px 14px;
                     }
                  }
             }
@@ -162,7 +179,7 @@
     }
 }
 .ant-radio-inner:after{
-    background-color:#2dbb55; 
+    background-color:#2dbb55;
 }
 .questionNoCommitModal.ant-modal{
     width: 800px !important;
@@ -209,6 +226,6 @@
                 margin-bottom: 20px;
             }
         }
-        
+
     }
 }

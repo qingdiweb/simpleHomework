@@ -4,12 +4,13 @@ import { Link, hashHistory } from 'react-router'
 import { Modal, message , Button , Input , Select ,DatePicker , Icon , Row , Col} from 'antd';
 import { getMaterialListData,getMaterialCatalogData,saveExercise,getLastOperation,updateExercise} from '../../fetch/decorate-homework/decorate-homework';
 import { delHomeworkList , getClassList } from '../../fetch/index-homework/index-homework';
-import TreeSelect from '../TreeSelect' 
+import TreeSelect from '../TreeSelect'
 import * as Constants from '../../Constants/store'
 import datalocale from 'antd/lib/date-picker/locale/zh_CN';
 import moment from 'moment';
 import $ from  'jquery'
 import './style.less'
+import GlobalStyle from '../../constants/GlobalStyles'
 
 const Option = Select.Option;
 const { MonthPicker, RangePicker, WeekPicker } = DatePicker;
@@ -120,7 +121,7 @@ class ExercisePublishModal extends React.Component {
                                 item.textbookInfoList.forEach((ele,i)=>{
                                   ele.id=ele.textbookId;
                                   ele.name=ele.textbookName;
-                                  
+
                               })
                             })
                             this.setState({
@@ -201,14 +202,14 @@ class ExercisePublishModal extends React.Component {
                               defaultMaterial:defaultMaterial,
                               defaultCatalog:lastOperation.textbook.lastCatalogIds,
                             })
-                     }   
+                     }
                 }).catch(ex => {
                     // 发生错误
                     if (__DEV__) {
                       console.error('暂无数据, ', ex.message)
                     }
-                }) 
-           
+                })
+
     }
     render() {
         return (
@@ -216,6 +217,7 @@ class ExercisePublishModal extends React.Component {
             <Modal
               title="创建练习"
               visible={this.state.visible}
+              width={GlobalStyle.popWindowWidth}
               cancelText="取消"
               okText="确定"
               onOk={this.exerciseHandleOk.bind(this)}
@@ -260,7 +262,7 @@ class ExercisePublishModal extends React.Component {
                         }
                       </Select>
                   </span>
-              </div> 
+              </div>
               {/*错误提示*/}
               <p className="error-text" style={{"display":this.state.materialErrorShow}}><Icon type="close-circle-o" style={{color:'rgba(247, 79, 44, 1)'}} /><span>教材不能为空</span></p>
               <div className="exercise-info">
@@ -314,7 +316,7 @@ class ExercisePublishModal extends React.Component {
           versionErrorShow:'none',
           flag:!this.state.flag
         })
-      
+
     }
     //教材选择
     materialSelected(value){
@@ -416,7 +418,7 @@ class ExercisePublishModal extends React.Component {
           exerciseClassErrorShow:'none',
         })
       }
-      
+
     }
 }
 

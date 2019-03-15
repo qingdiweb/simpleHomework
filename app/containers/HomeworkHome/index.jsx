@@ -4,6 +4,7 @@ import { Link, hashHistory } from 'react-router'
 import { Menu, Icon , Button , Modal , Breadcrumb } from 'antd';
 
 import './style.less'
+import GlobalStyle from '../../constants/GlobalStyles'
 
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
@@ -95,7 +96,7 @@ class HomeHeader extends React.Component {
                   visible={this.state.teacherInfoFill}
                   maskClosable={false}
                   closable={false}
-                  width='400px'
+                  width={GlobalStyle.popWindowWidth}
                   className="teacherInfoModel"
                   footer={[<Button key="submit" type="primary" style={{marginLeft:'0px'}} onClick={this.completeTeacherInfoOk.bind(this)}>确定</Button>]}
                 >
@@ -118,8 +119,8 @@ class HomeHeader extends React.Component {
             teacherInfoFill:false
         })
     }
-   
-    
+
+
 }
 
 export default HomeHeader

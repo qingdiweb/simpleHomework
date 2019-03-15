@@ -15,6 +15,8 @@ import Dialog from '../../../components/Dialog'
 
 
 import './style.less'
+import GlobalStyle from '../../../constants/GlobalStyles'
+
 const loginToken=localStorage.getItem("loginToken");
 class DecorateListSel extends React.Component {
     constructor(props, context) {
@@ -153,6 +155,7 @@ class DecorateListSel extends React.Component {
                <Modal
                   title="保存草稿"
                   visible={this.state.visible}
+                  width={GlobalStyle.popWindowWidth}
                   onOk={this.handleOk.bind(this)}
                   onCancel={this.handleCancel.bind(this)}
                   okText={'确定'}
@@ -164,6 +167,7 @@ class DecorateListSel extends React.Component {
                 <Modal
                   title="提示"
                   visible={this.state.noticeVisible}
+                  width={GlobalStyle.popWindowWidth}
                   onCancel={this.noticeHandleCancel.bind(this)}
                   okText={'确定'}
                   cancelText={'取消'}

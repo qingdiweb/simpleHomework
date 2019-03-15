@@ -3,6 +3,7 @@ import PureRenderMixin from 'react-addons-pure-render-mixin'
 import { Link, hashHistory } from 'react-router'
 import { Radio, Checkbox, Modal, Form, Icon, Input, Button, Row, Col, Select} from 'antd';
 import { saveDefault } from '../../fetch/decorate-homework/decorate-homework'
+import GlobalStyle from '../../constants/GlobalStyles'
 
 import './style.less'
 const loginToken=localStorage.getItem("loginToken");
@@ -23,12 +24,12 @@ class Dialog extends React.Component {
             leaveVisible:nextProps.leaveVisible
          })
       }
-       
+
     }
     componentWillMount (){
-      
+
     }
-  
+
     render() {
       console.log('dialogFlag-render',this.state.leaveVisible)
         return (
@@ -36,6 +37,7 @@ class Dialog extends React.Component {
                   title="提示"
                   maskClosable={false}
                   visible={this.state.leaveVisible}
+                  width={GlobalStyle.popWindowWidth}
                   onOk={this.leaveHandleOk.bind(this)}
                   onCancel={this.leaveHandleCancel.bind(this)}
                   closable={false}
@@ -52,8 +54,8 @@ class Dialog extends React.Component {
     leaveHandleCancel(e){
       this.props.noticeLeaveCancel.bind(this)()
     }
-    
-    
-   
+
+
+
 }
 export default Dialog

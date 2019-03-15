@@ -59,7 +59,7 @@ class HomeworkCollect extends React.Component {
                     // 处理获取的数据
                     const data = json
                     if (data.result) {
-                        let classData=data.data.content;
+                        let classData=data.data.content.reverse();
                             this.setState({
                                 classData:classData,
                                 loadingShow:'none'

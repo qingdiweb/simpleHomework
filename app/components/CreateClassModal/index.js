@@ -85,7 +85,10 @@ export default class CreateClassModal extends React.Component {
                             this.setState({
                                 defaultStageTitle: aStageInfo.title,
                                 gradeInfoList: aStageInfo.gradeInfoList,
-                                timeStamp: (new Date()).getTime()
+                                defaultGradeTitle:undefined,
+                                timeStamp: (new Date()).getTime(),
+                                timeStamps:(new Date()).getTime(),
+                                inputValue:null,
                             })
                         }
                     }

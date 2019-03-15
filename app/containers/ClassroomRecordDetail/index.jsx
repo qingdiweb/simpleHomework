@@ -78,7 +78,7 @@ class ClassroomRecordDetail extends React.Component {
                     align:'center',
                     render:(e)=>{
                         let color = {color:'#707477'};
-                        if (e.state === 0)
+                        if (e.publicState === 1)
                         {
                             color = {color:'#FF8548'};
                         }
@@ -139,7 +139,7 @@ class ClassroomRecordDetail extends React.Component {
                             exerciseListData.commitRate=Constants.isFormat(exerciseListData.commitRate,String) ? exerciseListData.commitRate+'%' : '0%';
                             exerciseListData.rightRate=Constants.isFormat(exerciseListData.rightRate,String) ? exerciseListData.rightRate+'%' : '0%';
                             questionInfoList=Constants.dealQuestion(questionInfoList,'questionInfo');
-                            exerciseListData.newCreatedAt= Constants.dealTimestamp(exerciseListData.publishAt);
+                            exerciseListData.newCreatedAt= Constants.dealTimestamp(exerciseListData.endAt);
                             questionInfoList.forEach((item,index)=>{
                                 item.key=index;
                                 item.questionIndex={text:index+1,canAnswer:item.questionInfo.canAnswer};
@@ -148,15 +148,22 @@ class ClassroomRecordDetail extends React.Component {
                                 let publicState = '';//状态(0未发布、1已发布、2已结束)
                                 if (item.state === 0)
                                 {
-                                    publicState = {text:'未发布',state:item.state};
+                                    // publicState = {text:'未发布',state:item.state};
                                 }
                                 else if(item.state ===1)
                                 {
-                                    publicState = {text:'已发布',state:item.state};
+                                    // publicState = {text:'已发布',state:item.state};
                                 }
                                 else if(item.state ===2)
                                 {
-                                    publicState = {text:'已结束',state:item.state};
+                                    if (item.stopFlag === 1)
+                                    {
+                                        publicState = {text:'已结束',publicState:0};
+                                    }
+                                    else if (item.stopFlag === 2)
+                                    {
+                                        publicState = {text:'未发布',publicState:1};
+                                    }
                                 }
                                 if ((item.state === 1 || item.state === 2)&&item.stopFlag === 1&& item.questionInfo.canAnswer === 1)
                                 {
@@ -252,7 +259,7 @@ class ClassroomRecordDetail extends React.Component {
                {
                     Constants.isFormat(exerciseList,Object)&&this.state.loadingShow=='none'&&<div className="exercise-info-title clear-fix">
                         <p className='common-sec-title sec-title'><span className='sec-title-line'></span><span>练习信息</span></p>
-                        <div className="record-detail-date"><span className='data-title'>发布时间:</span><span>{exerciseList.newCreatedAt}</span></div>
+                        <div className="record-detail-date"><span className='data-title'>测验结束时间:</span><span>{exerciseList.newCreatedAt}</span></div>
                         <div className='list-sec corrections'>
                                         <div className="mark-box homeworinfo-mark">
                                             <span className="class-mark" title={exerciseList.className}>{exerciseList.className}</span>
@@ -273,7 +280,7 @@ class ClassroomRecordDetail extends React.Component {
                     this.state.loadingShow=='none'&&<div className="record-detail clear-fix">
                            <p className='common-sec-title sec-title'><span className='sec-title-line'></span><span>练习报告</span></p>
                            <div className='detail-sec'>
-                               <p style={{marginTop:'20px'}}>答题详情: &nbsp;(题目数量: {exerciseList.questionCount+'题'} &nbsp;发布题数: {exerciseList.publishCount+'题）'}</p>
+                               <p style={{marginTop:'20px'}}>答题详情: &nbsp;已发布 {exerciseList.publishCount+'题'}</p>
                                 <Table
                                     columns={this.state.questionColumns}
                                     dataSource={this.state.questionAna}

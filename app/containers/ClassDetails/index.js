@@ -39,6 +39,8 @@ export default class ClassDetails extends React.Component {
             showCompleteStuInfoLoading:false,
             isShowModal:false,
             delectItem:null,
+            uploadProgress:0,
+            timer:null
         };
     };
     componentWillMount() {
@@ -138,7 +140,9 @@ export default class ClassDetails extends React.Component {
 
             return <div className='download_loading'>
                 <img className='excel-icon' src={require('../../static/img/excel-icon.png')}/>
-                <img className='excel-progress' src={require('../../static/img/excel-progress.png')}/>
+                <div  className='excel-progress'>
+                    <Progress percent={this.state.uploadProgress} />
+                </div>
                 <div className='excel-loading-title'>正在导入…</div>
             </div>
 
@@ -277,15 +281,25 @@ export default class ClassDetails extends React.Component {
             this.setState({
                 contextState: 3,
             });
+            clearTimeout(this.state.timer);
+            this.state.timer=setInterval(()=> {
+                this.setState({
+                    uploadProgress: this.state.uploadProgress+10,
+                });
+            },100);
             console.log('导入学生名单 1 ', info.file);
         }
         else if (info.file.status === 'done') {
 
+            clearTimeout(this.state.timer);
             console.log('导入学生名单  2 ', info.file);
 
             console.log(info.file);
             if (info.file.response.code === 200) {
 
+                this.setState({
+                    uploadProgress:100,
+                });
                 message.success(`${info.file.name}上传成功`);
                 let classId = this.props.params.classId;
                 this.getClassStudent.bind(this, loginToken, classId)();
@@ -298,9 +312,14 @@ export default class ClassDetails extends React.Component {
             }
 
         } else if (info.file.status === 'error') {
+            clearTimeout(this.state.timer);
             console.log('导入学生 error');
             message.error(`${info.file.name}上传失败.`);
         }
+        else {
+            clearTimeout(this.state.timer);
+        }
+
     }
 
     addStudentBtn() {

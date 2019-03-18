@@ -280,7 +280,7 @@ class ClassroomRecordDetail extends React.Component {
                     this.state.loadingShow=='none'&&<div className="record-detail clear-fix">
                            <p className='common-sec-title sec-title'><span className='sec-title-line'></span><span>练习报告</span></p>
                            <div className='detail-sec'>
-                               <p style={{marginTop:'20px'}}>答题详情: &nbsp;已发布 {exerciseList.publishCount+'题'}</p>
+                               <p style={{marginTop:'20px'}}>答题详情:<span className='published-count'>已发布{exerciseList.publishCount+'题'}</span></p>
                                 <Table
                                     columns={this.state.questionColumns}
                                     dataSource={this.state.questionAna}

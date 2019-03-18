@@ -15,6 +15,7 @@ import moment from 'moment';
 import datalocale from 'antd/lib/date-picker/locale/zh_CN';
 
 import './style.less'
+import GeneralEmpty from "../../components/GeneralEmpty";
 
 const Option = Select.Option;
 const { MonthPicker, RangePicker, WeekPicker } = DatePicker;
@@ -131,7 +132,7 @@ class HomeworkList extends React.Component {
                                                 </div>
                                             </div>
                                 }
-                        }) : <div style={{'font-size':'16px','text-align':'center','margin':'300px',"display":this.state.loadingShow=='block' ? 'none' : 'block'}}><Icon type="exclamation-circle" style={{marginRight:'5px',color:'rgba(255, 159, 0, 1)'}}/>暂无草稿~</div>
+                        }) : this.state.loadingShow==='none'&&this.showListEmpty.bind(this)()
                     }
                     <DelModal isShowModal={this.state.isShowModal} parentType={this.state.parentType} homeworkId={this.state.homeworkId} draftId={this.state.homeworkId} noticeHomework={this.noticeHomework.bind(this)}/>
                     <PublishModal flag={this.state.flag} pusblishVisible={this.state.pusblishVisible} publishType={this.state.publishType} draftId={this.state.homeworkId} currentCatalogIds={this.state.currentCatalogIds} currentQuestionIds={this.state.currentQuestionIds} noticeHomework={this.noticePublish.bind(this)}/>
@@ -140,6 +141,9 @@ class HomeworkList extends React.Component {
             </div>
         )
 
+    }
+    showListEmpty(){
+        return <GeneralEmpty hintText='暂无草稿～'/>;
     }
     //草稿编辑
     draftEdit(e){

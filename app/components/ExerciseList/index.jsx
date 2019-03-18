@@ -8,6 +8,7 @@ import DelModal from '../DelModal'
 import { Button , Progress, Select , DatePicker , Icon,Spin} from 'antd';
 
 import './style.less'
+import GeneralEmpty from "../GeneralEmpty";
 
 const Option = Select.Option;
 const { MonthPicker, RangePicker, WeekPicker } = DatePicker;
@@ -114,7 +115,7 @@ class ExerciseList extends React.Component {
                                     </div>
                             </div>
 
-                    }) : this.state.loadingShow=='none'&&<div style={{'fontSize':'16px','textAlign':'center','margin':'300px',"display":this.state.loadingShow=='block' ? 'none' : 'block'}}><Icon type="exclamation-circle" style={{marginRight:'5px',color:'rgba(255, 159, 0, 1)'}}/>暂无数据~</div>
+                    }) :this.state.loadingShow==='none'&&this.showListEmpty.bind(this)()
                 }
                 <DelModal isShowModal={this.state.isShowModal} parentType={this.state.parentType} exerciseId={this.state.exerciseId} noticeHomework={this.noticeHomework.bind(this)}/>
                 {
@@ -125,7 +126,9 @@ class ExerciseList extends React.Component {
         )
 
     }
-
+    showListEmpty(){
+        return <GeneralEmpty/>;
+    }
     //跳转详情
     jumpExerciseDetail(e){
         let id=e.currentTarget.getAttribute('data-id');

@@ -283,8 +283,11 @@ class ClassroomRecordTopicDetail extends React.Component {
                     }
                     <p className='common-sec-title'><span className='sec-title-line'></span><span>答题详情</span></p>
                     <div className="answer-detail">
+                        {
+                            this.showNoPublishEmpty.bind(this)()
+                        }
                     {
-                        Constants.isFormat(allTopicList,Object)&&allTopicList.resultList.length!=0 ? this.state.allTopicList.resultList.map((item,index)=>{
+                        this.isNeedShowNoPublishEmpty() === false && Constants.isFormat(allTopicList,Object)&&allTopicList.resultList.length!=0 ? this.state.allTopicList.resultList.map((item,index)=>{
                             let canAnswer=item.questionInfo.canAnswer,//0不可作答(主观题) 1 可作答(客观题)
                                 resultList4Objectivity=item.resultList4Objectivity,//可作答(客观题)
                                 resultList4Subjectivity=item.resultList4Subjectivity;//不可作答(主观题)
@@ -381,6 +384,25 @@ class ClassroomRecordTopicDetail extends React.Component {
                     </Modal>
                 </div>
             )
+    }
+    showNoPublishEmpty(){
+
+        if (this.isNeedShowNoPublishEmpty() === true)
+        {
+            return <div className='no-publish-empty'>
+                <img className='no-publish-empty-img' src={require('../../static/img/no-publish-empty-img.png')}/>
+                <div className='no-publish-empty-title'>暂无学生作答记录～</div>
+            </div>
+        }
+    }
+    isNeedShowNoPublishEmpty(){
+        console.log('allTopicList',this.state.allTopicList.questionStopFlag,this.state.allTopicList.questionState);
+        let questionStopFlag = this.state.allTopicList.questionStopFlag;
+        let questionState = this.state.allTopicList.questionState;
+        if (questionState===2 && questionStopFlag===2) {
+            return true;
+        }
+        return false;
     }
     //查看学生答案
     lookAnswer(e){

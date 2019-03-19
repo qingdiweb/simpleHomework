@@ -18,6 +18,7 @@ import './style.less'
 import CreateClassModal from "../../components/CreateClassModal";
 import {getStageSubject} from '../../fetch/config-info/config-info'
 import GlobalStyle from "../../constants/GlobalStyles";
+import GeneralEmpty from "../../components/GeneralEmpty";
 
 
 const loginToken=localStorage.getItem("loginToken");
@@ -110,7 +111,7 @@ class HomeworkCollect extends React.Component {
                                 <p className="test-collection-name" title={item.name}>{item.grade+'('+item.number+')班'}</p>
                                 <p className="test-collection-num">共{item.studentCount==null ? 0 : item.studentCount}人</p>
                             </div>
-                        }) : <div style={{'fontSize':'16px','textAlign':'center','margin':'300px auto',"display":this.state.loadingShow=='block' ? 'none' : 'block'}}><Icon type="exclamation-circle" style={{marginRight:'5px',color:'rgba(255, 159, 0, 1)'}}/>暂无数据~</div>
+                        }) : this.state.loadingShow==='none'&&this.showListEmpty.bind(this)()
                     }
                 </div>
                 <CreateClassModal visible={this.state.visible}
@@ -140,6 +141,9 @@ class HomeworkCollect extends React.Component {
                 </Modal>
             </div>
         )
+    }
+    showListEmpty(){
+        return <GeneralEmpty hintText='暂无班级～'/>;
     }
     handleMenuClick(e){
         console.log('handleMenuClick');

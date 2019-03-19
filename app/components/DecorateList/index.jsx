@@ -11,6 +11,7 @@ import DelModal from '../../Components/DelModal';
 import * as Constants from '../../Constants/store'
 import './style.less'
 import GlobalStyle from '../../constants/GlobalStyles'
+import GeneralEmpty from "../GeneralEmpty";
 
 const noCollectImg=require("../../static/img/default-sel.png");
 const collectImg=require("../../static/img/collect-sel.png");
@@ -643,7 +644,7 @@ class DecorateList extends React.Component {
                                                             })
                     }
                     </div>
-                    : <div style={{'fontSize':'16px','textAlign':'center','margin':'300px auto',"display":this.state.loadingShow=='block' ? 'none' : 'block'}}><Icon type="exclamation-circle" style={{marginRight:'5px',color:'rgba(255, 159, 0, 1)'}}/>暂无数据~</div>
+                    : this.state.loadingShow==='none'&&this.showListEmpty.bind(this)()
                 }
                 <DelModal isShowModal={this.state.isShowDelModal} parentType={this.state.parentType} draftId={this.props.draftId} topicId={this.state.topicId} noticeHomework={this.noticeHomework.bind(this)}/>
                 {
@@ -720,6 +721,9 @@ class DecorateList extends React.Component {
                 </Modal>
             </div>
         )
+    }
+    showListEmpty(){
+        return <GeneralEmpty/>;
     }
     //选中题目
     onChange(e){

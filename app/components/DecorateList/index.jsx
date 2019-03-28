@@ -136,6 +136,16 @@ class DecorateList extends React.Component {
     }
     //获取题目数据
     getTopiclistData(loginToken,catalogId,coachbookCatalogId,knowledgeId,collectId,paperId,tagId,categoryId,degree,keyword,draftId,extParam,rememberFlag,pageNumber,pageSize,totalSize){
+
+        if(catalogId==''&&coachbookCatalogId==''&&knowledgeId==''&&collectId==''&&paperId==''){//如果都为空-则意味着取消当前筛选题-清空列表
+            console.log('catalogId==\'\'&&coachbookCatalogId==\'\'&&knowledgeId==\'\'&&collectId==\'\'&&paperId==\'\'')
+            this.setState({
+                topicList:[],
+                topicListLen:0,
+                loadingShow:'none',
+            })
+            return;
+        }
         this.setState({
             loadingShow:'block',
             topicList:[]
@@ -176,6 +186,13 @@ class DecorateList extends React.Component {
                             });
                         }
                     }
+                    else {
+                        console.log('出错了重置');
+                        this.setState({
+                            loadingShow:'none',
+                            topicListLen:0,
+                        })
+                    }
                 }).catch(ex => {
                     // 发生错误
                     if (__DEV__) {
@@ -185,6 +202,14 @@ class DecorateList extends React.Component {
     }
     //查看已选-获取题目数据
     getDefaultQuestionList(loginToken,questionIds){
+        if (!questionIds)
+        {
+            console.log('getDefaultQuestionList !questionIds',questionIds);
+            this.setState({
+                loadingShow:'none',
+            })
+            return;
+        }
         this.setState({
             loadingShow:'block',
             topicList:[],
@@ -230,6 +255,11 @@ class DecorateList extends React.Component {
                             });
                             //通知查看已选父组件-有多少道题目是否为空
                             this.props.noticeTopicNum.bind(this,topicListData,topicListData.length,objectiveNum,subjectiveNum)()
+                    }
+                    else {
+                        this.setState({
+                            loadingShow:'none',
+                        })
                     }
                 }).catch(ex => {
                     // 发生错误
@@ -657,7 +687,6 @@ class DecorateList extends React.Component {
                   width={GlobalStyle.popWindowWidth}
                   cancelText="取消"
                   okText="确定"
-                  width='420px'
                   onOk={this.collectHandleOk.bind(this)}
                   onCancel={this.collectHandleCancel.bind(this)}
                 >
@@ -946,7 +975,7 @@ class DecorateList extends React.Component {
                                 }
                             }
                             this.setState({
-                                collectVisible:false
+                                collectVisible:false,
                             })
                         }).catch(ex => {
                             // 发生错误
@@ -965,7 +994,7 @@ class DecorateList extends React.Component {
             whetherCollected=e.currentTarget.getAttribute('data-collected');
             this.getCollectList.bind(this,collectQustionId,whetherCollected)();
             this.setState({
-                collectQustionId:collectQustionId
+                collectQustionId:collectQustionId,
             })
             if(this.props.parentType==2){
                 if(whetherCollected=='true'){
@@ -1005,7 +1034,7 @@ class DecorateList extends React.Component {
     }
     cancelCollectCancel(){
         this.setState({
-            cancelCollectVisible:false
+            cancelCollectVisible:false,
         })
     }
     //选择收藏习题集
@@ -1081,8 +1110,11 @@ class DecorateList extends React.Component {
     }
     //取消收藏
     collectHandleCancel(){
+        console.log('弹框消失');
         this.setState({
-            collectVisible:false
+            collectVisible:false,
+            defaultCollectProblemData:[],
+            timeStamp:(new Date()).getTime()
         })
     }
     //方法-接收父组件参数(子组件树组件给父组件传值-父组件在通过这个方法给本组件传值)
@@ -1098,17 +1130,20 @@ class DecorateList extends React.Component {
             pageSize=5,//一页数据数
             totalSize=0;
             this.state.extParam=this.state.extParam+1;
-            this.setState({
-                topicList:[]
-            })
-            if(catalogId==''&&coachbookCatalogId==''&&knowledgeId==''&&collectId==''&&paperId==''){//如果都为空-则意味着取消当前筛选题-清空列表
-                this.setState({
-                    topicList:[]
-                })
-            }else{
-                this.getTopiclistData.bind(this,loginToken,catalogId,coachbookCatalogId,knowledgeId,collectId,paperId,tagId,categoryId,degree,keyword,draftId,extParam,rememberFlag,pageNumber,pageSize,totalSize)();
-            }
-            //每次刷新数据页数默认第一页
+            // this.setState({
+            //     topicList:[]
+            // })
+            // if(catalogId==''&&coachbookCatalogId==''&&knowledgeId==''&&collectId==''&&paperId==''){//如果都为空-则意味着取消当前筛选题-清空列表
+            //     this.setState({
+            //         topicList:[],
+            //         topicListLen:0,
+            //     })
+            // }else{
+            //     this.getTopiclistData.bind(this,loginToken,catalogId,coachbookCatalogId,knowledgeId,collectId,paperId,tagId,categoryId,degree,keyword,draftId,extParam,rememberFlag,pageNumber,pageSize,totalSize)();
+            // }
+           this.getTopiclistData.bind(this,loginToken,catalogId,coachbookCatalogId,knowledgeId,collectId,paperId,tagId,categoryId,degree,keyword,draftId,extParam,rememberFlag,pageNumber,pageSize,totalSize)();
+
+        //每次刷新数据页数默认第一页
             this.setState({
                 currentPage:1
             })

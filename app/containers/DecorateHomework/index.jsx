@@ -446,6 +446,9 @@ class DecorateHomework extends React.Component {
     }
     noticeCoachbookData(value){
         console.log('len',value)
+        this.setState({
+            coachLoadingShow:'none',
+        })
         if(value.length!=0&&this.state.kaiguan){
             setTimeout(()=>{
                 console.log('走这里')

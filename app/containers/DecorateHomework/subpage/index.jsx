@@ -363,7 +363,7 @@ class DecorateListSel extends React.Component {
         let isSelected=this.props.params.isSelected;//1 是布置作业过来的 0 是再次编辑过来的 2作业草稿编辑过来的
             if(dataLen==0){
               if(isSelected==1){
-                hashHistory.push("/decorate-homework/"+this.props.params.draftId)
+                // hashHistory.push("/decorate-homework/"+this.props.params.draftId+'/'+isSelected)
               }else if(isSelected==2){
                 hashHistory.push('/no-publish-homework')
                 //如果草稿中最后一道题删除-那么就删除这个草稿

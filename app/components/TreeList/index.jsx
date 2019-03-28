@@ -295,13 +295,17 @@ class TreeList extends React.Component {
         this.state.extParam=extParam;
         //每次先置空树结构数据
         this.state.gData=[];
-        this.state.treeLoading=true;
+        this.setState({
+            treeLoading:true
+        });
+        console.log('getPaperInfoData this',this);
         //获取试卷列表
         const resultPaper = getPaperData(stageId,subjectId,provinceId,gradeId,yearInt,type,extParam)
             resultPaper.then(res => {
                 return res.json()
             }).then(json => {
                 // 处理获取的数据
+                console.log('getPaperData this',this);
                 const data = json
                 if (data.result) {
                     let paperInfoList=data.data.content,
@@ -317,6 +321,7 @@ class TreeList extends React.Component {
                         //必须满足有试卷的情况下
                         if(Constants.isFormat(paperInfoList,Array)){
                             if(extParam==this.state.extParam){
+                                console.log('extParam==this.state.extPara',this);
                                 this.setState({
                                     paperInfoList:gData.length!=0 ? gData : [],
                                     gData:gData.length!=0 ? gData : [],
@@ -328,6 +333,20 @@ class TreeList extends React.Component {
                                 //初始化加载将收藏id传给子组件
                                 let paperId=gData.length>0 ? gData[0].title : '';
                                     this.props.noticeTree.bind(this,4,paperId.toString())();
+                            }
+                            else {
+                                console.log('数据异常 数据异常');
+                                this.setState({
+                                    paperInfoList:gData.length!=0 ? gData : [],
+                                    gData:gData.length!=0 ? gData : [],
+                                    treeLoading:false,
+                                    expandedKeys:gData.length!=0 ? [gData[0].title.toString()] : [],
+                                    selectedKeys:gData.length!=0 ? [gData[0].title.toString()] : [],
+                                    timeStamp:(new Date()).getTime()
+                                })
+                                //初始化加载将收藏id传给子组件
+                                let paperId=gData.length>0 ? gData[0].title : '';
+                                this.props.noticeTree.bind(this,4,paperId.toString())();
                             }
                         }else{
                             this.props.noticeTree.bind(this,4,'')();
@@ -382,6 +401,10 @@ class TreeList extends React.Component {
                                 //初始化加载将收藏id传给子组件
                                 let id=gData.length>0 ? gData[0].title : '';
                                     this.props.noticeTree.bind(this,3,id.toString())();
+                            }
+                            else
+                            {
+                                console.log('数据异常 数据异常');
                             }
                         }else{
                             this.props.noticeTree.bind(this,3,'')();

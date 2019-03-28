@@ -57,7 +57,7 @@ class ExerciseList extends React.Component {
                                 let newDateParse=Date.parse(new Date());//当前时间戳
                                  if (this.props.referenceType === 0)
                                  {
-                                     content[i].newCreatedAt='开始时间:'+' '+Constants.dealTimestamp(content[i].createdAt);//创建时间
+                                     content[i].newCreatedAt='创建时间:'+' '+Constants.dealTimestamp(content[i].createdAt);//创建时间
                                  }
                                  else
                                  {

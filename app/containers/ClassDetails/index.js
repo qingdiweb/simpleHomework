@@ -100,6 +100,7 @@ export default class ClassDetails extends React.Component {
             // let actionUrl = Constants.baseUrl + "/account/teacher/class/student/importData?loginToken=" + loginToken + '&classId=' + this.props.params.classId;
             let actionUrl = Constants.baseUrl + "/account/teacher/class/student/importData";
             return <Upload
+                accept={'.xls,.xlsx'}
                 action={actionUrl}
                 name='upload'
                 data={this.state.uploadData}

@@ -75,6 +75,7 @@ class PersonalCenter extends React.Component {
             this.getCity.bind(this,teacherInfo.provinceId)();
             //获取区
             this.getArea.bind(this,teacherInfo.cityId)();
+            this.getStageSubject.bind(this,teacherInfo.stageId)();
             //获取学校
             let type='';
                 if(teacherInfo.stage=='小学'){
@@ -128,33 +129,36 @@ class PersonalCenter extends React.Component {
 
     }
     componentDidMount(){
-      setTimeout(()=>{
-      //获取学段数据
+
+
+    }
+    getStageSubject(stageId){
+        //获取学段数据
         const resultGetStageSubject=getStageSubject();
-              resultGetStageSubject.then(res =>{
-                    return res.json()
-              }).then(json=>{
-                const data = json
-                    if(data.result){
-                        let stageData=data.data.stageInfoList;
-                            this.setState({
-                                stageData:stageData
-                            })
-                            for (var i = 0; i < stageData.length; i++) {
-                              if(stageData[i].id==this.state.teacherInfo.stageId){
-                                  this.setState({
-                                      subjectData:stageData[i].subjectInfoList
-                                  })
-                              }
-                          }
+        resultGetStageSubject.then(res =>{
+            return res.json()
+        }).then(json=>{
+            const data = json
+            if(data.result){
+                let stageData=data.data.stageInfoList;
+                this.setState({
+                    stageData:stageData
+                })
+                console.log('this.state.stageData',stageData,stageId);
+                for (var i = 0; i < stageData.length; i++) {
+                    if(stageData[i].id== stageId){
+                        this.setState({
+                            subjectData:stageData[i].subjectInfoList
+                        })
                     }
-              }).catch(ex => {
-                    // 发生错误
-                    if (__DEV__) {
-                        console.error('暂无数据, ', ex.message)
-                    }
-              })
-      },800)
+                }
+            }
+        }).catch(ex => {
+            // 发生错误
+            if (__DEV__) {
+                console.error('暂无数据, ', ex.message)
+            }
+        })
     }
     getTeacherInfo(){
        return new Promise((resolve,reject) =>{
@@ -218,7 +222,7 @@ class PersonalCenter extends React.Component {
                                 {
                                   this.state.tabKey==1 ? this.state.isReadOnly ? <div style={{width:"100%",background:'rgba(245, 248, 250, 1)',padding:'20px 0px 32px 0px '}}>
                                         <div className="personal-data editing-area">
-                                            <Form onSubmit={this.personalDataEdit.bind(this)}>
+                                            <Form>
                                                 <FormItem
                                                   {...formItemLayout}
                                                   label="头像:"
@@ -338,7 +342,7 @@ class PersonalCenter extends React.Component {
                                                   {...tailFormItemLayout}
                                                   style={{textAlign:'center'}}
                                                 >
-                                                  <Button type="primary" htmlType="submit" className="personal-data-button">
+                                                  <Button type="primary" htmlType="submit" className="personal-data-button" onClick={this.personalDataEdit.bind(this)}>
                                                     修改
                                                   </Button>
                                                 </FormItem>
@@ -346,7 +350,7 @@ class PersonalCenter extends React.Component {
                                         </div>
                                     </div> : <div style={{width:"100%",background:'rgba(245, 248, 250, 1)',padding:'20px 0px 32px 0px '}}>
                                         <div className="personal-data editing-area">
-                                            <Form onSubmit={this.personalDataHandleSubmit.bind(this)}>
+                                            <Form>
                                                 <FormItem
                                                   {...formItemLayout}
                                                   label="头像"
@@ -361,6 +365,7 @@ class PersonalCenter extends React.Component {
                                                     <div style={{display:'inline-block'}}>
                                                         <img src={this.state.previewImage} alt="" className="head-portrait"/>
                                                         <Upload
+                                                              accept={'.jpg,.jpeg,.png,.gif,.bmp,.JPG,.JPEG,.PBG,.GIF,.BMP'}
                                                               action={Constants.baseUrl+"/account/teacher/file/upload/avatar"}
                                                               data={this.state.uploadData}
                                                               name={'upload'}
@@ -382,9 +387,10 @@ class PersonalCenter extends React.Component {
                                                     initialValue: this.state.teacherInfo.nickname||'',
                                                     rules: [
                                                       { required: true, message: '姓名不能为空' },
+                                                        {validator:this.accountSetNameValidation.bind(this)}
                                                     ],
                                                   })(
-                                                    <Input placeholder="请输入姓名" className="public-width"  onChange={this.nameInput.bind(this)}/>
+                                                    <Input placeholder="请输入姓名" maxLength={10} className="public-width"  onChange={this.nameInput.bind(this)}/>
                                                   )}
                                                 </FormItem>
                                                 <FormItem
@@ -512,7 +518,7 @@ class PersonalCenter extends React.Component {
                                                   {...tailFormItemLayout}
                                                   style={{textAlign:'center'}}
                                                 >
-                                                  <Button type="primary" htmlType="submit" className="personal-data-button">
+                                                  <Button type="primary" htmlType="submit" className="personal-data-button" onClick={this.personalDataHandleSubmit.bind(this)}>
                                                     保存
                                                   </Button>
                                                 </FormItem>
@@ -526,7 +532,7 @@ class PersonalCenter extends React.Component {
                                 {
                                   this.state.tabKey==2 ? <div style={{width:"100%",background:'rgba(245, 248, 250, 1)',padding:'20px 0px 32px 0px '}}>
                                         <div className="account-setting editing-area">
-                                          <Form onSubmit={this.accountSettingHandleSubmit.bind(this)}>
+                                          <Form>
                                                 <FormItem
                                                   {...formItemLayout}
                                                   label="新手机号"
@@ -562,7 +568,7 @@ class PersonalCenter extends React.Component {
                                                   {...tailFormItemLayout}
 
                                                 >
-                                                  <Button type="primary" htmlType="submit" className="account-data-button">
+                                                  <Button type="primary" htmlType="submit" className="account-data-button"  onClick={this.accountSettingHandleSubmit.bind(this)}>
                                                     保存
                                                   </Button>
                                                 </FormItem>
@@ -576,7 +582,7 @@ class PersonalCenter extends React.Component {
                                 {
                                   this.state.tabKey==3 ? <div style={{width:"100%",background:'rgba(245, 248, 250, 1)',padding:'20px 0px 32px 0px '}}>
                                                             <div className="password-setting editing-area">
-                                                                  <Form onSubmit={this.passwordSettingHandleSubmit.bind(this)}>
+                                                                  <Form>
                                                                           <FormItem {...formItemLayout} label="原密码">
                                                                             {getFieldDecorator('oldPassword', {
                                                                                 initialValue:'',
@@ -610,7 +616,7 @@ class PersonalCenter extends React.Component {
                                                                           <FormItem
                                                                             {...tailFormItemLayout}
                                                                           >
-                                                                            <Button type="primary" htmlType="submit" className="account-data-button">
+                                                                            <Button type="primary" htmlType="submit" className="account-data-button" onClick={this.passwordSettingHandleSubmit.bind(this)}>
                                                                               保存
                                                                             </Button>
                                                                           </FormItem>
@@ -650,7 +656,7 @@ class PersonalCenter extends React.Component {
     }
     //个人资料修改
     personalDataEdit(){
-      this.setState({
+        this.setState({
         isReadOnly:false
       })
     }
@@ -677,21 +683,22 @@ class PersonalCenter extends React.Component {
                 school=this.state.filedata.school;
                 console.log(loginToken,avatarUrl,nickname,gender,stageId,stage,subjectId,subject,provinceId,province,cityId,city,areaId,area,schoolId,school)
                 //保存成功提示
-                message.success('保存成功');
                 const resultUpdateTeacherInfo=updateTeacherInfo(loginToken,avatarUrl,nickname,gender,stageId,stage,subjectId,subject,provinceId,province,cityId,city,areaId,area,schoolId,school);
                       resultUpdateTeacherInfo.then(res =>{
                             return res.json()
                       }).then(json=>{
-                        const data = json
+                          message.success('保存成功');
+                          const data = json
                             if(data.result){
 
                                 this.setState({
-                                  teacherInfo:data.data
+                                  teacherInfo:data.data,
+                                    isReadOnly:true,
                                 })
                                 //更新保存老师个人资料
                                 localStorage.setItem("teacherInfo",JSON.stringify(data.data))
                                 localStorage.setItem("teacherInfoFill",false)
-                                window.location.reload();
+                                // window.location.reload();
                                 //个人中心保存-通知刷新
                                 this.props.noticeRefresh.bind(this)()
                             }else{
@@ -917,6 +924,17 @@ class PersonalCenter extends React.Component {
           }
       })
     }
+    accountSetNameValidation(rule, value, callback)
+    {
+        if (!!value && value.length <2)
+        {
+            callback('请输入2~10个字符')
+        }
+        else {
+            callback()
+        }
+    }
+
     //新手机号输入
     accountSetnewPhoneValidation(rule, value, callback){
        console.log('账号'+value)
@@ -926,9 +944,10 @@ class PersonalCenter extends React.Component {
             this.setState({
               codeDisabled:true
            })
-            callback('账号格式不对！')
+           console.log("账号为1:",value);
+           callback('账号格式不对！')
        }else{
-          console.log("账号不存在"+this.state.phoneExit)
+          console.log("账号为2:",value);
           /*if(this.state.phoneExit==true){
             form.validateFields(['accountSetnewPhone'], { force: true });
             callback('手机号不存在！')
@@ -962,6 +981,11 @@ class PersonalCenter extends React.Component {
     accountSetgetCode(rule, value, callback){
       let verifyPhone=this.state.accountdata.phoneVal,
           type='teacher';
+        if(!verifyPhone)
+        {
+            message.warning('请输入手机号');
+            return;
+        }
           const resultGetcode=getCode(loginToken,verifyPhone);
               resultGetcode.then(res=>{
                 console.log("第一数据"+res)
@@ -991,11 +1015,11 @@ class PersonalCenter extends React.Component {
                               }
                         },1000)
                   }else{
-                    this.setState({
-                      phoneExit:true
-                    })
+                    // this.setState({
+                    //   phoneExit:true
+                    // })
                     message.warning(data.error);
-                    this.accountSetnewPhoneValidation.bind(this)()
+                    // this.accountSetnewPhoneValidation.bind(this)()
                   }
               }).catch(ex=>{
                   // 发生错误

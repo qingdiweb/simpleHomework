@@ -106,7 +106,7 @@ class TreeList extends React.Component {
                 }).then(json => {
                     // 处理获取的数据
                     const data = json
-                    if (data.result) {
+                    if (data.result && this.props.type == 1) {
                         let catalogList=data.data,
                             gData=this.dealrenderTreeNodes(catalogList,'catalogInfoList'),
                             extParam=data.extParam;
@@ -174,7 +174,7 @@ class TreeList extends React.Component {
                }).then(json => {
                    // 处理获取的数据
                    const data = json
-                   if (data.result) {
+                   if (data.result && this.props.type == 5) {
                         let coachbookCollection=data.data,
                             coachbookInfoList=Constants.isFormat(coachbookCollection,Array) ? coachbookCollection[versionIndex].list[index].coachbookInfoList : [],
                             gData=[],
@@ -253,7 +253,7 @@ class TreeList extends React.Component {
             }).then(json => {
                 // 处理获取的数据
                 const data = json
-                if (data.result) {
+                if (data.result && this.props.type == 2) {
                     let knowledgeInfoList=data.data.knowledgeInfoList,
                         gData=[],
                         expandedKeys=[],
@@ -307,7 +307,7 @@ class TreeList extends React.Component {
                 // 处理获取的数据
                 console.log('getPaperData this',this);
                 const data = json
-                if (data.result) {
+                if (data.result && this.props.type == 4) {
                     let paperInfoList=data.data.content,
                         gData=[],
                         expandedKeys=[],
@@ -376,7 +376,7 @@ class TreeList extends React.Component {
             }).then(json => {
                 // 处理获取的数据
                 const data = json
-                if (data.result) {
+                if (data.result && this.props.type == 3) {
                     let collectInfoList=data.data,
                         gData=[],
                         expandedKeys=[],

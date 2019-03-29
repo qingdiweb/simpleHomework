@@ -12,7 +12,7 @@ import * as Constants from '../../constants/store'
 
 
 // localStorage.setItem("loginToken",'a315888ff3051032cf94ed8650ce207a');//梦阳
-localStorage.setItem("loginToken",'fb015fa69ed3d77717f65f4552a5cf88'); //卓星
+// localStorage.setItem("loginToken",'fb015fa69ed3d77717f65f4552a5cf88'); //卓星
 // localStorage.setItem("loginToken",'ce21e17c76768448e6aa5388f5fe7e46'); //红涛
 
 const loginToken=localStorage.getItem("loginToken");

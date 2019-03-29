@@ -6,6 +6,10 @@ import { saveDefault } from '../../fetch/decorate-homework/decorate-homework'
 import Dialog from '../Dialog'
 
 import './style.less'
+import * as userinActions from "../../actions/userinfo";
+import {connect} from "react-redux";
+import { bindActionCreators } from 'redux'
+import store from "../../reducers/store";
 
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
@@ -29,6 +33,17 @@ class HomeHeader extends React.Component {
         }
     }
     componentWillReceiveProps(nextProps){
+
+        console.log('HomeHeader componentWillReceiveProps',nextProps);
+        if (nextProps.store.type === 1)
+        {
+            console.log('nextProps.store',nextProps.store);
+        }
+
+        if (nextProps.userinfo.type === 2)
+        {
+            console.log('nextProps.userinfo',nextProps.userinfo);
+        }
             //监听属性变化
             if(this.props.flag!=nextProps.flag){
                  //刷新此组件
@@ -50,15 +65,17 @@ class HomeHeader extends React.Component {
                     })
                 }
             }
-           
+
     }
     componentWillMount(){
+        console.log('HomeHeader componentWillMount')
+
         let teacherInfoFill=localStorage.getItem("teacherInfoFill")=='true' ? true : false;
             this.setState({
                 teacherInfoFill:teacherInfoFill,
                 flag:!this.state.flag
             })
-            
+
         let positionMenu=JSON.parse(localStorage.getItem('positionMenu'));
             if(positionMenu instanceof Array){
                 this.setState({
@@ -112,7 +129,7 @@ class HomeHeader extends React.Component {
                                                                                     <Link to='/personal-center'>
                                                                                         <img src={teacherInfo.avatarUrl} alt="" className="head-portrait"/>
                                                                                         <span className="user-name">{teacherInfo.nickname}</span>
-                                                                                    </Link> 
+                                                                                    </Link>
                                                                                     <Icon type="down" style={{width:"20px",height:"20px",color:"rgba(255, 255, 255, 1)",position:'relative',top:'2px'}} onClick={this.exitShowHandle.bind(this)} onMouseLeave={this.personalInfoLeave.bind(this)}/>
                                                                                 </div>: ''
                     }
@@ -195,9 +212,9 @@ class HomeHeader extends React.Component {
         }
        /* window.noticeDecorateQuestionIds='';//用作通知header组件离开当前页面保存草稿参数用
         window.catalogIds='';*/
-        
+
     }
-   
+
     personalInfoLeave(){
         setTimeout(()=>{
             if(!this.state.isEnterExit){
@@ -257,7 +274,7 @@ class HomeHeader extends React.Component {
                           console.error('暂无数据, ', ex.message)
                       }
                   })
-        
+
       }
     noticeLeaveCancel(e){
         let stagPath=this.state.stagPath;
@@ -278,7 +295,7 @@ class HomeHeader extends React.Component {
         }else if(stagPath="/classroom-record"){
             localStorage.setItem('positionMenu',JSON.stringify(['7']));
         }
-        
+
         this.setState({
           leaveVisible: false,
           flag:!this.state.flag,
@@ -290,9 +307,25 @@ class HomeHeader extends React.Component {
         //离开清空选题
         window.noticeDecorateQuestionIds='';//用作通知header组件离开当前页面保存草稿参数用
         window.catalogIds='';
-        
+
     }
-    
+
 }
 
-export default HomeHeader
+function mapStateToProps(state) {
+    console.log(' header mapStateToProps state',state);
+    return {
+        userinfo: state.userinfo,
+        store: state.store
+    }
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        // userInfoAction:bindActionCreators(userinActions,dispatch),
+    }
+}
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(HomeHeader)

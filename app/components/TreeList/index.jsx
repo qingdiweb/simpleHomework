@@ -41,7 +41,6 @@ class TreeList extends React.Component {
           }
     }
     componentWillMount() {
-        console.log('teacherInfo',teacherInfo)
         //教师信息
         let teacherInfo=JSON.parse(localStorage.getItem("teacherInfo")),//教师信息
             stageId=teacherInfo.stageId,//学段
@@ -49,7 +48,8 @@ class TreeList extends React.Component {
             type=this.props.type,//1 教材同步 2 知识点 3 收藏
             questionId=0,
             extParam=this.state.extParam;
-            //获取教材信息
+        console.log('TreeList teacherInfo',teacherInfo);
+        //获取教材信息
             this.getMaterialListData.bind(this,stageId,subjectId,extParam)().then((versiondata)=>{
                 //查询最后操作的教材id-将上一次操作的章节更新树结构上面去
                 this.getLastOperation.bind(this,loginToken)().then((data)=>{

@@ -12,6 +12,8 @@ import { getTeacherInfo } from '../../fetch/home/home'
 import * as Constants from '../../constants/store'
 
 import * as userInfoActionsFromOtherFile from '../../actions/userinfo'
+import * as storeActions from '../../actions/store'
+
 import './style.less'
 
 const TabPane = Tabs.TabPane;
@@ -128,8 +130,11 @@ class PersonalCenter extends React.Component {
 
 
     }
-    componentDidMount(){
+    componentWillReceiveProps(nextProps){
 
+        console.log('personCenter componentWillReceiveProps',nextProps);
+    }
+    componentDidMount(){
 
     }
     getStageSubject(stageId){
@@ -699,6 +704,8 @@ class PersonalCenter extends React.Component {
                                 localStorage.setItem("teacherInfo",JSON.stringify(data.data))
                                 localStorage.setItem("teacherInfoFill",false)
                                 // window.location.reload();
+                                // this.props.userInfoActions.update({type:2});
+                                // this.props.storeActions.update({type:1});
                                 //个人中心保存-通知刷新
                                 this.props.noticeRefresh.bind(this)()
                             }else{
@@ -1109,13 +1116,14 @@ const PersonalCenterForm = Form.create()(PersonalCenter);
 
 function mapStateToProps(state) {
     return {
-        userinfo: state.userinfo
+
     }
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        userInfoActions: bindActionCreators(userInfoActionsFromOtherFile, dispatch)
+        userInfoActions: bindActionCreators(userInfoActionsFromOtherFile, dispatch),
+        storeActions: bindActionCreators(storeActions, dispatch)
     }
 }
 export default connect(

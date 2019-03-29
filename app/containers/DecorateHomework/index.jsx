@@ -778,7 +778,8 @@ class DecorateHomework extends React.Component {
             this.setState({
                 paperSearchObj:provinceobj
             },()=>{
-                 this.treeControl.getPaperInfoData(this.props.teacherInfo.stageId,this.props.teacherInfo.subjectId,value,'','','')
+                let  extParam = this.state.extParam+=1;
+                this.treeControl.getPaperInfoData(this.props.teacherInfo.stageId,this.props.teacherInfo.subjectId,value,'','','',extParam)
             })
     }
     paperGradeFilter(value){
@@ -787,7 +788,8 @@ class DecorateHomework extends React.Component {
            this.setState({
                 paperSearchObj:gradeobj
             },()=>{
-                 this.treeControl.getPaperInfoData(this.props.teacherInfo.stageId,this.props.teacherInfo.subjectId,'',value,'','')
+               let  extParam = this.state.extParam+=1;
+               this.treeControl.getPaperInfoData(this.props.teacherInfo.stageId,this.props.teacherInfo.subjectId,'',value,'','',extParam)
             })
     }
     paperYearFilter(value){
@@ -796,7 +798,8 @@ class DecorateHomework extends React.Component {
             this.setState({
                 paperSearchObj:yearobj
             },()=>{
-                 this.treeControl.getPaperInfoData(this.props.teacherInfo.stageId,this.props.teacherInfo.subjectId,'','',value,'')
+                let  extParam = this.state.extParam+=1;
+                this.treeControl.getPaperInfoData(this.props.teacherInfo.stageId,this.props.teacherInfo.subjectId,'','',value,'',extParam)
             })
     }
     paperTypeFilter(value){
@@ -805,7 +808,8 @@ class DecorateHomework extends React.Component {
             this.setState({
                 paperSearchObj:typeobj
             },()=>{
-                 this.treeControl.getPaperInfoData(this.props.teacherInfo.stageId,this.props.teacherInfo.subjectId,'','','',value)
+                let  extParam = this.state.extParam+=1;
+                this.treeControl.getPaperInfoData(this.props.teacherInfo.stageId,this.props.teacherInfo.subjectId,'','','',value,extParam)
             })
     }
     //专题

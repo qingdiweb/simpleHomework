@@ -334,20 +334,6 @@ class TreeList extends React.Component {
                                 let paperId=gData.length>0 ? gData[0].title : '';
                                     this.props.noticeTree.bind(this,4,paperId.toString())();
                             }
-                            else {
-                                console.log('数据异常 数据异常');
-                                this.setState({
-                                    paperInfoList:gData.length!=0 ? gData : [],
-                                    gData:gData.length!=0 ? gData : [],
-                                    treeLoading:false,
-                                    expandedKeys:gData.length!=0 ? [gData[0].title.toString()] : [],
-                                    selectedKeys:gData.length!=0 ? [gData[0].title.toString()] : [],
-                                    timeStamp:(new Date()).getTime()
-                                })
-                                //初始化加载将收藏id传给子组件
-                                let paperId=gData.length>0 ? gData[0].title : '';
-                                this.props.noticeTree.bind(this,4,paperId.toString())();
-                            }
                         }else{
                             this.props.noticeTree.bind(this,4,'')();
                             this.setState({

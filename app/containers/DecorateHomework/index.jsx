@@ -778,8 +778,11 @@ class DecorateHomework extends React.Component {
             this.setState({
                 paperSearchObj:provinceobj
             },()=>{
-                let  extParam = this.state.extParam+=1;
-                this.treeControl.getPaperInfoData(this.props.teacherInfo.stageId,this.props.teacherInfo.subjectId,value,'','','',extParam)
+                let  extParam = this.state.extParam+=1,
+                    teacherInfo=JSON.parse(localStorage.getItem("teacherInfo")),//教师信息
+                    stageId=teacherInfo.stageId,//学段
+                    subjectId=teacherInfo.subjectId;//学科
+                this.treeControl.getPaperInfoData(stageId,subjectId,value,'','','',extParam)
             })
     }
     paperGradeFilter(value){
@@ -788,8 +791,11 @@ class DecorateHomework extends React.Component {
            this.setState({
                 paperSearchObj:gradeobj
             },()=>{
-               let  extParam = this.state.extParam+=1;
-               this.treeControl.getPaperInfoData(this.props.teacherInfo.stageId,this.props.teacherInfo.subjectId,'',value,'','',extParam)
+               let  extParam = this.state.extParam+=1,
+                  teacherInfo=JSON.parse(localStorage.getItem("teacherInfo")),//教师信息
+                   stageId=teacherInfo.stageId,//学段
+                   subjectId=teacherInfo.subjectId;//学科
+               this.treeControl.getPaperInfoData(stageId,subjectId,'',value,'','',extParam)
             })
     }
     paperYearFilter(value){
@@ -798,8 +804,11 @@ class DecorateHomework extends React.Component {
             this.setState({
                 paperSearchObj:yearobj
             },()=>{
-                let  extParam = this.state.extParam+=1;
-                this.treeControl.getPaperInfoData(this.props.teacherInfo.stageId,this.props.teacherInfo.subjectId,'','',value,'',extParam)
+                let  extParam = this.state.extParam+=1,
+                    teacherInfo=JSON.parse(localStorage.getItem("teacherInfo")),//教师信息
+                    stageId=teacherInfo.stageId,//学段
+                    subjectId=teacherInfo.subjectId;//学科
+                this.treeControl.getPaperInfoData(stageId,subjectId,'','',value,'',extParam)
             })
     }
     paperTypeFilter(value){
@@ -808,8 +817,11 @@ class DecorateHomework extends React.Component {
             this.setState({
                 paperSearchObj:typeobj
             },()=>{
-                let  extParam = this.state.extParam+=1;
-                this.treeControl.getPaperInfoData(this.props.teacherInfo.stageId,this.props.teacherInfo.subjectId,'','','',value,extParam)
+                let  extParam = this.state.extParam+=1,
+                     teacherInfo=JSON.parse(localStorage.getItem("teacherInfo")),//教师信息
+                     stageId=teacherInfo.stageId,//学段
+                    subjectId=teacherInfo.subjectId;//学科
+                this.treeControl.getPaperInfoData(stageId,subjectId,'','','',value,extParam)
             })
     }
     //专题

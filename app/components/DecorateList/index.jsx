@@ -4,7 +4,7 @@ import { Link, hashHistory } from 'react-router'
 import { fromJS } from 'immutable';
 import { DraggableArea, DraggableAreasGroup} from 'react-draggable-tags';
 import { Radio , Checkbox , Select , Icon , Input , Modal , Row , Col,Spin,message} from 'antd';
-import { getTopicListData , getDefaultQuestionList , collectSearchList , addorcancelCollect , addProblem,getProjectList,getRecommendList,findQuestion,saveDefault,updateExercise} from '../../fetch/decorate-homework/decorate-homework'
+import { getTopicListData ,delectCollectQuestion, getDefaultQuestionList , collectSearchList , addorcancelCollect , addProblem,getProjectList,getRecommendList,findQuestion,saveDefault,updateExercise} from '../../fetch/decorate-homework/decorate-homework'
 import { getCollectTopic} from '../../fetch/homework-collect/homework-collect'
 import Pagination from '../../Components/Pagination';
 import DelModal from '../../Components/DelModal';
@@ -1014,19 +1014,30 @@ class DecorateList extends React.Component {
     }
     //取消收藏
     cancelCollectSure(){
-        this.collectUpdate.bind(this,loginToken,'',this.state.collectQustionId)().then(()=>{
-            //习题集调用的时候处理
-            if(this.props.parentType==2){
-                let collectId=!!this.props.collectId ? this.props.collectId : '',
-                    degree=this.props.fileData.degreeValue,
-                    categoryId=this.props.fileData.categoryValue,
-                    keyword=this.props.fileData.keywordValue,
-                    pageNumber=0,//第一页
-                    pageSize=5;//一页数据数
+        const resultAddorcancelCollect = delectCollectQuestion(loginToken,this.props.collectId,this.state.collectQustionId);
+        resultAddorcancelCollect.then(res => {
+            return res.json()
+        }).then(json => {
+            // 处理获取的数据
+            const data = json
+            if (data.result) {
+                message.success('已取消收藏');
+                if(this.props.parentType==2){
+                    let collectId=!!this.props.collectId ? this.props.collectId : '',
+                        degree=this.props.fileData.degreeValue,
+                        categoryId=this.props.fileData.categoryValue,
+                        keyword=this.props.fileData.keywordValue,
+                        pageNumber=0,//第一页
+                        pageSize=5;//一页数据数
                     this.getCollectTopic.bind(this,loginToken,collectId,degree,categoryId,keyword,pageNumber,pageSize)();
-               }
-        }).catch((ex)=>{
-            console.log("暂无数据 "+ex.message)
+                }
+            }
+        }).catch(ex => {
+            // 发生错误
+            if (__DEV__) {
+                reject(ex.message)
+                console.error('暂无数据, ', ex.message)
+            }
         })
         this.setState({
             cancelCollectVisible:false
@@ -1041,17 +1052,19 @@ class DecorateList extends React.Component {
     collectSel(value){
         console.log('删除习题集')
       let collectList=this.state.collectList,
+          defaultCollectProblemData=[],
           valueId=[];
           for (var i = 0; i < collectList.length; i++) {
               for (var j = 0; j < value.length; j++) {
                   if(collectList[i].name==value[j]){
-                        valueId.push(collectList[i].id)
+                        valueId.push(collectList[i].id);
+                      defaultCollectProblemData.push(collectList[i].name);
                    }
               }
 
           }
           this.state.collectProblemData=valueId.toString();
-
+          this.state.defaultCollectProblemData=defaultCollectProblemData;
     }
     //输入习题集名称
     collectInput(e){
@@ -1068,6 +1081,8 @@ class DecorateList extends React.Component {
 
     //添加习题集-保存
     saveCollectBtn(){
+
+        console.log('this.state.defaultCollectProblemData',this.state.defaultCollectProblemData);
         let name=this.state.newProblemName;//新习题集名字
         const resultAddProblem = addProblem(loginToken,name);
                 resultAddProblem.then(res => {

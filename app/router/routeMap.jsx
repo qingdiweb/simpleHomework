@@ -35,6 +35,7 @@ import ClassDetails from '../containers/ClassDetails'
 
 import Search from '../containers/Search'
 import NotFound from '../containers/404'
+import JumpView from "../containers/JumpView";
 //import 'antd/dist/antd.css'
 
 // 如果是大型项目，router部分就需要做更加复杂的配置
@@ -74,12 +75,12 @@ class RouterMap extends React.Component {
                             <Route  path='/classroom-record' component={ClassroomRecord}></Route>
                             <Route  path='/classroom-record-detail/:exerciseId' component={ClassroomRecordDetail}></Route>
                             <Route  path='/classroom-record-topic-detail/:exerciseId/:questionId' component={ClassroomRecordTopicDetail}></Route>
-
                         </Route>
                         <Route title={"首页>个人中心"}  path='/personal-center' component={PersonalCenter}></Route>
                         <Route path='/search/:category(/:keyword)' component={Search}/>
                         <Route path='*' component={NotFound}/>
                     </Route>
+                    <Route  path='/jumppage' component={JumpView}/>
                     <Route title={''}  path='/pdf-preview/:draftId/:loginToken' component={PdfPreview}></Route>
                 </Route>
             </Router>

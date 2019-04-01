@@ -134,6 +134,19 @@ export const recursiveName = (datavalue,childvalue,id)=>{
     return name
 }
 
+/**
+ * 获取地址栏参数方法
+ * @return {string}
+ */
+export const GetQueryString = (path,name)=> {
+    let reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+    let r = path.substr(1).match(reg);
+    if (r !== null)
+        return decodeURI(r[2]);
+    return null;
+}
+
+
 //测试地址和正式地址
 export const isTest = true;
 export const baseUrl = isTest ? 'https://test.huazilive.com/api/hudong' : 'https://api.huazilive.com/api/hudong';

@@ -67,6 +67,7 @@ class Home extends React.Component {
         }
     }
     componentWillMount(){
+        console.log('home componentWillMount');
         //let token=window.location.href.split('?')[1].split('=')[1];
         if(window.location.hash.split('?')[0].split('#/')[1]=='homework-home'){
             localStorage.setItem('positionMenu',JSON.stringify(['6']));//定位随堂练习

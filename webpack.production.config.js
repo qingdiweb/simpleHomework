@@ -3,6 +3,8 @@ var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
+console.log('process.env.NODE_ENV',process.env.NODE_ENV)
+
 module.exports = {
   entry: {
     app: path.resolve(__dirname, 'app/index.jsx'),

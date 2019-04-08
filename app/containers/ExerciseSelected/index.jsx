@@ -16,6 +16,7 @@ import ExercisePublishModal from '../../components/ExercisePublishModal'
 import * as Constants from '../../Constants/store'
 
 import './style.less'
+import GlobalStyle from "../../constants/GlobalStyles";
 const loginToken=localStorage.getItem("loginToken");
 class ExerciseSel extends React.Component {
     constructor(props, context) {
@@ -50,7 +51,8 @@ class ExerciseSel extends React.Component {
     }
     componentWillMount(){
       //通知左侧menu导航-当前在那个menu下
-      localStorage.setItem('positionMenu',JSON.stringify(['1']));
+      // localStorage.setItem('positionMenu',JSON.stringify(['1']));
+      console.log('componentWillMount',this);
       //获取测验下版本，教材 章节
       let exerciseId=this.props.params.exerciseId,
           pageNumber=-1,//第一页
@@ -62,6 +64,8 @@ class ExerciseSel extends React.Component {
                     choiceData,
                     choiceCatalogIds
                   })
+              console.log('choiceData',choiceData,'choiceCatalogIds',choiceCatalogIds);
+
           }).catch((ex)=>{
               console.log(ex)
           })
@@ -199,8 +203,17 @@ class ExerciseSel extends React.Component {
                         <Button className="preview-export-btn" onClick={this.previewExport.bind(this)}>预览导出</Button>
                       </div>
                   </div>
-                  <DecorateList  flag={this.state.flag} parentType={this.state.parentType} draftId={this.props.params.draftId} exerciseId={this.props.params.exerciseId} choiceData={this.state.choiceData} highlight={this.state.highlight} stopHighlight={this.state.stopHighlight}  noticeTopicNumData={this.state.noticeTopicNumData} noticeTopicNum={this.noticeTopicNum.bind(this)} isSelected={this.props.params.isSelected}/>
+                  <DecorateList  flag={this.state.flag} noticeDelectChange={this.noticeDelectChange.bind(this)} parentType={this.state.parentType} draftId={this.props.params.draftId} exerciseId={this.props.params.exerciseId} choiceData={this.state.choiceData} highlight={this.state.highlight} stopHighlight={this.state.stopHighlight}  noticeTopicNumData={this.state.noticeTopicNumData} noticeTopicNum={this.noticeTopicNum.bind(this)} isSelected={this.props.params.isSelected}/>
               </div>
+                <Modal
+                    title="提示"
+                    visible={this.state.noticeVisible}
+                    width={GlobalStyle.popWindowWidth}
+                    onCancel={this.noticeHandleCancel.bind(this)}
+                    footer={[<Button type="primary"style={{marginLeft:'0'}} onClick={this.noticeHandleOk.bind(this)}>确定</Button>]}
+                >
+                    <p style={{'text-align':'center','fontSize':'20px'}}>暂无已选题目</p>
+                </Modal>
               <ExercisePublishModal flag={!this.state.flag} pusblishVisible={this.state.visible} exerciseId={this.props.params.exerciseId} choiceData={this.state.choiceData} choiceCatalogIds={this.state.choiceCatalogIds} noticeExerciseSel={this.noticeExerciseSel.bind(this)}/>
             </div>
         )
@@ -215,11 +228,38 @@ class ExerciseSel extends React.Component {
             questionCount=questionIds=='' ? 0 : questionIds.split(',').length;
             this.updateExercise.bind(this,loginToken,quizId,catalogIds,questionIds,choiceCatalogId,questionCount)()
       }else{
-        this.setState({
-            visible:true
-        })
+         let questionIds=window.noticeDecorateQuestionIds;
+          let questionCount=questionIds=='' ? 0 : questionIds.split(',').length;
+          if (questionCount===0)
+          {
+              this.setState({
+                  noticeVisible:true
+              })
+          }
+          else {
+              this.setState({
+                  visible:true
+              })
+          }
       }
-
+    }
+    noticeHandleCancel(){
+        this.setState({
+            noticeVisible:false
+        })
+    }
+    noticeHandleOk(){
+        this.setState({
+            noticeVisible:false
+        })
+    }
+    noticeDelectChange()
+    {
+        console.log('通知删除试题改变了');
+        this.props.noticeDecorate.bind(this,window.noticeDecorateQuestionIds=='' ? 0 : window.noticeDecorateQuestionIds.split(',').length,
+            window.noticeDecorateQuestionIds,
+            window.catalogIds,
+            null)();
     }
     //保存草稿/发布作业时判断当前是否有题目，没有就给提示
     noticeTopicNum(data,dataLen,objectiveNum,subjectiveNum){
@@ -236,9 +276,21 @@ class ExerciseSel extends React.Component {
         })
         //删除操作-如果监听到题目个数为0就自动跳转至布置作业
         let isSelected=this.props.params.isSelected;//0 是测验详情过来的 1 是草稿过来的
-            if(dataLen==0){
-              hashHistory.push("/exercise-detail/"+this.props.params.exerciseId)
-            }
+            // if(dataLen==0){
+            //   hashHistory.push("/exercise-detail/"+this.props.params.exerciseId)
+            // }
+            // else {
+            //
+            // }
+        //通知主组件当前是否至少有一道题-如果是，离开提示
+        let quizId=this.props.params.exerciseId;//测验id
+        window.saveType = 1;
+        window.quizId = quizId;
+        console.log('noticeTopicNum window.quizId',window.quizId);
+        // this.props.noticeDecorate.bind(this,window.noticeDecorateQuestionIds=='' ? 0 : window.noticeDecorateQuestionIds.split(',').length,
+        //     window.noticeDecorateQuestionIds,
+        //     window.catalogIds,
+        //     null)();
     }
 
     //通知父已选界面

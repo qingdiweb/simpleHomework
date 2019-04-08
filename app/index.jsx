@@ -16,6 +16,14 @@ const store = configureStore()
 
 import RouteMap from './router/routeMap'
 
+if(__DEV__)
+{
+    console.log('开发环境');
+}
+else
+{
+    console.log('打包环境');
+}
 render(
     <Provider store={store}>
         <RouteMap history={hashHistory}/>

@@ -93,7 +93,7 @@ class DecorateList extends React.Component {
                     })
                 }
                 //拖拽右侧预览框里面的题顺序，通知子组件题目列表同时改变顺序
-                if(nextProps.noticeTopicNumData.length!=0){
+                // if(nextProps.noticeTopicNumData.length!=0){
                     this.setState({
                         topicList:nextProps.noticeTopicNumData
                     })
@@ -103,7 +103,7 @@ class DecorateList extends React.Component {
                     }else{
                         this.state.dragKey=0;
                     }
-                }
+                // }
 
         }else if(this.props.parentType==2){//习题集调用
             let collectId=!!this.props.collectId ? this.props.collectId : '',
@@ -204,11 +204,12 @@ class DecorateList extends React.Component {
     }
     //查看已选-获取题目数据
     getDefaultQuestionList(loginToken,questionIds){
-        if (!questionIds)
+        if (!questionIds || questionIds.length === 0)
         {
             console.log('getDefaultQuestionList !questionIds',questionIds);
             this.setState({
                 loadingShow:'none',
+                topicList:[],
             })
             return;
         }
@@ -875,12 +876,18 @@ class DecorateList extends React.Component {
             currentCatalogIds.splice(noticeDecorateQuestionIds.indexOf(id),1);
             window.noticeDecorateQuestionIds=noticeDecorateQuestionIds.toString();//题目ids
             window.catalogIds=currentCatalogIds.toString();
-            if(noticeDecorateQuestionIds.length!=0){
+
+            if(this.props.noticeDelectChange)
+            {
+                this.props.noticeDelectChange.bind(this)();
+            }
+        if(noticeDecorateQuestionIds.length!=0){
                 this.getDefaultQuestionList.bind(this,loginToken,window.noticeDecorateQuestionIds)();
+
                 //如果isSelected为3说明是练习已选调用此组件，练习没有草稿概念所以不用更新草稿
                 if(this.props.isSelected==3){
                     //删除之后更新练习题目
-                    this.updateExercise.bind(this,loginToken,exerciseId,window.catalogIds,window.noticeDecorateQuestionIds,choiceCatalogId,questionCount)()
+                    // this.updateExercise.bind(this,loginToken,exerciseId,window.catalogIds,window.noticeDecorateQuestionIds,choiceCatalogId,questionCount)()
                 }else{
                     //删除之后更新作业题目
                     this.updateDefault.bind(this,loginToken,draftId,window.noticeDecorateQuestionIds,window.catalogIds,questionCount)()
@@ -893,7 +900,7 @@ class DecorateList extends React.Component {
                 //如果isSelected为3说明是练习已选调用此组件，练习没有草稿概念所以不用更新草稿
                 if(this.props.isSelected==3){
                    //删除之后更新练习题目
-                   this.updateExercise.bind(this,loginToken,exerciseId,window.catalogIds,window.noticeDecorateQuestionIds,choiceCatalogId,0)()
+                   // this.updateExercise.bind(this,loginToken,exerciseId,window.catalogIds,window.noticeDecorateQuestionIds,choiceCatalogId,0)()
                 }else{
                     //删除之后更新作业题目
                     this.updateDefault.bind(this,loginToken,draftId,window.noticeDecorateQuestionIds,window.catalogIds,0)()
@@ -901,7 +908,7 @@ class DecorateList extends React.Component {
                 this.setState({
                     topicList:[]
                 },()=>{
-                    this.props.noticeTopicNum.bind(this,this.state.topicList,this.state.topicList.length,0,0)()
+                    this.props.noticeTopicNum.bind(this,[],0,0,0)()
                 })
             }
     }

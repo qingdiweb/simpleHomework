@@ -36,6 +36,7 @@ class HomeHeader extends React.Component {
     }
     //布置作业只要选了题就通知-离开提示
     noticeDecorate(topicSel,questionIds,catalogIds,draftId){
+        console.log('noticeDecorate');
         this.props.noticeHome.bind(this,topicSel,questionIds,catalogIds,draftId)()
     }
     render() {
@@ -87,7 +88,11 @@ class HomeHeader extends React.Component {
                     <div id="home-right">
                         <div className="cont">
                             {/*this.props.children*/}
-                            {React.cloneElement(this.props.children,{teacherInfo:this.state.teacherInfo,noticeDecorate:this.noticeDecorate.bind(this)})}
+                            {React.cloneElement(this.props.children,
+                                {
+                                    teacherInfo:this.state.teacherInfo,
+                                    noticeDecorate:this.noticeDecorate.bind(this),
+                                })}
                         </div>
                     </div>
                 </div>

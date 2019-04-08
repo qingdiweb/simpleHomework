@@ -213,6 +213,7 @@ class DecorateHomework extends React.Component {
                })
     }
     render() {
+         this.state.selNum = window.noticeDecorateQuestionIds!=='' ? window.noticeDecorateQuestionIds.split(',').length : 0;//查看已选
         console.log('试卷筛选',this.state.coachbookInfoList,this.state.coachbookInfoList)
         return (
             <div className="decorate-work">

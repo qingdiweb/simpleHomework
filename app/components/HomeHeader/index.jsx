@@ -170,9 +170,11 @@ class HomeHeader extends React.Component {
             this.state.stagPath="/index-homework";
             //this.props.noticeHome.bind(this,false)()
         }else if(e.key=='1'){
-            hashHistory.push("/decorate-homework/0/0")
+            if(this.state.isAllowLeave){
+                hashHistory.push("/decorate-homework/0/0")
+            }
             //this.props.noticeHome.bind(this,true)()
-            this.state.stagPath="/decorate-homework";
+            this.state.stagPath="/decorate-homework/0/0";
         }else if(e.key=='2'){
             if(this.state.isAllowLeave){
                 hashHistory.push("/no-publish-homework")

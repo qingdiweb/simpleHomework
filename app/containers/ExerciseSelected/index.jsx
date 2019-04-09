@@ -145,13 +145,27 @@ class ExerciseSel extends React.Component {
                   }
                 })
     }
+    courseHomework(){
+        window.noticeDecorateQuestionIds='';//用作通知header组件离开当前页面保存草稿参数用
+        window.catalogIds='';
+        window.quizId = null;
+        window.saveType = null;
+        hashHistory.push('/classroom-exercise');
+    }
+    exerciseDetail(){
+        window.noticeDecorateQuestionIds='';//用作通知header组件离开当前页面保存草稿参数用
+        window.catalogIds='';
+        window.quizId = null;
+        window.saveType = null;
+        hashHistory.push('/exercise-detail/'+this.props.params.exerciseId);
+    }
     render() {
         return (
             <div className="exercise-selected">
               <h1 className='header-nav'>
                 <Breadcrumb separator=">">
-                  <Breadcrumb.Item><Link to='/classroom-exercise'>课堂作业</Link></Breadcrumb.Item>
-                  <Breadcrumb.Item ><Link to={/exercise-detail/+this.props.params.exerciseId}>练习详情</Link></Breadcrumb.Item>
+                  <Breadcrumb.Item onClick={this.courseHomework.bind(this)}><a href="javascript:;">课堂作业</a></Breadcrumb.Item>
+                  <Breadcrumb.Item onClick={this.exerciseDetail.bind(this)}><a href="javascript:;">练习详情</a></Breadcrumb.Item>
                   <Breadcrumb.Item >查看已选</Breadcrumb.Item>
                 </Breadcrumb>
               </h1>

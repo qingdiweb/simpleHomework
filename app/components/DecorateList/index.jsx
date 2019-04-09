@@ -890,7 +890,7 @@ class DecorateList extends React.Component {
                     // this.updateExercise.bind(this,loginToken,exerciseId,window.catalogIds,window.noticeDecorateQuestionIds,choiceCatalogId,questionCount)()
                 }else{
                     //删除之后更新作业题目
-                    this.updateDefault.bind(this,loginToken,draftId,window.noticeDecorateQuestionIds,window.catalogIds,questionCount)()
+                    // this.updateDefault.bind(this,loginToken,draftId,window.noticeDecorateQuestionIds,window.catalogIds,questionCount)()
                 }
                 // setTimeout(()=>{
                 //     //通知查看已选父组件-有多少道题目是否为空
@@ -903,7 +903,7 @@ class DecorateList extends React.Component {
                    // this.updateExercise.bind(this,loginToken,exerciseId,window.catalogIds,window.noticeDecorateQuestionIds,choiceCatalogId,0)()
                 }else{
                     //删除之后更新作业题目
-                    this.updateDefault.bind(this,loginToken,draftId,window.noticeDecorateQuestionIds,window.catalogIds,0)()
+                    // this.updateDefault.bind(this,loginToken,draftId,window.noticeDecorateQuestionIds,window.catalogIds,0)()
                 }
                 this.setState({
                     topicList:[]

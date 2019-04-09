@@ -189,6 +189,14 @@ class ExerciseSel extends React.Component {
         this.setState({
             saveVisible:false,
         });
+        window.noticeDecorateQuestionIds='';
+        window.catalogIds='';
+        window.quizId = null;
+        window.saveType = null;
+        this.props.noticeDecorate.bind(this,window.noticeDecorateQuestionIds==='' ? 0 : window.noticeDecorateQuestionIds.split(',').length,
+            window.noticeDecorateQuestionIds,
+            window.catalogIds,
+            null)();
         if (this.state.savePath){
             hashHistory.push(this.state.savePath);
         }

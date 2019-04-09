@@ -150,6 +150,7 @@ export const GetQueryString = (path,name)=> {
 //测试地址和正式地址
 export const isTest = true;
 export const baseUrl = isTest ? 'https://test.huazilive.com/api/hudong' : 'https://api.huazilive.com/api/hudong';
+export const serviceBaseUrl = isTest ? 'https://test.huazilive.com/api/service' : 'https://api.huazilive.com/api/service';
 //录题访问地址
 // export const teachLutiUrl = isTest ? 'https://test.huazilive.com/LutiAdmin' : 'https://www.huazilive.com/luti';
 //j教师录题访问地址

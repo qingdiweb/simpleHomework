@@ -150,6 +150,10 @@ class ExerciseSel extends React.Component {
         window.catalogIds='';
         window.quizId = null;
         window.saveType = null;
+        this.props.noticeDecorate.bind(this,window.noticeDecorateQuestionIds==='' ? 0 : window.noticeDecorateQuestionIds.split(',').length,
+            window.noticeDecorateQuestionIds,
+            window.catalogIds,
+            null)();
         hashHistory.push('/classroom-exercise');
     }
     exerciseDetail(){
@@ -157,6 +161,10 @@ class ExerciseSel extends React.Component {
         window.catalogIds='';
         window.quizId = null;
         window.saveType = null;
+        this.props.noticeDecorate.bind(this,window.noticeDecorateQuestionIds==='' ? 0 : window.noticeDecorateQuestionIds.split(',').length,
+            window.noticeDecorateQuestionIds,
+            window.catalogIds,
+            null)();
         hashHistory.push('/exercise-detail/'+this.props.params.exerciseId);
     }
     render() {
@@ -270,7 +278,7 @@ class ExerciseSel extends React.Component {
     noticeDelectChange()
     {
         console.log('通知删除试题改变了');
-        this.props.noticeDecorate.bind(this,window.noticeDecorateQuestionIds=='' ? 0 : window.noticeDecorateQuestionIds.split(',').length,
+        this.props.noticeDecorate.bind(this,window.noticeDecorateQuestionIds==='' ? 0 : window.noticeDecorateQuestionIds.split(',').length,
             window.noticeDecorateQuestionIds,
             window.catalogIds,
             null)();

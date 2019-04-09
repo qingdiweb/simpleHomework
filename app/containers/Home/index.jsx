@@ -46,6 +46,7 @@ class Home extends React.Component {
     noticeHome(topicSel,questionIds,catalogIds,draftId){
         console.log('是否离开',topicSel)
         //是否离开
+        window.topicSel = topicSel;
         if(parseInt(topicSel)>0){//如果有选题就不让其离开
             this.setState({
                 isLeaveDecorate:false,

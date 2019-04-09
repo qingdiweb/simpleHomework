@@ -46,7 +46,8 @@ class ExerciseSel extends React.Component {
             choiceData:'',//手动数据带有版本 教材 最后一章节
             choiceCatalogIds:'',//章节顺序
             recordId:'',//记录当前拖拽的id
-            recordIndex:''//记录当前拖拽的id下标
+            recordIndex:'',//记录当前拖拽的id下标
+            saveVisible:false,
         }
     }
     componentWillMount(){
@@ -111,12 +112,17 @@ class ExerciseSel extends React.Component {
                 if (data.result) {
                     //保存成功之后-跳转回作业首页列表
                     hashHistory.push('/exercise-detail'+'/'+this.props.params.exerciseId)
-                    window.location.reload()
+                    // window.location.reload()
                     //通知父组件设定为false
-                   /* this.props.noticeHomework.bind(this,false,true)()*/
                     //将全局存储的题目id和章节id置空
                     window.noticeDecorateQuestionIds='';
                     window.catalogIds='';
+                    window.quizId = null;
+                    window.saveType = null;
+                    this.props.noticeDecorate.bind(this,window.noticeDecorateQuestionIds==='' ? 0 : window.noticeDecorateQuestionIds.split(',').length,
+                        window.noticeDecorateQuestionIds,
+                        window.catalogIds,
+                        null)();
                 }else{
                     message.warning(data.error);
                 }
@@ -146,27 +152,48 @@ class ExerciseSel extends React.Component {
                 })
     }
     courseHomework(){
-        window.noticeDecorateQuestionIds='';//用作通知header组件离开当前页面保存草稿参数用
-        window.catalogIds='';
-        window.quizId = null;
-        window.saveType = null;
-        this.props.noticeDecorate.bind(this,window.noticeDecorateQuestionIds==='' ? 0 : window.noticeDecorateQuestionIds.split(',').length,
-            window.noticeDecorateQuestionIds,
-            window.catalogIds,
-            null)();
-        hashHistory.push('/classroom-exercise');
+        if (parseInt(window.topicSel)>0)
+        {
+            this.setState({
+                modalText: '已添加' + window.noticeDecorateQuestionIds.split(',').length + '题，是否保存作业',
+                saveVisible:true,
+            })
+            this.state.savePath = '/classroom-exercise';
+        }
+        else
+        {
+            hashHistory.push('/classroom-exercise');
+        }
     }
     exerciseDetail(){
-        window.noticeDecorateQuestionIds='';//用作通知header组件离开当前页面保存草稿参数用
-        window.catalogIds='';
-        window.quizId = null;
-        window.saveType = null;
-        this.props.noticeDecorate.bind(this,window.noticeDecorateQuestionIds==='' ? 0 : window.noticeDecorateQuestionIds.split(',').length,
-            window.noticeDecorateQuestionIds,
-            window.catalogIds,
-            null)();
-        hashHistory.push('/exercise-detail/'+this.props.params.exerciseId);
+        if (parseInt(window.topicSel)>0)
+        {
+            this.setState({
+                modalText: '已添加' + window.noticeDecorateQuestionIds.split(',').length + '题，是否保存作业',
+                saveVisible:true,
+            })
+            this.state.savePath = '/exercise-detail/'+this.props.params.exerciseId;
+        }
+        else
+        {
+            hashHistory.push('/exercise-detail/'+this.props.params.exerciseId);
+        }
     }
+    noticeLeaveOk(){
+        this.setState({
+            saveVisible:false,
+        });
+        this.updateExerciseBtn.bind(this)();
+    }
+    noticeLeaveCancel(){
+        this.setState({
+            saveVisible:false,
+        });
+        if (this.state.savePath){
+            hashHistory.push(this.state.savePath);
+        }
+    }
+
     render() {
         return (
             <div className="exercise-selected">
@@ -235,6 +262,19 @@ class ExerciseSel extends React.Component {
                     footer={[<Button type="primary"style={{marginLeft:'0'}} onClick={this.noticeHandleOk.bind(this)}>确定</Button>]}
                 >
                     <p style={{'text-align':'center','fontSize':'20px'}}>暂无已选题目</p>
+                </Modal>
+                <Modal
+                    title="提示"
+                    maskClosable={false}
+                    visible={this.state.saveVisible}
+                    width={GlobalStyle.popWindowWidth}
+                    onOk={this.noticeLeaveOk.bind(this)}
+                    onCancel={this.noticeLeaveCancel.bind(this)}
+                    closable={false}
+                    okText={'确定'}
+                    cancelText={'取消'}
+                >
+                    <p style={{'fontSize':'18px'}}> {this.state.modalText}</p>
                 </Modal>
               <ExercisePublishModal flag={!this.state.flag} pusblishVisible={this.state.visible} exerciseId={this.props.params.exerciseId} choiceData={this.state.choiceData} choiceCatalogIds={this.state.choiceCatalogIds} noticeExerciseSel={this.noticeExerciseSel.bind(this)}/>
             </div>

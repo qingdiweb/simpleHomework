@@ -8,7 +8,7 @@ import { Radio , Checkbox , Select , Icon , Input , Modal , Row , Col , Button,S
 import { getTopicListData , getDefaultQuestionList , collectSearchList , addorcancelCollect , addProblem,findQuestion} from '../../fetch/decorate-homework/decorate-homework'
 import Pagination from '../../Components/Pagination';
 import $ from  'jquery'
-//import html2canvas from 'html2canvas'
+import html2canvas from 'html2canvas'
 
 import './style.less'
 import GlobalStyle from '../../constants/GlobalStyles'
@@ -93,6 +93,29 @@ class DecorateList extends React.Component {
     //打印
     print(){
 
+        var test = document.getElementById("preview-print");
+        html2canvas(test).then((canvas)=>{
+
+            console.log('canvas',canvas);
+            var imgData = canvas.toDataURL('image/jpeg');
+            var img = new Image();
+            img.src = imgData;
+            //根据图片的尺寸设置pdf的规格，要在图片加载成功时执行，之所以要*0.225是因为比例问题
+            img.onload = function () {
+                //此处需要注意，pdf横置和竖置两个属性，需要根据宽高的比例来调整，不然会出现显示不完全的问题
+                if (this.width > this.height) {
+                    var doc = new jsPDF('l', 'mm', [this.width * 0.225, this.height * 0.225]);
+                } else {
+                    var doc = new jsPDF('p', 'mm', [this.width * 0.225, this.height * 0.225]);
+                }
+                doc.addImage(imgData, 'jpeg', 0, 0, this.width * 0.225, this.height * 0.225);
+                //根据下载保存成不同的文件名
+                doc.save('欧拉作业');
+                //window.open('file:///C:/Users/Administrator/Downloads/pdf_'+ new Date().getTime() + '.pdf')
+            };
+
+        });
+        return;
 /*        var targetDom = ;
         //把需要导出的pdf内容clone一份，这样对它进行转换、微调等操作时才不会影响原来界面
         var copyDom = targetDom.clone();
